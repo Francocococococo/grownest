@@ -5405,6 +5405,11 @@ function AccountProgramPanel({
     if (intern.role.includes("销售")) return "销售";
     return "产品";
   };
+  const displayDirection = (value: string): typeof directionOptions[number] => {
+    if (value.includes("研发") || value.includes("技术")) return "研发";
+    if (value.includes("销售") || value.includes("商业")) return "销售";
+    return "产品";
+  };
   const directionCounts = directionOptions.map((direction) => ({
     direction,
     count: managedInterns.filter((intern) => directionForIntern(intern) === direction).length,
@@ -5537,21 +5542,21 @@ function AccountProgramPanel({
             <div className="mt-4 grid gap-2">
               {mentors.map((mentor) => (
                 <div key={mentor.id} className="rounded-xl border border-slate-100 bg-slate-50/70 p-3">
-                  <div className="flex items-start justify-between gap-3">
+                  <div className="grid gap-3">
                     <div className="min-w-0">
                       <p className="truncate text-sm font-black text-slate-950">{mentor.name}</p>
                       <p className="mt-1 truncate text-xs font-semibold text-slate-500">{mentor.email}</p>
                       <span className="mt-2 inline-flex rounded-md bg-white px-2.5 py-1 text-[11px] font-black text-[#2563EB] ring-1 ring-blue-100">
-                        {mentor.department.replace("部", "")}
+                        {displayDirection(mentor.department)}
                       </span>
                     </div>
-                    <div className="flex shrink-0 items-center gap-2">
-                      <select value={mentor.status} onChange={(event) => updateMentorStatus(mentor.id, event.target.value as DemoAccountStatus)} className="rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-xs font-bold text-slate-700 outline-none">
+                    <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
+                      <select value={mentor.status} onChange={(event) => updateMentorStatus(mentor.id, event.target.value as DemoAccountStatus)} className="min-w-0 rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-xs font-bold text-slate-700 outline-none">
                         <option value="pending">待激活</option>
                         <option value="active">已激活</option>
                         <option value="disabled">已停用</option>
                       </select>
-                      <Button variant="ghost" className="px-2.5 py-2 text-xs text-rose-600" onClick={() => deleteMentorAccount(mentor)}>
+                      <Button variant="ghost" className="shrink-0 px-2.5 py-2 text-xs text-rose-600" onClick={() => deleteMentorAccount(mentor)}>
                         删除
                       </Button>
                     </div>
