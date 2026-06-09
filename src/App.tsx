@@ -322,9 +322,19 @@ function useHomeCapabilityAnimation(ref: React.RefObject<HTMLElement | null>) {
       if (!ref.current) return;
       const ctx = gsap.context(() => {
         const panels = gsap.utils.toArray<HTMLElement>("[data-workbench-panel]");
+        const workflowNodes = gsap.utils.toArray<HTMLElement>("[data-workflow-node]");
+        const workflowStages = gsap.utils.toArray<HTMLElement>("[data-workflow-stage]");
         if (shouldReduceMotion()) {
           gsap.set("[data-workflow-node], [data-workflow-stage], [data-workflow-number], [data-action-loop-step], [data-action-loop-bar-source], [data-capability-card], [data-workbench-item], [data-home-showcase-card], [data-role-showcase-reveal]", { autoAlpha: 1, y: 0, x: 0, scale: 1 });
           gsap.set("[data-action-loop-bar], [data-capability-line], [data-role-flow-line]", { scaleX: 1 });
+          workflowNodes.forEach((node, index) => {
+            node.dataset.active = index === 0 ? "true" : "false";
+            node.dataset.complete = "false";
+          });
+          workflowStages.forEach((stage, index) => {
+            stage.dataset.active = index === 0 ? "true" : "false";
+            stage.dataset.complete = "false";
+          });
           panels.forEach((panel, index) => gsap.set(panel, { autoAlpha: index === 0 ? 1 : 0 }));
           return;
         }
@@ -344,6 +354,17 @@ function useHomeCapabilityAnimation(ref: React.RefObject<HTMLElement | null>) {
         panels.forEach((panel, index) => {
           gsap.set(panel, { autoAlpha: index === 0 ? 1 : 0, y: index === 0 ? 0 : 12 });
         });
+        const setWorkflowStep = (activeIndex: number) => {
+          workflowNodes.forEach((node, index) => {
+            node.dataset.active = index === activeIndex ? "true" : "false";
+            node.dataset.complete = index < activeIndex ? "true" : "false";
+          });
+          workflowStages.forEach((stage, index) => {
+            stage.dataset.active = index === activeIndex ? "true" : "false";
+            stage.dataset.complete = index < activeIndex ? "true" : "false";
+          });
+        };
+        setWorkflowStep(0);
 
         gsap
           .timeline({
@@ -2200,6 +2221,9 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
                     key={node.id}
                     className="workflow-node relative flex h-[172px] w-full flex-col rounded-[20px] border border-[#BFDBFE] bg-white/80 p-4 shadow-[0_12px_34px_rgba(37,99,235,0.055)] backdrop-blur-[18px]"
                     data-workflow-node=""
+                    data-workflow-index={index}
+                    data-active={index === 0 ? "true" : "false"}
+                    data-complete="false"
                     data-accent={node.color}
                   >
                     <div className="flex items-center gap-3">
@@ -2218,7 +2242,7 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
               </div>
               <div className="workflow-stagebar workflow-card-grid pointer-events-none mt-5 hidden grid rounded-[16px] border border-[#BFDBFE] bg-white/60 p-2 text-[11px] font-semibold text-[#5F6978] backdrop-blur md:grid md:grid-cols-5" data-workflow-copy="">
                 {capabilityFlowNodes.map((node, index) => (
-                  <span key={node.stage} className="flex min-w-0 items-center justify-center gap-2 rounded-[12px] border border-transparent px-2 py-2 text-center" data-workflow-stage="">
+                  <span key={node.stage} className="flex min-w-0 items-center justify-center gap-2 rounded-[12px] border border-transparent px-2 py-2 text-center" data-workflow-stage="" data-workflow-stage-index={index} data-active={index === 0 ? "true" : "false"} data-complete="false">
                     <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#60A5FA]" data-workflow-stage-dot="" />
                     <span className="truncate">{index + 1}. {node.stage}</span>
                   </span>
