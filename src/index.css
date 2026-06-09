@@ -391,40 +391,103 @@ select:focus-visible {
 .workflow-node {
   overflow: visible;
   will-change: transform, opacity;
-  animation: workflow-sync-pulse 8.5s var(--ease-couch) infinite;
+  animation: workflow-node-sequence 9s var(--ease-couch) infinite;
   transition:
     border-color 180ms var(--ease-couch),
     background-color 180ms var(--ease-couch),
     box-shadow 180ms var(--ease-couch);
 }
 
+.workflow-live-rail {
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  top: 38px;
+  z-index: 0;
+  height: 2px;
+}
+
+.workflow-live-rail::before,
+.workflow-live-rail span,
+.workflow-live-rail::after {
+  position: absolute;
+  top: 50%;
+  content: "";
+  border-radius: 999px;
+  transform: translateY(-50%);
+}
+
+.workflow-live-rail::before {
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.18), rgba(37, 99, 235, 0.18), transparent);
+}
+
+.workflow-live-rail span {
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #1d4ed8, #60a5fa);
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: left center;
+  animation: workflow-rail-fill 9s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+}
+
+.workflow-live-rail::after {
+  left: 0%;
+  width: 14px;
+  height: 14px;
+  border: 3px solid #ffffff;
+  background: #1d4ed8;
+  box-shadow:
+    0 0 0 6px rgba(37, 99, 235, 0.1),
+    0 8px 20px rgba(29, 78, 216, 0.2);
+  animation: workflow-rail-cursor 9s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+}
+
 .workflow-stagebar [data-workflow-stage] {
-  animation: workflow-sync-stage-pulse 8.5s var(--ease-couch) infinite;
+  animation: workflow-stage-sequence 9s var(--ease-couch) infinite;
+}
+
+.workflow-node [data-workflow-number],
+.workflow-stagebar [data-workflow-stage-dot] {
+  animation: workflow-dot-sequence 9s var(--ease-couch) infinite;
 }
 
 [data-workflow-index="0"],
-.workflow-stagebar [data-workflow-stage-index="0"] {
+.workflow-stagebar [data-workflow-stage-index="0"],
+[data-workflow-index="0"] [data-workflow-number],
+.workflow-stagebar [data-workflow-stage-index="0"] [data-workflow-stage-dot] {
   animation-delay: 0s;
 }
 
 [data-workflow-index="1"],
-.workflow-stagebar [data-workflow-stage-index="1"] {
-  animation-delay: 1.35s;
+.workflow-stagebar [data-workflow-stage-index="1"],
+[data-workflow-index="1"] [data-workflow-number],
+.workflow-stagebar [data-workflow-stage-index="1"] [data-workflow-stage-dot] {
+  animation-delay: 1.8s;
 }
 
 [data-workflow-index="2"],
-.workflow-stagebar [data-workflow-stage-index="2"] {
-  animation-delay: 2.7s;
+.workflow-stagebar [data-workflow-stage-index="2"],
+[data-workflow-index="2"] [data-workflow-number],
+.workflow-stagebar [data-workflow-stage-index="2"] [data-workflow-stage-dot] {
+  animation-delay: 3.6s;
 }
 
 [data-workflow-index="3"],
-.workflow-stagebar [data-workflow-stage-index="3"] {
-  animation-delay: 4.05s;
+.workflow-stagebar [data-workflow-stage-index="3"],
+[data-workflow-index="3"] [data-workflow-number],
+.workflow-stagebar [data-workflow-stage-index="3"] [data-workflow-stage-dot] {
+  animation-delay: 5.4s;
 }
 
 [data-workflow-index="4"],
-.workflow-stagebar [data-workflow-stage-index="4"] {
-  animation-delay: 5.4s;
+.workflow-stagebar [data-workflow-stage-index="4"],
+[data-workflow-index="4"] [data-workflow-number],
+.workflow-stagebar [data-workflow-stage-index="4"] [data-workflow-stage-dot] {
+  animation-delay: 7.2s;
 }
 
 @keyframes home-orbit-breathe {
@@ -447,8 +510,8 @@ select:focus-visible {
   content: "";
   border-radius: inherit;
   background:
-    linear-gradient(130deg, rgba(255, 255, 255, 0.74), transparent 30%),
-    radial-gradient(circle at 18% 18%, rgba(37, 99, 235, 0.07), transparent 34%);
+    linear-gradient(130deg, rgba(255, 255, 255, 0.78), transparent 32%),
+    radial-gradient(circle at 18% 16%, rgba(37, 99, 235, 0.04), transparent 34%);
 }
 
 .workflow-node > * {
@@ -457,11 +520,11 @@ select:focus-visible {
 }
 
 .workflow-node[data-active="true"] {
-  border-color: rgba(37, 99, 235, 0.46);
-  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(37, 99, 235, 0.26);
+  background: rgba(255, 255, 255, 0.9);
   box-shadow:
-    0 18px 48px rgba(37, 99, 235, 0.12),
-    inset 0 0 0 1px rgba(37, 99, 235, 0.08);
+    0 18px 46px rgba(37, 99, 235, 0.09),
+    inset 0 0 0 1px rgba(37, 99, 235, 0.05);
 }
 
 .workflow-node[data-active="true"]::before {
@@ -471,8 +534,8 @@ select:focus-visible {
 }
 
 .workflow-node[data-complete="true"] {
-  border-color: rgba(37, 99, 235, 0.24);
-  background: rgba(239, 246, 255, 0.72);
+  border-color: rgba(37, 99, 235, 0.18);
+  background: rgba(248, 250, 252, 0.86);
 }
 
 .workflow-node[data-complete="true"] [data-workflow-number] {
@@ -481,14 +544,14 @@ select:focus-visible {
 }
 
 .workflow-node[data-active="true"] [data-workflow-number] {
-  background: #2563eb;
+  background: #1d4ed8;
   color: #ffffff;
-  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.22);
+  box-shadow: 0 10px 24px rgba(29, 78, 216, 0.18);
 }
 
 .workflow-node[data-active="true"] [data-workflow-title],
 .workflow-node[data-active="true"] [data-workflow-description] {
-  color: #0f3f98;
+  color: #143c9b;
 }
 
 .workflow-stagebar [data-workflow-stage] {
@@ -506,38 +569,41 @@ select:focus-visible {
 }
 
 .workflow-stagebar [data-workflow-stage][data-active="true"] {
-  color: #0f3f98;
-  border-color: rgba(37, 99, 235, 0.22);
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.09);
+  color: #143c9b;
+  border-color: rgba(37, 99, 235, 0.18);
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.07);
 }
 
 .workflow-stagebar [data-workflow-stage][data-active="true"] [data-workflow-stage-dot] {
-  background: #2563eb;
-  box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.1);
+  background: #1d4ed8;
+  box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.08);
 }
 
-@keyframes workflow-sync-pulse {
+@keyframes workflow-node-sequence {
   0%,
-  16%,
+  18%,
   100% {
     transform: translateY(0);
-    border-color: rgba(191, 219, 254, 1);
-    box-shadow: 0 12px 34px rgba(37, 99, 235, 0.055);
+    border-color: rgba(215, 227, 245, 1);
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 12px 34px rgba(37, 99, 235, 0.045);
   }
 
-  6% {
-    transform: translateY(-7px);
-    border-color: rgba(37, 99, 235, 0.5);
+  7%,
+  11% {
+    transform: translateY(-5px);
+    border-color: rgba(37, 99, 235, 0.34);
+    background: rgba(255, 255, 255, 0.96);
     box-shadow:
-      0 20px 52px rgba(37, 99, 235, 0.13),
-      inset 0 0 0 1px rgba(37, 99, 235, 0.08);
+      0 22px 54px rgba(37, 99, 235, 0.11),
+      inset 0 0 0 1px rgba(37, 99, 235, 0.055);
   }
 }
 
-@keyframes workflow-sync-stage-pulse {
+@keyframes workflow-stage-sequence {
   0%,
-  16%,
+  18%,
   100% {
     transform: translateY(0);
     color: #5f6978;
@@ -545,17 +611,93 @@ select:focus-visible {
     box-shadow: none;
   }
 
-  6% {
-    transform: translateY(-5px);
-    color: #0f3f98;
-    background-color: rgba(255, 255, 255, 0.86);
-    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.1);
+  7%,
+  11% {
+    transform: translateY(-3px);
+    color: #143c9b;
+    background-color: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.07);
+  }
+}
+
+@keyframes workflow-dot-sequence {
+  0%,
+  18%,
+  100% {
+    color: #2563eb;
+    background: #dbeafe;
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.08);
+  }
+
+  7%,
+  11% {
+    color: #ffffff;
+    background: #1d4ed8;
+    box-shadow:
+      0 0 0 6px rgba(37, 99, 235, 0.09),
+      0 12px 26px rgba(29, 78, 216, 0.18);
+  }
+}
+
+@keyframes workflow-rail-fill {
+  0%,
+  8% {
+    transform: translateY(-50%) scaleX(0);
+  }
+
+  24%,
+  28% {
+    transform: translateY(-50%) scaleX(0.25);
+  }
+
+  44%,
+  48% {
+    transform: translateY(-50%) scaleX(0.5);
+  }
+
+  64%,
+  68% {
+    transform: translateY(-50%) scaleX(0.75);
+  }
+
+  84%,
+  100% {
+    transform: translateY(-50%) scaleX(1);
+  }
+}
+
+@keyframes workflow-rail-cursor {
+  0%,
+  8% {
+    left: 0%;
+  }
+
+  24%,
+  28% {
+    left: 25%;
+  }
+
+  44%,
+  48% {
+    left: 50%;
+  }
+
+  64%,
+  68% {
+    left: 75%;
+  }
+
+  84%,
+  100% {
+    left: 100%;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .workflow-node,
-  .workflow-stagebar [data-workflow-stage] {
+  .workflow-stagebar [data-workflow-stage],
+  .workflow-live-rail span,
+  .workflow-live-rail::after {
     animation: none;
   }
 }

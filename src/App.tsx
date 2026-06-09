@@ -326,12 +326,12 @@ function useHomeCapabilityAnimation(ref: React.RefObject<HTMLElement | null>) {
         if (shouldReduceMotion()) {
           gsap.set("[data-workflow-node], [data-workflow-stage], [data-workflow-number], [data-action-loop-step], [data-action-loop-bar-source], [data-capability-card], [data-workbench-item], [data-home-showcase-card], [data-role-showcase-reveal]", { autoAlpha: 1, y: 0, x: 0, scale: 1 });
           gsap.set("[data-action-loop-bar], [data-capability-line], [data-role-flow-line]", { scaleX: 1 });
-          workflowNodes.forEach((node, index) => {
-            node.dataset.active = index === 0 ? "true" : "false";
+          workflowNodes.forEach((node) => {
+            node.dataset.active = "false";
             node.dataset.complete = "false";
           });
-          workflowStages.forEach((stage, index) => {
-            stage.dataset.active = index === 0 ? "true" : "false";
+          workflowStages.forEach((stage) => {
+            stage.dataset.active = "false";
             stage.dataset.complete = "false";
           });
           return;
@@ -349,18 +349,6 @@ function useHomeCapabilityAnimation(ref: React.RefObject<HTMLElement | null>) {
         gsap.set("[data-capability-line]", { scaleX: 0, transformOrigin: "left center" });
         gsap.set("[data-role-showcase-reveal]", { autoAlpha: 0, y: 14 });
         gsap.set("[data-role-flow-line]", { scaleX: 0, transformOrigin: "left center" });
-        const setWorkflowStep = (activeIndex: number) => {
-          workflowNodes.forEach((node, index) => {
-            node.dataset.active = index === activeIndex ? "true" : "false";
-            node.dataset.complete = index < activeIndex ? "true" : "false";
-          });
-          workflowStages.forEach((stage, index) => {
-            stage.dataset.active = index === activeIndex ? "true" : "false";
-            stage.dataset.complete = index < activeIndex ? "true" : "false";
-          });
-        };
-        setWorkflowStep(0);
-
         gsap
           .timeline({
             defaults: { ease: "power3.out" },
@@ -1982,7 +1970,7 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
       detail: "摘要 / 归因 / 优先级",
       description: "将分散信息转化为信号",
       stage: "结构化解析",
-      color: "#3B82F6",
+      color: "#2563EB",
     },
     {
       id: "mentor",
@@ -1990,7 +1978,7 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
       detail: "观察 / 反馈 / 建议",
       description: "沉淀结构化带教动作",
       stage: "导师确认",
-      color: "#60A5FA",
+      color: "#2563EB",
     },
     {
       id: "risk",
@@ -2189,20 +2177,23 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
             <RoleCollaborationShowcase />
           </div>
 
-          <div className="capability-rail capability-flow-map relative mb-5 overflow-hidden rounded-[28px] border border-[#BFDBFE] bg-white/70 p-5 shadow-[0_24px_70px_rgba(37,99,235,0.07)] backdrop-blur-[18px] md:p-7" data-workflow-panel="">
-            <div className="absolute right-5 top-5 z-20 rounded-full border border-[#BFDBFE] bg-white/82 px-3 py-1.5 text-xs font-semibold text-[#2563EB] backdrop-blur" data-workflow-copy="">
-              同一工作流内完成流转
+          <div className="capability-rail capability-flow-map relative mb-5 overflow-hidden rounded-[28px] border border-[#D7E3F5] bg-white/78 p-5 shadow-[0_24px_70px_rgba(37,99,235,0.06)] backdrop-blur-[18px] md:p-7" data-workflow-panel="">
+            <div className="absolute right-5 top-5 z-20 rounded-full border border-[#C8D8EF] bg-white/88 px-3 py-1.5 text-xs font-semibold text-[#1D4ED8] backdrop-blur" data-workflow-copy="">
+              自动演示：信号顺序流转
             </div>
 
             <div className="workflow-board relative z-10 mt-12 md:mt-14">
+              <div className="workflow-live-rail hidden md:block" aria-hidden="true">
+                <span />
+              </div>
               <div className="workflow-card-grid grid gap-4 md:grid-cols-5">
                 {capabilityFlowNodes.map((node, index) => (
                   <div
                     key={node.id}
-                    className="workflow-node relative flex h-[172px] w-full flex-col rounded-[20px] border border-[#BFDBFE] bg-white/80 p-4 shadow-[0_12px_34px_rgba(37,99,235,0.055)] backdrop-blur-[18px]"
+                    className="workflow-node relative flex h-[172px] w-full flex-col rounded-[20px] border border-[#D7E3F5] bg-white/88 p-4 shadow-[0_12px_34px_rgba(37,99,235,0.045)] backdrop-blur-[18px]"
                     data-workflow-node=""
                     data-workflow-index={index}
-                    data-active={index === 0 ? "true" : "false"}
+                    data-active="false"
                     data-complete="false"
                     data-accent={node.color}
                   >
@@ -2220,10 +2211,10 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
                   </div>
                 ))}
               </div>
-              <div className="workflow-stagebar workflow-card-grid pointer-events-none mt-5 hidden grid rounded-[16px] border border-[#BFDBFE] bg-white/60 p-2 text-[11px] font-semibold text-[#5F6978] backdrop-blur md:grid md:grid-cols-5" data-workflow-copy="">
+              <div className="workflow-stagebar workflow-card-grid pointer-events-none mt-5 hidden grid rounded-[16px] border border-[#D7E3F5] bg-white/72 p-2 text-[11px] font-semibold text-[#5F6978] backdrop-blur md:grid md:grid-cols-5" data-workflow-copy="">
                 {capabilityFlowNodes.map((node, index) => (
-                  <span key={node.stage} className="flex min-w-0 items-center justify-center gap-2 rounded-[12px] border border-transparent px-2 py-2 text-center" data-workflow-stage="" data-workflow-stage-index={index} data-active={index === 0 ? "true" : "false"} data-complete="false">
-                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#60A5FA]" data-workflow-stage-dot="" />
+                  <span key={node.stage} className="flex min-w-0 items-center justify-center gap-2 rounded-[12px] border border-transparent px-2 py-2 text-center" data-workflow-stage="" data-workflow-stage-index={index} data-active="false" data-complete="false">
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#93A4BD]" data-workflow-stage-dot="" />
                     <span className="truncate">{index + 1}. {node.stage}</span>
                   </span>
                 ))}
