@@ -821,26 +821,30 @@ select:focus-visible {
 
 .role-collab-tabs {
   background:
-    linear-gradient(90deg, rgba(37, 99, 235, 0.055), rgba(37, 99, 235, 0.04), rgba(37, 99, 235, 0.055));
+    linear-gradient(90deg, rgba(37, 99, 235, 0.035), rgba(255, 255, 255, 0.7), rgba(37, 99, 235, 0.035));
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.82),
-    0 10px 26px rgba(20, 33, 52, 0.035);
+    0 8px 18px rgba(20, 33, 52, 0.028);
 }
 
 .role-collab-tab {
-  font-size: clamp(0.86rem, 0.92vw, 0.95rem);
-  font-weight: 680;
-  line-height: 1;
-  border-color: color-mix(in srgb, var(--role-tab-accent) 15%, transparent);
+  min-height: 34px;
+  padding: 0.42rem 0.75rem;
+  font-size: clamp(0.78rem, 0.82vw, 0.86rem);
+  font-weight: 650;
+  line-height: 1.15;
+  color: #29415f !important;
+  border-color: rgba(148, 163, 184, 0.18);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.9), var(--role-tab-soft)),
-    rgba(255, 255, 255, 0.78);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.84)),
+    rgba(255, 255, 255, 0.84);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.82),
-    0 8px 20px color-mix(in srgb, var(--role-tab-accent) 8%, transparent);
+    0 4px 10px rgba(20, 33, 52, 0.03);
   transition:
     transform 180ms var(--ease-couch),
     border-color 180ms var(--ease-couch),
+    color 180ms var(--ease-couch),
     background-color 180ms var(--ease-couch),
     box-shadow 180ms var(--ease-couch);
   will-change: transform;
@@ -848,11 +852,12 @@ select:focus-visible {
 
 .role-collab-tab:hover {
   transform: translateY(-1px);
-  border-color: color-mix(in srgb, var(--role-tab-accent) 26%, transparent);
+  color: #143c9b !important;
+  border-color: rgba(37, 99, 235, 0.2);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.94), color-mix(in srgb, var(--role-tab-accent) 12%, white)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(239, 246, 255, 0.72)),
     rgba(255, 255, 255, 0.94);
-  box-shadow: 0 12px 24px color-mix(in srgb, var(--role-tab-accent) 11%, transparent);
+  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.07);
 }
 
 .role-flow-strip {

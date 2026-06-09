@@ -1833,11 +1833,11 @@ function RoleCollaborationShowcase() {
 
       <div className="role-collab-tabs mt-5 rounded-[14px] border border-[#D8DEE6] bg-[#F8FAFC] p-1.5" data-role-showcase-tabs="">
         <div className="grid grid-cols-3 gap-1.5 text-center font-semibold">
-          {collaborationShowcaseRoles.map(({ id, label, accent, soft }) => (
+          {collaborationShowcaseRoles.map(({ id, label, soft }) => (
             <div
               key={id}
-              className="role-collab-tab flex min-h-[48px] items-center justify-center rounded-[11px] border border-transparent bg-white/74 px-3 py-3 text-[#17324D]"
-              style={{ color: accent, "--role-tab-accent": accent, "--role-tab-soft": soft } as CSSProperties}
+              className="role-collab-tab flex items-center justify-center rounded-[9px] border border-transparent bg-white/74 text-[#17324D]"
+              style={{ "--role-tab-soft": soft } as CSSProperties}
               data-role-showcase-tab=""
             >
               {label}
