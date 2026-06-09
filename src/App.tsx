@@ -1950,7 +1950,7 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
       title: "实习生成长路径",
       detail: "汇聚阶段目标、周任务与导师提问，形成可跟进的成长记录。",
       accent: "#2563EB",
-      statusAccent: "#60A5FA",
+      statusAccent: "#2563EB",
       chips: ["阶段目标", "本周任务", "导师提问"],
       flow: ["阶段目标", "本周任务", "导师提问"],
       summary: "成长信号采集",
@@ -1962,8 +1962,8 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
     {
       title: "导师反馈确认",
       detail: "将导师观察转成反馈建议，并由导师确认后同步。",
-      accent: "#059669",
-      statusAccent: "#34D399",
+      accent: "#2563EB",
+      statusAccent: "#2563EB",
       chips: ["观察记录", "反馈建议", "同步确认"],
       flow: ["观察记录", "反馈建议", "同步确认"],
       summary: "导师确认",
@@ -1975,8 +1975,8 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
     {
       title: "HR 风险洞察",
       detail: "辅助识别成长阻塞点，供 HR 确认跟进行动。",
-      accent: "#4F46E5",
-      statusAccent: "#818CF8",
+      accent: "#2563EB",
+      statusAccent: "#2563EB",
       chips: ["风险信号", "跟进建议", "复盘记录"],
       flow: ["风险信号", "跟进建议", "复盘记录"],
       summary: "组织跟进输出",
@@ -2304,7 +2304,7 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
                     ))}
                   </div>
                   <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-[#4E4965]/10">
-                    <div className="h-full rounded-full" style={{ backgroundColor: statusAccent }} data-capability-line="" />
+                    <div className="h-full rounded-full" style={{ "--capability-line-color": statusAccent } as CSSProperties} data-capability-line="" />
                   </div>
                 </div>
               ))}

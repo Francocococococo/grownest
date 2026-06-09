@@ -606,6 +606,12 @@ select:focus-visible {
   box-shadow: 0 22px 58px rgba(20, 33, 52, 0.08);
 }
 
+[data-capability-line] {
+  background:
+    linear-gradient(90deg, rgba(37, 99, 235, 0.88), rgba(96, 165, 250, 0.78), rgba(37, 99, 235, 0.88)) !important;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.05), 0 6px 14px rgba(37, 99, 235, 0.11);
+}
+
 [data-capability-section] {
   isolation: isolate;
 }
