@@ -1,0 +1,152 @@
+      </div>
+    </Card>
+  );
+}
+
+function MeasuredChart({
+  height = 288,
+  minWidth = 280,
+  children,
+  className,
+}: {
+  height?: number;
+  minWidth?: number;
+  children: (width: number, height: number) => ReactNode;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const element = ref.current;
+    const observer = new ResizeObserver(([entry]) => {
+      setWidth(Math.max(minWidth, Math.floor(entry.contentRect.width)));
+    });
+    observer.observe(element);
+    setWidth(Math.max(minWidth, Math.floor(element.getBoundingClientRect().width)));
+    return () => observer.disconnect();
+  }, [minWidth]);
+
+  return (
+    <div ref={ref} className={cn("mt-4 min-w-0", className)} style={{ height }}>
+      {width > 0 && children(width, height)}
+    </div>
+  );
+}
+
+function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
+  const homeRef = useRef<HTMLElement | null>(null);
+  useHomeHeroAnimation(homeRef);
+
+  const roleCards = [
+    {
+      id: "student",
+      label: "Student",
+      title: "成长路径",
+      body: "30-60-90 天成长轨道",
+      detail: "明确本周任务与下一步行动",
+      accent: "#32B889",
+      icon: GraduationCap,
+      className: "left-[2%] top-[3%]",
+      depth: 1.15,
+    },
+    {
+      id: "mentor",
+      label: "Mentor",
+      title: "导师反馈",
+      body: "AI 结构化带教反馈",
+      detail: "把经验带教变成标准动作",
+      accent: "#C9922E",
+      icon: MessageSquareText,
+      className: "right-[2%] top-[3%]",
+      depth: 1.35,
+                className={cn("home-role-card absolute z-30 w-[200px] rounded-[22px] border border-[#504678]/12 bg-white/68 p-3.5 shadow-[0_22px_60px_rgba(36,26,72,0.08)] backdrop-blur-[18px]", className)}
+                data-home-card={id}
+                data-depth={depth}
+                data-accent={accent}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-semibold" style={{ color: accent }}>{label}</p>
+                    <p className="mt-2 text-lg font-semibold text-[#171321]">{title}</p>
+                  </div>
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] bg-white/70 ring-1 ring-[#504678]/10">
+                    <Icon className="h-5 w-5" style={{ color: accent }} />
+                  </div>
+                </div>
+                <p className="mt-3 text-sm font-medium text-[#241A48]">{body}</p>
+                <p className="mt-2 text-xs leading-5 text-[#6F6A7A]">{detail}</p>
+              </div>
+            ))}
+
+            <div className="home-insight-panel absolute bottom-[-1%] left-[-3%] z-40 w-[220px] rounded-[22px] border border-[#504678]/12 bg-white/72 p-3.5 shadow-[0_22px_60px_rgba(36,26,72,0.08)] backdrop-blur-[18px]" data-home-insight-panel="">
+              <div className="mb-4 flex items-center justify-between">
+                <p className="text-sm font-semibold text-[#171321]">AI Insight</p>
+                <Sparkles className="h-4 w-4 text-[#4B32C3]" data-home-insight-icon="" />
+              </div>
+              {["识别成长阻塞点", "生成导师反馈建议", "同步 HR 跟进行动"].map((item) => (
+                <div key={item} className="mb-2 rounded-[12px] border border-[#504678]/10 bg-[#F6F4FA]/76 px-3 py-2 text-xs font-medium text-[#241A48]" data-home-insight="">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="capability" className="capability-section relative z-30 px-5 pt-14 pb-24" data-capability-section="">
+        <div className="mx-auto max-w-7xl">
+        <div className="mb-8 grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-end">
+          <div>
+            <p className="text-sm font-semibold text-[#4B32C3]" data-capability-kicker="">Core Capability</p>
+            <h2 className="mt-3 max-w-2xl text-3xl font-semibold leading-tight text-[#171321] md:text-[3.2rem]" data-capability-title="">
+              三个角色，不是三套系统，而是一条成长协同链路。
+            </h2>
+          </div>
+          <div className="capability-summary rounded-[24px] border border-[#504678]/10 bg-white/54 p-5 backdrop-blur-[18px]" data-capability-summary="">
+            <p className="text-sm leading-7 text-[#6F6A7A]">
+              从个人成长任务，到导师反馈，再到 HR 跟进行动，信息在同一条产品逻辑里流转。
+            </p>
+            <div className="mt-4 grid grid-cols-3 gap-2 text-center text-xs font-semibold text-[#241A48]">
+              {["Student", "Mentor", "HRBP"].map((item) => (
+                <span key={item} className="rounded-[12px] border border-[#504678]/10 bg-white/58 px-2 py-2">{item}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="capability-rail relative mb-5 rounded-[24px] border border-[#504678]/10 bg-white/42 p-4 backdrop-blur-[18px]" data-capability-rail="">
+          <div className="absolute left-[14%] right-[14%] top-1/2 hidden h-px -translate-y-1/2 bg-[#504678]/12 md:block">
+            <span className="block h-full rounded-full bg-[#4B32C3]/40" data-capability-rail-line="" />
+            <span className="capability-packet absolute -top-1 left-0 h-2 w-12 rounded-full bg-[#4B32C3]/35" data-capability-flow="" />
+          </div>
+          <div className="relative grid gap-3 md:grid-cols-3">
+            {productModules.map(({ title, accent, summary }, index) => (
+              <div key={title} className="capability-node rounded-[18px] border border-[#504678]/10 bg-white/62 px-4 py-3" data-capability-node="" data-accent={accent}>
+                <div className="flex items-center gap-3">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold text-white" style={{ backgroundColor: accent }}>0{index + 1}</span>
+                  <div>
+                    <p className="text-sm font-semibold text-[#171321]">{summary}</p>
+                    <p className="mt-0.5 text-xs text-[#6F6A7A]">{title}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="relative grid gap-5 md:grid-cols-3">
+          {productModules.map(({ title, detail, accent, chips, flow, icon: Icon }, index) => (
+            <div key={title} className="capability-card relative overflow-hidden rounded-[24px] border border-[#504678]/10 bg-white/58 p-5 shadow-[0_18px_52px_rgba(36,26,72,0.055)] backdrop-blur-[18px]" data-capability-card="" data-home-showcase-card="" data-accent={accent}>
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <span className="text-xs font-semibold" style={{ color: accent }}>0{index + 1}</span>
+                  <h3 className="mt-4 text-xl font-semibold text-[#171321]">{title}</h3>
+                </div>
+                <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-[16px] bg-white/68 ring-1 ring-[#504678]/10">
+                  <span className="absolute inset-0 rounded-[16px]" style={{ backgroundColor: accent, opacity: 0.08 }} data-capability-pulse="" />
+                  <Icon className="relative h-5 w-5" style={{ color: accent }} />
+                </div>
+              </div>
+              <p className="mt-4 min-h-[56px] text-sm leading-7 text-[#6F6A7A]">{detail}</p>

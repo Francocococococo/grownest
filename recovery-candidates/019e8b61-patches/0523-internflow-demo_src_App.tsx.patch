@@ -1,0 +1,13 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+                   <p className="login-kicker">{selectedPortal.eyebrow}</p>
+                   <h1 className="login-hero-title mt-5 max-w-[480px] text-4xl font-semibold leading-[1.12] text-[#171321] sm:text-[3.1rem]">
+-                    让实习生成长可见，让导师带教有序，让 HR 协同更轻。
++                    {selectedPortal.title}
+                   </h1>
+                   <p className="mt-6 max-w-[520px] text-base font-normal leading-8 text-[#6F6A7A]">
+-                    GrowNest 将成长路径、导师反馈与 HRBP 跟进记录收敛到一个克制、可追踪的企业级工作台。
++                    {selectedPortal.description}
+                   </p>
+*** End Patch

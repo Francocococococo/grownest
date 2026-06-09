@@ -1,0 +1,115 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/index.css
+@@
+ .mentor-priority-card {
+   position: relative;
+   overflow: hidden;
+-  background: rgba(255, 255, 255, 0.88);
+-  box-shadow: var(--shadow-rest);
++  border-color: rgba(226, 232, 240, 0.95);
++  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.86));
++  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.05);
+ }
+ 
+ .mentor-priority-card::before {
+   position: absolute;
+   inset: 0 auto 0 0;
+-  width: 5px;
++  width: 4px;
+   content: "";
+-  background: var(--role-accent);
++  background: #cbd5e1;
+ }
+ 
+ .mentor-priority-blue {
+-  border-color: var(--role-border);
++  border-color: rgba(226, 232, 240, 0.95);
+ }
+ 
+ .mentor-priority-teal {
+-  border-color: var(--role-border);
++  border-color: rgba(226, 232, 240, 0.95);
+ }
+ 
+ .mentor-priority-teal::before {
+-  background: var(--role-accent);
++  background: #94a3b8;
+ }
+ 
+ .mentor-priority-amber {
+-  border-color: rgba(245, 158, 11, 0.28);
++  border-color: rgba(245, 158, 11, 0.2);
++  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 251, 235, 0.58));
+ }
+ 
+ .mentor-priority-amber::before {
+-  background: #f59e0b;
++  background: #fbbf24;
+ }
+ 
+ .mentor-priority-slate {
+-  border-color: rgba(15, 23, 42, 0.16);
++  border-color: rgba(226, 232, 240, 0.95);
+ }
+ 
+ .mentor-priority-slate::before {
+-  background: #0f172a;
++  background: #64748b;
+ }
+@@
+   align-items: center;
+   justify-content: center;
+   border-radius: 10px;
+-  background: var(--role-soft);
+-  color: var(--role-accent);
+-  box-shadow: inset 0 0 0 1px var(--role-border);
++  background: #f8fafc;
++  color: #475569;
++  box-shadow: inset 0 0 0 1px rgba(226, 232, 240, 0.95);
+ }
+ 
+ .mentor-priority-teal .mentor-priority-icon {
+-  background: var(--role-soft);
+-  color: var(--role-accent);
+-  box-shadow: inset 0 0 0 1px var(--role-border);
++  background: #f8fafc;
++  color: #475569;
++  box-shadow: inset 0 0 0 1px rgba(226, 232, 240, 0.95);
+ }
+ 
+ .mentor-priority-amber .mentor-priority-icon {
+-  background: #fffbeb;
+-  color: #b45309;
+-  box-shadow: inset 0 0 0 1px rgba(253, 230, 138, 0.95);
++  background: rgba(255, 251, 235, 0.9);
++  color: #92400e;
++  box-shadow: inset 0 0 0 1px rgba(253, 230, 138, 0.78);
+ }
+ 
+ .mentor-priority-slate .mentor-priority-icon {
+   background: #f8fafc;
+-  color: #0f172a;
++  color: #475569;
+   box-shadow: inset 0 0 0 1px rgba(226, 232, 240, 0.95);
+ }
++
++.mentor-priority-value {
++  background: #ffffff;
++  color: #334155;
++  box-shadow: inset 0 0 0 1px rgba(226, 232, 240, 0.95);
++}
++
++.mentor-priority-amber .mentor-priority-value {
++  color: #92400e;
++  box-shadow: inset 0 0 0 1px rgba(253, 230, 138, 0.78);
++}
++
++.mentor-priority-source {
++  background: rgba(248, 250, 252, 0.86);
++  color: #475569;
++}
++
++.mentor-priority-source p:last-child {
++  color: #475569;
++}
+*** End Patch

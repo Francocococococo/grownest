@@ -1,0 +1,13 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+ 	      </Card>
+ 
++      <ActionLoopPanel
++        title="导师行动闭环"
++        subtitle="确认反馈、同步建议、推动下一步动作都会进入跨端记录"
++        items={mentorLoopItems}
++      />
++
+       <div className="grid gap-5 2xl:grid-cols-[1fr_380px]">
+*** End Patch

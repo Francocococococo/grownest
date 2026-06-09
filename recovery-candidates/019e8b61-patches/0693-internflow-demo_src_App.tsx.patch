@@ -1,0 +1,49 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+   const averageProgress = mentorViewInterns.length
+     ? Math.round(mentorViewInterns.reduce((sum, intern) => sum + intern.progress, 0) / mentorViewInterns.length)
+     : 0;
++  const currentWeekStart = weekDays[0] ?? allGrowthDays[0];
++  const currentWeekEnd = weekDays[weekDays.length - 1] ?? currentWeekStart;
++  const currentWeekNumber = selectedWeekIndex + 1;
++  const selectedDate = allGrowthDays.find((day) => day.key === selectedDateKey) ?? currentWeekStart;
++  const selectedRoleStages = positionGrowthStages[(selected.role as PositionRole) in positionGrowthStages ? selected.role as PositionRole : "产品"];
++  const selectedDisplayTasks = selected.tasks.map((task, index) => ({
++    id: task.id,
++    label: task.title,
++    status: task.status,
++    due: task.due,
++    owner: task.owner,
++    note: task.note,
++    dateKey: allGrowthDays[inferTaskDateIndex(task, index)]?.key ?? allGrowthDays[0].key,
++  }));
++  const selectedTodayTasks = selectedDisplayTasks.filter((task) => task.dateKey === selectedDateKey);
++  const selectedPendingTasks = selectedDisplayTasks.filter((task) => task.status !== "已完成");
++  const selectedTaskStatusByLabel = new Map<string, TaskStatus>(selectedDisplayTasks.map((task) => [task.label, task.status]));
++  const selectedStageIndex = Math.min(2, Math.floor(selectedWeekIndex / 4));
++  const selectedStage = selectedRoleStages[selectedStageIndex] ?? selectedRoleStages[0];
++  const selectedStageTasks = (selectedStage?.tasks ?? []).map((task) => ({
++    ...task,
++    status: selectedTaskStatusByLabel.get(task.label) ?? "未完成",
++  }));
++  const selectedStageDone = selectedStageTasks.filter((task) => task.status === "已完成").length;
++  const selectedStageTotal = selectedStageTasks.length;
+   const mentorCheckpoints = [
+@@
+   const selectIntern = (intern: typeof mentorViewInterns[number]) => {
+     setSelectedName(intern.name);
++    const nextStart = allGrowthDays[selectedWeekIndex * studentGrowthWeekSize] ?? allGrowthDays[0];
++    if (nextStart) setSelectedDateKey(nextStart.key);
+     setFeedback(intern.observationHint);
+@@
+     setMentorScores(createDefaultMentorScores(intern));
+   };
++
++  const changeMentorGrowthWeek = (direction: -1 | 1) => {
++    const next = Math.max(0, Math.min(maxGrowthWeekIndex, selectedWeekIndex + direction));
++    const nextStart = allGrowthDays[next * studentGrowthWeekSize];
++    setSelectedWeekIndex(next);
++    if (nextStart) setSelectedDateKey(nextStart.key);
++  };
+*** End Patch

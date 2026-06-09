@@ -1,0 +1,24 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-  { title: "自动留用决策", detail: "涉及关键用人判断，首版只提供参考证据。", status: "暂缓" },
++  { title: "自动组织决策", detail: "涉及关键用人判断，首版只提供参考证据，不自动给出结论。", status: "暂缓" },
+@@
+-  { role: "招聘效能复盘模块", canSee: "适岗趋势、高潜/观察摘要、画像反哺建议", hidden: "完整成长记录和私聊细节" },
++  { role: "招聘效能复盘模块", canSee: "成长趋势、观察摘要、入职支持反哺建议", hidden: "完整成长记录和私聊细节" },
+@@
+-  { label: "人工确认", detail: "导师反馈、HRBP 介入和留用观察必须由对应角色确认后同步。" },
++  { label: "人工确认", detail: "导师反馈、HRBP 介入和后续观察必须由对应角色确认后同步。" },
+@@
+-    signal: "需求评审准备充分、用户反馈整理完整的同学适岗进度更稳定。",
++    signal: "需求评审准备充分、用户反馈整理完整的同学成长节奏更稳定。",
+@@
+-    signal: "客户场景训练不足会拉低早期适岗速度，压力表达集中在第 2-3 周。",
++    signal: "客户场景训练不足会影响早期成长节奏，需要补充入职前支持材料。",
+@@
+-      { label: "打卡信号", value: intern.reason || "暂无", status },
++      { label: "成长信号", value: intern.reason || "暂无", status },
+@@
+-    reviewReminder: danger ? "三天后复盘支持动作是否生效" : warning ? "下周检查改善动作完成情况" : "第 30 天阶段评价时复盘",
++    reviewReminder: danger ? "后续复盘支持动作是否生效" : warning ? "下次检查改善动作完成情况" : "阶段反馈时复盘",
+*** End Patch

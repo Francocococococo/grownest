@@ -1,0 +1,16 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/index.css
+@@
+   .mentor-shell aside {
+     grid-row: 1 / span 2;
+   }
+ 
++  .mentor-shell main {
++    grid-column: 2;
++    grid-row: 1;
++  }
++
+   .mentor-shell .mentor-dashboard {
+     display: contents;
+   }
+*** End Patch

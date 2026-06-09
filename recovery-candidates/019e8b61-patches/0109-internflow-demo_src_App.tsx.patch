@@ -1,0 +1,79 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+   const currentStageIndex = Math.min(2, Math.floor(selectedWeekIndex / 4));
+   const currentStage = studentGrowthStagesForDisplay[currentStageIndex] ?? studentGrowthStagesForDisplay[0];
+   const currentStageDone = currentStage?.tasks.filter((task) => task.status === "已完成").length ?? 0;
+   const currentStageTotal = currentStage?.tasks.length ?? 0;
++  const studentLoopItems = [
++    {
++      label: "收到阶段行动",
++      detail: primaryTask ? `当前优先推进「${primaryTask.label}」，完成后再整理交付物和问题。` : "当前阶段暂无待办，可整理成长记录。",
++      status: pendingTasks.length ? "进行中" as LoopStatus : "已完成" as LoopStatus,
++    },
++    {
++      label: "完成本周动作",
++      detail: completedWeekTasks.length ? `已完成 ${completedWeekTasks.length} 个动作，记录会同步到成长进度。` : "先完成最明确的一项任务，避免本周行动停在计划层。",
++      status: completedWeekTasks.length ? "已完成" as LoopStatus : "进行中" as LoopStatus,
++    },
++    {
++      label: "向导师确认",
++      detail: mentorQuestionRecords.length ? "已向导师发送问题，等待回复或继续补充上下文。" : "把不确定点整理成一句具体问题后发送导师。",
++      status: mentorQuestionRecords.some((record) => record.answer) ? "已完成" as LoopStatus : mentorQuestionRecords.length ? "待确认" as LoopStatus : "进行中" as LoopStatus,
++    },
++    {
++      label: "沉淀成长记录",
++      detail: combinedMentorFeedbackRecords.length ? "导师反馈已沉淀，可作为下一阶段行动依据。" : "导师确认后，反馈会进入这里形成复盘线索。",
++      status: combinedMentorFeedbackRecords.length ? "待复盘" as LoopStatus : "待确认" as LoopStatus,
++    },
++  ];
+@@
+-                <h2 className="text-xl font-black tracking-[0] text-slate-950 lg:text-2xl">
+-                  我的成长地图 · {selectedDate.label}
++                <h2 className="text-xl font-black tracking-[0] text-slate-950 lg:text-2xl">
++                  我的成长路径 · {selectedDate.label}
+                 </h2>
+@@
+-                  第 {currentWeekNumber}/13 周 · 90 天路线
++                  第 {currentWeekNumber}/13 周 · 阶段路径
+@@
+-                <span>当前位置：{selectedDate.label}，本周范围 {currentWeekStart.monthDay}-{currentWeekEnd.monthDay}</span>
++                <span>当前阶段：{currentStage?.theme ?? "阶段目标推进"}，本周范围 {currentWeekStart.monthDay}-{currentWeekEnd.monthDay}</span>
+@@
+-                <span className="text-xs font-black text-[var(--role-accent)]">90 天路线</span>
++                <span className="text-xs font-black text-[var(--role-accent)]">阶段路径</span>
+@@
+-                  <p className="text-xs font-bold text-slate-500">本周任务完成度</p>
++                  <p className="text-xs font-bold text-slate-500">本周行动进度</p>
+@@
+-          <SectionTitle icon={GraduationCap} title="当前站点详情" subtitle="把地图里的当前位置翻译成今天该推进的成长动作" />
++          <SectionTitle icon={GraduationCap} title="当前成长阶段" subtitle="回答“我现在在哪、这周做什么、需要向导师确认什么”" />
+@@
+-        <SectionTitle icon={ClipboardList} title="本周待办池" subtitle="未完成和已完成分开沉淀，避免和今日任务重复" />
++        <SectionTitle icon={ClipboardList} title="本周阶段任务" subtitle="把待推进动作和已完成记录分开沉淀，避免只看进度数字" />
+@@
+-          <SectionTitle icon={BrainCircuit} title="AI 本周成长建议" subtitle="先写下自己的困惑，AI 会帮你整理成更适合问导师的问题" />
++          <SectionTitle icon={BrainCircuit} title="AI 辅助整理" subtitle="先写下自己的困惑，AI 只帮你整理成更清楚的导师提问" />
+@@
+-              placeholder="比如：我做竞品分析时不知道怎么把产品功能和 GMV、转化率这些指标联系起来，也不确定需求评审前应该准备哪些问题..."
++              placeholder="比如：我不确定这项任务的验收标准，也想确认交付前应该先和导师对齐哪些问题..."
+@@
+-              {["业务指标怎么理解？", "需求评审前怎么准备？", "我离合格水平差什么？"].map((prompt) => (
++              {["关键标准怎么确认？", "评审前怎么准备？", "下一步重点是什么？"].map((prompt) => (
+@@
+-            {questionLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+-            {questionLoading ? "AI 正在分析..." : studentQuestionDraft.trim() ? "AI 优化成提问清单" : "AI 帮我生成提问清单"}
++            {questionLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
++            {questionLoading ? "AI 正在整理..." : studentQuestionDraft.trim() ? "整理成提问清单" : "生成导师提问"}
+@@
+       </div>
+ 
++      <ActionLoopPanel
++        title="我的行动闭环"
++        subtitle="收到行动、完成任务、向导师确认、沉淀记录都在同一条线上"
++        items={studentLoopItems}
++      />
++
+       <Card data-list-panel="">
+         <SectionTitle icon={MessageSquareText} title="导师沟通中心" subtitle="问题、回复和阶段反馈统一沉淀在这里" />
+*** End Patch

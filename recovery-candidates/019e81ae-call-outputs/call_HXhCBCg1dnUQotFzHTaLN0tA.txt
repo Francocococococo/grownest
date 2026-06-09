@@ -1,0 +1,66 @@
+    {
+      id: "hr",
+      label: "HR",
+      title: "风险洞察",
+      body: "适岗风险识别与跟进建议",
+      detail: "提前发现需要关注的人",
+      accent: "#4B32C3",
+      icon: LayoutDashboard,
+      className: "bottom-[3%] right-[2%]",
+      depth: 1.55,
+    },
+  ];
+  const productModules = [
+    {
+      title: "实习生成长路径",
+      detail: "把阶段目标、任务推进和导师反馈沉淀成清晰的个人成长轨迹。",
+      accent: "#4B9D83",
+      chips: ["阶段目标", "本周任务", "导师提问"],
+      flow: ["目标拆解", "任务推进", "问题沉淀"],
+      summary: "个人成长输入",
+      icon: GraduationCap,
+      workbenchTitle: "实习生成长工作台",
+      workbenchMeta: "当前第 3 周 · 任务确认",
+      workbenchItems: ["确认本周阶段目标", "整理 2 个导师提问", "完成业务资料复盘"],
+    },
+    {
+      title: "导师反馈工作流",
+      detail: "把分散观察整理为结构化反馈，让带教动作稳定、可复用。",
+        </div>
+
+        <div className="capability-rail capability-flow-map relative mb-5 min-h-[360px] overflow-hidden rounded-[28px] border border-[#4E4965]/10 bg-[#FFFFFF]/54 p-5 backdrop-blur-[18px]" data-capability-rail="">
+          <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 1000 360" fill="none" aria-hidden="true">
+            <path data-capability-map-path="" d="M132 122 C245 54 345 54 458 122 S676 214 806 148" stroke="rgba(94,76,178,0.34)" strokeWidth="2" strokeLinecap="round" />
+            <path data-capability-map-path="" d="M790 182 C735 272 628 294 542 270 C410 232 286 208 150 145" stroke="rgba(75,157,131,0.28)" strokeWidth="1.7" strokeLinecap="round" strokeDasharray="6 9" />
+            <path d="M132 122 C245 54 345 54 458 122 S676 214 806 148" stroke="rgba(255,255,255,0.75)" strokeWidth="7" strokeLinecap="round" opacity="0.22" />
+          </svg>
+          <div className="absolute right-5 top-5 rounded-full border border-[#4E4965]/10 bg-white/62 px-3 py-1.5 text-xs font-semibold text-[#5E4CB2]" data-capability-map-chip="">
+            同一工作流内完成流转
+          </div>
+          {capabilityFlowNodes.map((node, index) => (
+            <div
+              key={node.id}
+              className="capability-map-node absolute w-[210px] rounded-[20px] border border-[#4E4965]/10 bg-white/70 p-4 shadow-[0_16px_44px_rgba(36,26,72,0.055)] backdrop-blur-[16px]"
+              style={{ left: node.x, top: node.y }}
+              data-capability-map-node=""
+              data-accent={node.color}
+            >
+              <div className="flex items-start gap-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white" style={{ backgroundColor: node.color }}>
+                  0{index + 1}
+                </span>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-[#171321]">{node.label}</p>
+                  <p className="mt-1 text-xs leading-5 text-[#6F6A7A]">{node.detail}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+          <div className="absolute bottom-5 right-5 grid gap-2 text-xs text-[#6F6A7A]" data-capability-map-chip="">
+            <span className="rounded-full bg-white/62 px-3 py-1.5 ring-1 ring-[#4E4965]/10">任务进入</span>
+            <span className="rounded-full bg-white/62 px-3 py-1.5 ring-1 ring-[#4E4965]/10">反馈加工</span>
+            <span className="rounded-full bg-white/62 px-3 py-1.5 ring-1 ring-[#4E4965]/10">行动回流</span>
+          </div>
+        </div>
+
+        <div className="capability-workbench grid gap-5 rounded-[28px] border border-[#4E4965]/10 bg-[#FFFFFF]/48 p-4 shadow-[0_24px_70px_rgba(36,26,72,0.06)] backdrop-blur-[20px] lg:grid-cols-[0.38fr_0.62fr]">

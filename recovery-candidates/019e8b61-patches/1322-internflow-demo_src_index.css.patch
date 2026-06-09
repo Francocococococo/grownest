@@ -1,0 +1,9 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/index.css
+@@
+   .mentor-shell aside {
+     grid-row: 1 / span 2;
+     align-self: stretch;
++    height: 100%;
+   }
+*** End Patch

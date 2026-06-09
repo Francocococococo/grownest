@@ -1,0 +1,35 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-      detail: "风险 / 适岗 / 队列",
++      detail: "风险 / 跟进 / 队列",
+@@
+-      setActionMessage(`已为 ${intern.name} ${label}，AI 生成的协同记录已同步到${targetRole === "导师" ? "导师端" : "HRBP 操作记录"}。`);
++      setActionMessage(`已为 ${intern.name} ${label}，协同记录已同步到${targetRole === "导师" ? "导师端" : "HRBP 操作记录"}。`);
+@@
+-      <SectionTitle icon={BrainCircuit} title="AI 需关注分析卡" subtitle={`${intern.name} · ${intern.role}`} />
++      <SectionTitle icon={BrainCircuit} title="AI Insight 关注卡" subtitle={`${intern.name} · ${intern.role} · HRBP 人工确认`} />
+@@
+-            <p className="text-xs font-semibold text-[var(--role-accent)]">AI 置信度</p>
++            <p className="text-xs font-semibold text-[var(--role-accent)]">信号可信度</p>
+@@
+-          <p className="text-sm font-bold text-[#1D0C3B]">AI 判断依据</p>
++          <p className="text-sm font-bold text-[#1D0C3B]">成长信号依据</p>
+@@
+-	              ["规则触发", intern.risk === "高风险" ? "连续延期 + 低完成度 + 导师负向反馈" : intern.risk === "中风险" ? "完成度波动 + 单项能力需补强" : "完成稳定 + 可加挑战任务"],
+-	              ["AI 解释", "归因和建议仅来自上方证据，不直接生成留用/淘汰结论"],
++	              ["规则触发", intern.risk === "高风险" ? "延期信号 + 完成度偏低 + 导师需补充观察" : intern.risk === "中风险" ? "完成度波动 + 单项能力需补强" : "完成稳定 + 可加挑战任务"],
++	              ["AI 解释", "归因和建议仅来自上方证据，不直接生成组织结论"],
+@@
+-        <InfoBlock title="建议 HR 动作" text={intern.hrAction.replace("高风险", "重点关注")} />
++        <InfoBlock title="跟进建议" text={intern.hrAction.replace("高风险", "重点关注").replace("HR", "HRBP")} />
+@@
+-              {actionLoading === label ? "AI 正在分析..." : label}
++              {actionLoading === label ? "正在整理..." : label}
+@@
+-	          <p className="text-sm font-bold text-[#1D0C3B]">干预闭环状态</p>
++	          <p className="text-sm font-bold text-[#1D0C3B]">行动闭环状态</p>
+@@
+-                {["姓名", "岗位", "入职周数", "成长进度", "关注状态", "处置状态", "AI 判断原因", "HRBP 待办"].map((head) => (
++                {["姓名", "岗位", "入职周数", "成长进度", "关注状态", "处置状态", "成长信号", "跟进建议"].map((head) => (
+*** End Patch

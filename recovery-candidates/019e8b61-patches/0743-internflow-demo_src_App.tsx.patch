@@ -1,0 +1,40 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+   }));
+   const selectedStageDone = selectedStageTasks.filter((task) => task.status === "已完成").length;
+   const selectedStageTotal = selectedStageTasks.length;
++  const selectedGrowthDayNumber = Math.max(1, allGrowthDays.findIndex((day) => day.key === selectedDate.key) + 1);
++  const hasMentorReply = studentQuestions.some((record) => record.answer);
++  const hasMentorFeedbackRecord = relatedRecords.some(
++    (record) => record.sourceRole === "导师" && record.targetRole === "实习生",
++  );
++  const hasHrbpSyncRecord = relatedRecords.some(
++    (record) => record.sourceRole === "导师" && record.targetRole === "HR",
++  );
++  const resolveCheckpointStatus = (dueDay: number, confirmed: boolean, inProgress = false) => {
++    if (confirmed) return "已完成";
++    if (selectedGrowthDayNumber < dueDay) return "未开始";
++    return inProgress ? "进行中" : "待确认";
++  };
+   const mentorCheckpoints = [
+-    { day: "第 1 天", action: "确认岗位目标、工具权限和首周学习资料", status: "已完成" },
+-    { day: "第 3 天", action: "完成新人 Check-in，确认是否知道该学什么", status: "已完成" },
+-    { day: "第 7 天", action: "检查首周任务产出，补充业务上下文", status: selected.risk === "低风险" ? "已完成" : "进行中" },
+-    { day: "第 14 天", action: "提交阶段反馈，明确一项待提升能力", status: selected.action.includes("待") ? "进行中" : "已完成" },
+-    { day: "第 30 天", action: "完成阶段反馈并同步 HRBP 复盘线索", status: "未开始" },
++    { day: "第 1 天", action: "确认岗位目标、工具权限和首周学习资料", status: resolveCheckpointStatus(1, false) },
++    { day: "第 3 天", action: "完成新人 Check-in，确认是否知道该学什么", status: resolveCheckpointStatus(3, hasMentorReply) },
++    {
++      day: "第 7 天",
++      action: "检查首周任务产出，补充业务上下文",
++      status: resolveCheckpointStatus(7, hasMentorFeedbackRecord, selected.completedTaskCount > 0),
++    },
++    {
++      day: "第 14 天",
++      action: "提交阶段反馈，明确一项待提升能力",
++      status: resolveCheckpointStatus(14, hasMentorFeedbackRecord),
++    },
++    { day: "第 30 天", action: "完成阶段反馈并同步 HRBP 复盘线索", status: resolveCheckpointStatus(30, hasHrbpSyncRecord) },
+   ];
+*** End Patch

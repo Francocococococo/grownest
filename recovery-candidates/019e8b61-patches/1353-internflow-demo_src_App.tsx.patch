@@ -1,0 +1,109 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-      <Card className="mentor-command-panel overflow-hidden border-[var(--role-border)] bg-gradient-to-br from-white via-white/70 to-emerald-50/60">
+-        <div className="grid gap-5 xl:grid-cols-[minmax(0,1.35fr)_minmax(320px,0.65fr)]">
+-          <div className="min-w-0">
+-          <SectionTitle icon={ShieldCheck} title="今日带教工作台" subtitle="先看负责对象和待确认事项，再处理当前学员；所有动作会回流学生端和 HRBP 看板" />
+-          <div className="mentor-sync-strip mt-5" aria-label="学生端、导师端、HRBP端数据同步状态">
++      <Card className="mentor-command-panel overflow-hidden border-[var(--role-border)] bg-gradient-to-br from-white via-white/70 to-emerald-50/60">
++        <div className="grid gap-4 xl:grid-cols-[360px_minmax(0,1fr)]">
++          <aside className="mentor-focus-card rounded-xl border border-[var(--role-border)] bg-white/88 p-4 shadow-[0_12px_30px_rgba(15,23,42,0.06)]">
++            <div className="flex items-start justify-between gap-3">
++              <div className="mentor-command-heading">
++                <span className="mentor-kicker">Mentor Command</span>
++                <p className="text-xs font-black text-[var(--role-accent)]">当前处理对象</p>
++                <h3 className="mt-2 text-2xl font-black text-slate-950">{selected.name}</h3>
++                <p className="mt-1 text-sm font-semibold text-slate-500">{selected.title} · {selected.department}</p>
++              </div>
++              <AttentionBadge risk={selected.risk} />
++            </div>
++            <div className="mt-4 grid gap-3 rounded-lg bg-slate-50 p-3">
++              <div className="flex items-center justify-between gap-3">
++                <div>
++                  <p className="text-xs font-bold text-slate-500">成长进度</p>
++                  <p className="mt-1 text-3xl font-black text-slate-950">{selected.progress}%</p>
++                </div>
++                <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-[var(--role-accent)] ring-1 ring-[var(--role-border)]">{selected.action}</span>
++              </div>
++              <div className="h-1.5 overflow-hidden rounded-full bg-slate-200">
++                <div className="mentor-progress-fill h-full rounded-full" data-progress-fill="" style={{ width: `${selected.progress}%` }} />
++              </div>
++            </div>
++            <div className="mt-3 rounded-lg bg-[var(--role-soft)] p-3">
++              <p className="text-xs font-black text-[var(--role-accent)]">辅导重点</p>
++              <p className="mt-1 text-sm font-semibold leading-6 text-slate-700">{selected.focus}</p>
++            </div>
++          </aside>
++
++          <div className="min-w-0">
++          <SectionTitle icon={ShieldCheck} title="今日带教工作台" subtitle="先看待确认事项，再处理当前学员；动作会回流学生端和 HRBP 看板" />
++          <div className="mentor-sync-strip mt-4" aria-label="学生端、导师端、HRBP端数据同步状态">
+             {[
+               ["学生端", `${unansweredQuestionCount} 条提问待回复`],
+               ["导师端", `${pendingFeedbackCount} 条反馈待确认`],
+@@
+             ))}
+             <span className="mentor-sync-line" aria-hidden="true" />
+           </div>
+-          <div className="mt-5 grid gap-3 md:grid-cols-3">
++          <div className="mt-4 grid gap-3 md:grid-cols-3">
+             {[
+               {
+                 title: "学生端输入",
+                 metric: `${unansweredQuestionCount} 条待回复`,
+-                detail: "学员完成任务、发起提问，形成导师可处理的真实成长信号。",
++                detail: "任务与提问形成成长信号。",
+                 icon: GraduationCap,
+                 tone: "text-[var(--role-accent)] bg-[var(--role-soft)] ring-[var(--role-border)]",
+               },
+               {
+                 title: "导师确认",
+                 metric: `${publishedFeedbackCount} 条已沉淀`,
+-                detail: "导师评分、反馈、回复和任务建议会成为学生端下一步行动。",
++                detail: "反馈与回复回到下一步行动。",
+                 icon: MessageSquareText,
+                 tone: "text-emerald-700 bg-emerald-50 ring-emerald-100",
+               },
+               {
+                 title: "HRBP 读取",
+                 metric: `${hrSyncCount} 条协同`,
+-                detail: "HRBP 只看聚合证据和需介入动作，减少反复私聊追问。",
++                detail: "只同步证据和需介入动作。",
+                 icon: LayoutDashboard,
+                 tone: "text-amber-700 bg-amber-50 ring-amber-100",
+               },
+@@
+           </div>
+           </div>
+-          <aside className="mentor-focus-card rounded-xl border border-[var(--role-border)] bg-white/88 p-4 shadow-[0_12px_30px_rgba(15,23,42,0.06)]">
+-            <div className="flex items-start justify-between gap-3">
+-              <div className="mentor-command-heading">
+-                <span className="mentor-kicker">Mentor Command</span>
+-                <p className="text-xs font-black text-[var(--role-accent)]">当前处理对象</p>
+-                <h3 className="mt-2 text-2xl font-black text-slate-950">{selected.name}</h3>
+-                <p className="mt-1 text-sm font-semibold text-slate-500">{selected.title} · {selected.department}</p>
+-              </div>
+-              <AttentionBadge risk={selected.risk} />
+-            </div>
+-            <div className="mt-5 rounded-lg bg-slate-50 p-4">
+-              <div className="flex items-end justify-between gap-3">
+-                <div>
+-                  <p className="text-xs font-bold text-slate-500">成长进度</p>
+-                  <p className="mt-1 text-4xl font-black text-slate-950">{selected.progress}%</p>
+-                </div>
+-                <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-[var(--role-accent)] ring-1 ring-[var(--role-border)]">{selected.action}</span>
+-              </div>
+-              <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200">
+-                <div className="mentor-progress-fill h-full rounded-full" data-progress-fill="" style={{ width: `${selected.progress}%` }} />
+-              </div>
+-            </div>
+-            <div className="mt-4 rounded-lg bg-[var(--role-soft)] p-3">
+-              <p className="text-xs font-black text-[var(--role-accent)]">本次辅导重点</p>
+-              <p className="mt-1 text-sm font-semibold leading-6 text-slate-700">{selected.focus}</p>
+-            </div>
+-          </aside>
+         </div>
+-          <div className="mt-5 grid gap-3 rounded-lg border border-[var(--role-border)] bg-white/82 p-4 md:grid-cols-4">
++          <div className="mt-4 grid gap-3 rounded-lg border border-[var(--role-border)] bg-white/82 p-3 md:grid-cols-4">
+*** End Patch

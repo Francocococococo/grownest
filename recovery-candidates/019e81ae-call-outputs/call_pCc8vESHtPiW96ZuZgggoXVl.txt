@@ -1,0 +1,322 @@
+  const homeRef = useRef<HTMLElement | null>(null);
+  useHomeHeroAnimation(homeRef);
+
+  const roleCards = [
+    {
+      id: "student",
+      label: "Student",
+      title: "成长路径",
+      body: "30-60-90 天成长轨道",
+      detail: "明确本周任务与下一步行动",
+      accent: "#32B889",
+      icon: GraduationCap,
+      className: "left-0 top-[28%] lg:-left-2",
+      depth: 1.15,
+    },
+    {
+      id: "mentor",
+      label: "Mentor",
+      title: "导师反馈",
+      body: "AI 结构化带教反馈",
+      detail: "把经验带教变成标准动作",
+      accent: "#C9922E",
+      icon: MessageSquareText,
+      className: "right-0 top-[11%] lg:-right-2",
+      depth: 1.35,
+    },
+    {
+      id: "hr",
+      label: "HR",
+      title: "风险洞察",
+      body: "适岗风险识别与跟进建议",
+      detail: "提前发现需要关注的人",
+      accent: "#4B32C3",
+      icon: LayoutDashboard,
+      className: "bottom-[8%] right-[8%]",
+      depth: 1.55,
+    },
+  ];
+  const productModules = [
+    ["实习生成长路径", "把阶段目标、任务推进和导师反馈沉淀成清晰的个人成长轨迹。"],
+    ["导师反馈工作流", "把分散观察整理为结构化反馈，让带教动作稳定、可复用。"],
+    ["HR 风险洞察", "聚合任务、反馈和协同记录，提前识别需要支持的对象。"],
+  ];
+
+  return (
+    <main ref={homeRef} className="home-shell relative min-h-screen overflow-hidden bg-[#F6F4FA] text-[#171321]">
+      <div className="home-ambient home-ambient-a" data-home-glow="" />
+      <div className="home-ambient home-ambient-b" />
+
+      <nav className="relative z-20 mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-5" data-home-nav="">
+        <BrandLogo />
+        <div className="hidden items-center gap-7 rounded-full border border-[#504678]/10 bg-white/48 px-5 py-2 text-sm font-medium text-[#6F6A7A] backdrop-blur md:flex">
+          <a href="#intro" className="transition hover:text-[#171321]">产品介绍</a>
+          <a href="#capability" className="transition hover:text-[#171321]">核心能力</a>
+        </div>
+        <button
+          type="button"
+          onClick={() => onNavigate("/login")}
+          className="rounded-[12px] bg-[#241A48] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_14px_34px_rgba(36,26,72,0.18)] transition hover:bg-[#4B32C3]"
+        >
+          登录
+        </button>
+      </nav>
+
+      <section id="intro" className="relative z-10 mx-auto grid min-h-[calc(100vh-82px)] max-w-7xl items-center gap-10 px-5 pb-16 pt-8 lg:grid-cols-[0.88fr_1.12fr]">
+        <div className="max-w-3xl">
+          <p className="text-sm font-semibold text-[#4B32C3]" data-home-copy="">AI-powered Internship Growth & Mentorship System</p>
+          <h1 className="mt-5 text-[clamp(3rem,7vw,7.2rem)] font-semibold leading-[0.94] tracking-[0] text-[#171321]" data-home-title="">
+            GrowNest 鹅苗成长舱
+          </h1>
+          <p className="mt-7 max-w-xl text-lg leading-8 text-[#6F6A7A]" data-home-copy="">
+            面向实习生、导师与 HR 的 AI 成长协同系统。
+          </p>
+          <p className="mt-4 max-w-2xl text-2xl font-semibold leading-snug text-[#241A48]" data-home-copy="">
+            让实习生成长可见，让导师带教有序，让 HR 协同更轻。
+          </p>
+          <div className="mt-9 flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={() => onNavigate("/login")}
+              className="inline-flex items-center gap-2 rounded-[14px] bg-[#4B32C3] px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_44px_rgba(75,50,195,0.18)] transition hover:bg-[#241A48]"
+              data-home-cta=""
+            >
+              进入系统
+              <ChevronRight className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => document.getElementById("capability")?.scrollIntoView({ behavior: "smooth" })}
+              className="rounded-[14px] border border-[#504678]/12 bg-white/54 px-5 py-3 text-sm font-semibold text-[#241A48] backdrop-blur transition hover:bg-white/82"
+              data-home-cta=""
+            >
+              查看产品设计
+            </button>
+          </div>
+        </div>
+
+        <div className="relative min-h-[620px] lg:min-h-[700px]" data-home-reveal="">
+          <div className="absolute inset-0" data-home-stage="">
+            <svg className="pointer-events-none absolute inset-0 z-10 h-full w-full" viewBox="0 0 760 680" fill="none" aria-hidden="true">
+              <path data-home-path="student" d="M132 302 C220 254 262 284 330 340" stroke="rgba(75,50,195,0.32)" strokeWidth="1.4" strokeLinecap="round" />
+              <path data-home-path="mentor" d="M604 172 C522 218 484 250 438 330" stroke="rgba(75,50,195,0.32)" strokeWidth="1.4" strokeLinecap="round" />
+              <path data-home-path="hr" d="M575 512 C520 476 506 434 468 378" stroke="rgba(75,50,195,0.32)" strokeWidth="1.4" strokeLinecap="round" />
+              <path data-home-path="insight" d="M468 348 C544 338 590 350 640 392" stroke="rgba(75,50,195,0.3)" strokeWidth="1.4" strokeLinecap="round" />
+            </svg>
+
+            <div className="absolute left-1/2 top-1/2 z-0 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#504678]/10" />
+            <div className="absolute left-1/2 top-1/2 z-0 h-[390px] w-[390px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#504678]/10" />
+
+            <div className="home-product-shell absolute left-1/2 top-1/2 z-20 w-[min(80vw,420px)] -translate-x-1/2 -translate-y-1/2 rounded-[28px] border border-[#504678]/12 bg-white/68 p-5 shadow-[0_28px_84px_rgba(36,26,72,0.10)] backdrop-blur-[22px]">
+              <div className="flex items-center justify-between border-b border-[#504678]/10 pb-4">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-[#4B32C3]">Collaboration Layer</p>
+                  <p className="mt-1 text-lg font-semibold text-[#171321]">三端成长协同引擎</p>
+                </div>
+                <BrainCircuit className="h-7 w-7 text-[#4B32C3]" />
+              </div>
+              <div className="mt-5 grid gap-3">
+                {[
+                  ["01", "成长路径", "实习生确认阶段任务", "#32B889"],
+                  ["02", "反馈生成", "导师沉淀结构化建议", "#C9922E"],
+                  ["03", "风险同步", "HR 获取跟进行动", "#4B32C3"],
+                ].map(([step, label, detail, color]) => (
+                  <div key={label} className="rounded-[16px] border border-[#504678]/10 bg-white/58 p-3" data-home-screen-row="">
+                    <div className="flex items-start gap-3">
+                      <span className="mt-0.5 rounded-full px-2 py-1 text-[10px] font-semibold text-white" style={{ backgroundColor: color }}>
+                        {step}
+                      </span>
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-[#171321]">{label}</p>
+                        <p className="mt-1 text-xs leading-5 text-[#6F6A7A]">{detail}</p>
+                      </div>
+                    </div>
+                    <div className="mt-3 flex items-center gap-1.5">
+                      {[0, 1, 2, 3].map((index) => (
+                        <span
+                          key={index}
+                          className="h-1.5 flex-1 rounded-full"
+                          style={{ backgroundColor: index < Number(step) + 1 ? color : "rgba(80,70,120,0.10)" }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {roleCards.map(({ id, label, title, body, detail, accent, icon: Icon, className, depth }) => (
+              <div
+                key={id}
+                className={cn("home-role-card absolute z-30 w-[230px] rounded-[22px] border border-[#504678]/12 bg-white/68 p-4 shadow-[0_22px_60px_rgba(36,26,72,0.08)] backdrop-blur-[18px]", className)}
+                data-home-card={id}
+                data-depth={depth}
+                data-accent={accent}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-semibold" style={{ color: accent }}>{label}</p>
+                    <p className="mt-2 text-lg font-semibold text-[#171321]">{title}</p>
+                  </div>
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] bg-white/70 ring-1 ring-[#504678]/10">
+                    <Icon className="h-5 w-5" style={{ color: accent }} />
+                  </div>
+                </div>
+                <p className="mt-4 text-sm font-medium text-[#241A48]">{body}</p>
+                <p className="mt-2 text-xs leading-5 text-[#6F6A7A]">{detail}</p>
+              </div>
+            ))}
+
+            <div className="home-insight-panel absolute bottom-[18%] left-[7%] z-40 w-[280px] rounded-[22px] border border-[#504678]/12 bg-white/72 p-4 shadow-[0_22px_60px_rgba(36,26,72,0.08)] backdrop-blur-[18px]" data-home-insight-panel="">
+              <div className="mb-4 flex items-center justify-between">
+                <p className="text-sm font-semibold text-[#171321]">AI Insight</p>
+                <Sparkles className="h-4 w-4 text-[#4B32C3]" />
+              </div>
+              {["识别成长阻塞点", "生成导师反馈建议", "同步 HR 跟进行动"].map((item) => (
+                <div key={item} className="mb-2 rounded-[12px] border border-[#504678]/10 bg-[#F6F4FA]/76 px-3 py-2 text-xs font-medium text-[#241A48]" data-home-insight="">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="capability" className="relative z-10 mx-auto max-w-7xl px-5 pb-20">
+        <div className="grid gap-4 md:grid-cols-3">
+          {productModules.map(([title, detail], index) => (
+            <div key={title} className="rounded-[20px] border border-[#504678]/10 bg-white/58 p-5 backdrop-blur" data-home-showcase-card="">
+              <span className="text-xs font-semibold text-[#4B32C3]">0{index + 1}</span>
+              <h2 className="mt-4 text-lg font-semibold text-[#171321]">{title}</h2>
+              <p className="mt-3 text-sm leading-7 text-[#6F6A7A]">{detail}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function LoginPage({ onLogin }: { onLogin: (user: AuthUser) => void }) {
+  const loginRef = useRef<HTMLElement | null>(null);
+  const [role, setRole] = useState<UserRole>("student");
+  const [username, setUsername] = useState("student");
+  const [password, setPassword] = useState("123456");
+  const [error, setError] = useState("");
+  const [showLogin, setShowLogin] = useState(false);
+
+  const selectedUser = mockUsers.find((user) => user.role === role)!;
+  const loginRoleMeta: Record<string, { shortLabel: string; title: string; detail: string }> = {
+    student: {
+      shortLabel: "实习生",
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--role-border);
+  outline-offset: 2px;
+}
+
+.future-card {
+  position: relative;
+  isolation: isolate;
+  border-color: var(--line-soft) !important;
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow-rest);
+  transition:
+    transform 220ms var(--ease-couch),
+    border-color 220ms var(--ease-couch),
+    box-shadow 220ms var(--ease-couch),
+    background-color 220ms var(--ease-couch);
+}
+
+.future-card::before {
+  display: none;
+}
+
+.future-card::after {
+  display: none;
+}
+
+.future-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--line-strong) !important;
+  box-shadow: var(--shadow-soft);
+}
+
+.home-shell {
+  background:
+    linear-gradient(rgba(80, 70, 120, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(80, 70, 120, 0.035) 1px, transparent 1px),
+    #f6f4fa;
+  background-size: 40px 40px, 40px 40px, auto;
+}
+
+.home-shell::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(circle at 14% 22%, rgba(75, 50, 195, 0.08), transparent 30%),
+    radial-gradient(circle at 78% 16%, rgba(50, 184, 137, 0.09), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(246, 244, 250, 0));
+}
+
+.home-ambient {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 999px;
+  filter: blur(28px);
+}
+
+.home-ambient-a {
+  right: 8%;
+  top: 18%;
+  width: 360px;
+  height: 360px;
+  background: rgba(75, 50, 195, 0.12);
+}
+
+.home-ambient-b {
+  left: 44%;
+  bottom: 8%;
+  width: 300px;
+  height: 300px;
+  background: rgba(50, 184, 137, 0.1);
+}
+
+.home-product-shell,
+.home-role-card,
+.home-insight-panel {
+  will-change: transform, opacity;
+}
+
+.home-product-shell::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  border-radius: inherit;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.66), transparent 28%),
+    radial-gradient(circle at 80% 10%, rgba(75, 50, 195, 0.09), transparent 32%);
+}
+
+.home-product-shell > *,
+.home-insight-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.home-role-card {
+  transition:
+    border-color 180ms var(--ease-couch),
+    background-color 180ms var(--ease-couch),
+    box-shadow 180ms var(--ease-couch);
+}
+
+.home-role-card:hover,
+.home-insight-panel:hover {

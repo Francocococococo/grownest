@@ -1,0 +1,55 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/index.css
+@@
+ .mentor-rhythm-track {
+   position: relative;
+   overflow: hidden;
++  --mentor-rhythm-progress: 7.14%;
+   border: 1px solid var(--role-border);
+   border-radius: 14px;
+   background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(239, 246, 255, 0.72));
+   padding: 14px;
+ }
+@@
+ .mentor-rhythm-rail::before {
+   position: absolute;
+   inset: 0;
+-  width: 52%;
++  width: var(--mentor-rhythm-progress);
+   content: "";
+   border-radius: inherit;
+   background: linear-gradient(90deg, var(--role-accent), var(--role-accent-strong));
++  transition: width 360ms var(--ease-couch);
+ }
+ 
+ .mentor-rhythm-playhead {
+   position: absolute;
+   top: 50%;
+-  left: 52%;
++  left: var(--mentor-rhythm-progress);
+   z-index: 2;
+   width: 14px;
+   height: 14px;
+@@
+   background: var(--role-accent);
+   box-shadow: 0 8px 18px rgba(15, 23, 42, 0.18);
+   transform: translate(-50%, -50%);
++  transition: left 360ms var(--ease-couch);
+ }
+@@
+ .mentor-rhythm-clip {
+   min-width: 0;
+   border: 1px solid var(--role-border);
+   border-radius: 10px;
+   background: rgba(255, 255, 255, 0.88);
+   padding: 10px;
+   animation: mentor-card-enter 520ms var(--ease-couch) both;
++  transition: background 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
++}
++
++.mentor-rhythm-clip.is-active {
++  border-color: rgba(79, 70, 229, 0.28);
++  background: rgba(255, 255, 255, 0.96);
++  box-shadow: inset 0 0 0 1px rgba(79, 70, 229, 0.08), 0 10px 24px rgba(79, 70, 229, 0.08);
+ }
+*** End Patch

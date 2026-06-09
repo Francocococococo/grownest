@@ -1,0 +1,84 @@
+
+  return (
+    <div ref={ref} className={cn("mt-4 min-w-0", className)} style={{ height }}>
+      {width > 0 && children(width, height)}
+    </div>
+  );
+}
+
+function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
+  const homeRef = useRef<HTMLElement | null>(null);
+  useHomeHeroAnimation(homeRef);
+
+  const roleCards = [
+    {
+      id: "student",
+      label: "Student",
+      title: "成长路径",
+      body: "30-60-90 天成长轨道",
+      detail: "明确本周任务与下一步行动",
+      accent: "#32B889",
+      icon: GraduationCap,
+      className: "left-[3%] top-[16%]",
+      depth: 1.15,
+    },
+    {
+      id: "mentor",
+      label: "Mentor",
+      title: "导师反馈",
+      body: "AI 结构化带教反馈",
+      detail: "把经验带教变成标准动作",
+      accent: "#C9922E",
+      icon: MessageSquareText,
+      className: "right-[3%] top-[16%]",
+      depth: 1.35,
+    },
+    {
+      id: "hr",
+      label: "HR",
+      title: "风险洞察",
+      body: "适岗风险识别与跟进建议",
+      detail: "提前发现需要关注的人",
+      accent: "#4B32C3",
+      icon: LayoutDashboard,
+      className: "bottom-[7%] right-[9%]",
+      depth: 1.55,
+    },
+  ];
+  const productModules = [
+    {
+      title: "实习生成长路径",
+      detail: "把阶段目标、任务推进和导师反馈沉淀成清晰的个人成长轨迹。",
+      accent: "#32B889",
+      chips: ["阶段目标", "本周任务", "导师提问"],
+      icon: GraduationCap,
+    },
+    {
+      title: "导师反馈工作流",
+            </button>
+          </div>
+        </div>
+
+        <div className="relative min-h-[620px] lg:min-h-[700px]" data-home-reveal="">
+          <div className="absolute inset-0" data-home-stage="">
+            <svg className="pointer-events-none absolute inset-0 z-10 h-full w-full" viewBox="0 0 760 680" fill="none" aria-hidden="true">
+              <path data-home-path="student" d="M132 302 C220 254 262 284 330 340" stroke="rgba(75,50,195,0.32)" strokeWidth="1.4" strokeLinecap="round" />
+              <path data-home-path="mentor" d="M604 172 C522 218 484 250 438 330" stroke="rgba(75,50,195,0.32)" strokeWidth="1.4" strokeLinecap="round" />
+              <path data-home-path="hr" d="M575 512 C520 476 506 434 468 378" stroke="rgba(75,50,195,0.32)" strokeWidth="1.4" strokeLinecap="round" />
+              <path data-home-path="insight" d="M468 348 C544 338 590 350 640 392" stroke="rgba(75,50,195,0.3)" strokeWidth="1.4" strokeLinecap="round" />
+            </svg>
+
+            <div className="absolute left-1/2 top-1/2 z-0 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#504678]/10" />
+            <div className="absolute left-1/2 top-1/2 z-0 h-[390px] w-[390px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#504678]/10" />
+
+            <div className="home-product-shell absolute left-1/2 top-1/2 z-20 w-[min(80vw,420px)] -translate-x-1/2 -translate-y-1/2 rounded-[28px] border border-[#504678]/12 bg-white/68 p-5 shadow-[0_28px_84px_rgba(36,26,72,0.10)] backdrop-blur-[22px]">
+              <div className="flex items-center justify-between border-b border-[#504678]/10 pb-4">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-[#4B32C3]">Collaboration Layer</p>
+                  <p className="mt-1 text-lg font-semibold text-[#171321]">三端成长协同引擎</p>
+                </div>
+                <BrainCircuit className="h-7 w-7 text-[#4B32C3]" />
+              </div>
+              <div className="mt-5 grid gap-3">
+                {[
+                  ["01", "成长路径", "实习生确认阶段任务", "#32B889"],

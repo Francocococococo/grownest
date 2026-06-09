@@ -1,0 +1,14 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-                  <span className="shrink-0 rounded-full bg-white px-2.5 py-1 text-xs font-black text-[var(--role-accent)] ring-1 ring-[var(--role-border)]">{item.value}</span>
++                  <span className="mentor-priority-value shrink-0 rounded-full px-2.5 py-1 text-xs font-black">{item.value}</span>
+                 </div>
+ 	              <p className="mt-2 text-sm leading-6 text-slate-700">{item.detail}</p>
+-                <div className="mt-4 rounded-xl bg-white/80 px-3 py-2">
++                <div className="mentor-priority-source mt-4 rounded-xl px-3 py-2">
+                   <p className="text-xs font-bold text-slate-500">来源：{item.source}</p>
+-                  <p className="mt-1 text-xs font-semibold leading-5 text-[var(--role-accent)]">{item.impact}</p>
++                  <p className="mt-1 text-xs font-semibold leading-5">{item.impact}</p>
+                 </div>
+*** End Patch

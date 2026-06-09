@@ -1,0 +1,11 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-  const rotatePortal = () => {
+-    const currentIndex = Math.max(0, primaryPortalRoles.findIndex((item) => item.role === role));
+-    const next = primaryPortalRoles[(currentIndex + 1) % primaryPortalRoles.length];
+-    selectRole(next.role);
+-  };
+-
+   const submit = () => {
+*** End Patch

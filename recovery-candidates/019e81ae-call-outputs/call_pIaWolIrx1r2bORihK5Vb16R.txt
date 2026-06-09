@@ -1,0 +1,357 @@
+        };
+
+        root.addEventListener("mousemove", onMove);
+        root.addEventListener("mouseleave", onLeave);
+
+        const cleanups = cards.map((card) => {
+          const flow = card.dataset.homeCard;
+          const relatedPath = root.querySelector<SVGPathElement>(`[data-home-path="${flow}"]`);
+          const enter = () => {
+            gsap.to(card, { y: "-=8", borderColor: "rgba(75,50,195,0.24)", backgroundColor: "rgba(255,255,255,0.84)", duration: 0.22, overwrite: "auto" });
+            if (relatedPath) gsap.to(relatedPath, { strokeWidth: 2.2, stroke: card.dataset.accent ?? "#4B32C3", duration: 0.2, overwrite: "auto" });
+          };
+          const leave = () => {
+            gsap.to(card, { y: 0, borderColor: "rgba(80,70,120,0.12)", backgroundColor: "rgba(255,255,255,0.68)", duration: 0.24, overwrite: "auto" });
+            if (relatedPath) gsap.to(relatedPath, { strokeWidth: 1.4, stroke: "rgba(75,50,195,0.32)", duration: 0.2, overwrite: "auto" });
+          };
+          card.addEventListener("mouseenter", enter);
+          card.addEventListener("mouseleave", leave);
+          return () => {
+            card.removeEventListener("mouseenter", enter);
+            card.removeEventListener("mouseleave", leave);
+          };
+        });
+
+        const capabilitySection = root.querySelector<HTMLElement>("[data-capability-section]");
+        const playCapability = () => {
+          const mapPaths = gsap.utils.toArray<SVGPathElement>("[data-capability-map-path]");
+          mapPaths.forEach((path) => {
+            const length = path.getTotalLength();
+            gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
+          });
+          const capTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+          capTl
+            .from("[data-capability-kicker]", { autoAlpha: 0, y: 16, duration: 0.38 })
+            .from("[data-capability-title]", { autoAlpha: 0, y: 22, duration: 0.48 }, "-=0.2")
+            .from("[data-capability-summary]", { autoAlpha: 0, y: 18, duration: 0.42 }, "-=0.24")
+            .from("[data-capability-rail]", { autoAlpha: 0, y: 18, scaleX: 0.96, duration: 0.52 }, "-=0.12")
+            .to(mapPaths, { strokeDashoffset: 0, stagger: 0.09, duration: 0.72, ease: "power2.inOut" }, "-=0.18")
+            .from("[data-capability-map-node]", { autoAlpha: 0, y: 12, scale: 0.88, stagger: 0.075, duration: 0.36 }, "-=0.42")
+            .from("[data-capability-map-chip]", { autoAlpha: 0, y: 8, stagger: 0.04, duration: 0.24 }, "-=0.16")
+            .from("[data-capability-card]", { autoAlpha: 0, y: 42, scale: 0.95, stagger: 0.14, duration: 0.58 }, "-=0.18")
+            .from("[data-capability-visual]", { autoAlpha: 0, y: 14, stagger: 0.08, duration: 0.34 }, "-=0.36")
+            .from("[data-capability-line]", { scaleX: 0, transformOrigin: "left center", stagger: 0.1, duration: 0.55 }, "-=0.28")
+            .from("[data-capability-chip]", { autoAlpha: 0, y: 8, stagger: 0.035, duration: 0.24 }, "-=0.26");
+          gsap.to("[data-capability-pulse]", { scale: 1.18, autoAlpha: 0.45, duration: 1.8, ease: "sine.inOut", repeat: -1, yoyo: true, stagger: 0.28 });
+          gsap.to("[data-capability-map-path]", { strokeDashoffset: "-=22", duration: 3.2, ease: "none", repeat: -1, delay: 1.2 });
+          gsap.to("[data-capability-map-node]", { y: -3, duration: 2.2, ease: "sine.inOut", repeat: -1, yoyo: true, stagger: 0.18 });
+          const stageCards = gsap.utils.toArray<HTMLElement>("[data-capability-card]");
+          const stageNodes = gsap.utils.toArray<HTMLElement>("[data-capability-map-node]");
+          const workbenchPanels = gsap.utils.toArray<HTMLElement>("[data-workbench-panel]");
+          const activateStage = (activeIndex: number) => {
+            stageCards.forEach((card, index) => {
+              const active = index === activeIndex;
+              const accent = card.dataset.accent ?? "#4B32C3";
+              gsap.to(card, {
+                y: active ? -10 : 0,
+                borderColor: active ? `${accent}55` : "rgba(80,70,120,0.10)",
+                backgroundColor: active ? "rgba(255,255,255,0.82)" : "rgba(255,255,255,0.58)",
+                boxShadow: active ? "0 30px 86px rgba(36,26,72,0.12)" : "0 18px 52px rgba(36,26,72,0.055)",
+                duration: 0.42,
+                overwrite: "auto",
+              });
+              gsap.to(card.querySelectorAll("[data-capability-visual-step]"), {
+                y: active ? (stepIndex) => (stepIndex === 1 ? -5 : -2) : 0,
+                opacity: active ? 1 : 0.72,
+                stagger: 0.045,
+                duration: 0.32,
+                overwrite: "auto",
+              });
+            });
+            stageNodes.forEach((node, index) => {
+              const active = index === activeIndex;
+              const accent = node.dataset.accent ?? "#4B32C3";
+              gsap.to(node, {
+                y: active ? -8 : 0,
+                borderColor: active ? `${accent}66` : "rgba(80,70,120,0.10)",
+                backgroundColor: active ? "rgba(255,255,255,0.86)" : "rgba(255,255,255,0.62)",
+                duration: 0.38,
+                overwrite: "auto",
+              });
+            });
+            workbenchPanels.forEach((panel, index) => {
+              const active = index === activeIndex;
+              gsap.to(panel, {
+                autoAlpha: active ? 1 : 0,
+                y: active ? 0 : 16,
+                scale: active ? 1 : 0.985,
+                duration: 0.42,
+                overwrite: "auto",
+                pointerEvents: active ? "auto" : "none",
+              });
+              if (active) {
+                gsap.fromTo(
+                  panel.querySelectorAll("[data-workbench-item]"),
+                  { autoAlpha: 0, y: 10 },
+                  { autoAlpha: 1, y: 0, stagger: 0.055, duration: 0.28, overwrite: "auto" },
+                );
+              }
+            });
+          };
+          const stageLoop = gsap.timeline({ repeat: -1, repeatDelay: 0.2, delay: 0.9 });
+          [0, 1, 2].forEach((index) => {
+            stageLoop.call(() => activateStage(index)).to({}, { duration: 1.35 });
+          });
+        };
+
+        let capabilityPlayed = false;
+        let observer: IntersectionObserver | null = null;
+        observer = capabilitySection
+          ? new IntersectionObserver(
+              ([entry]) => {
+                if (!capabilityPlayed && entry.isIntersecting) {
+                  capabilityPlayed = true;
+                  playCapability();
+                  observer?.disconnect();
+                }
+      chips: ["关注信号", "风险原因", "跟进行动"],
+      flow: ["信号聚合", "风险判断", "行动同步"],
+      summary: "组织跟进输出",
+      icon: ShieldCheck,
+      workbenchTitle: "HR 风险洞察台",
+      workbenchMeta: "关注队列 · 自动生成行动",
+      workbenchItems: ["风险原因：反馈缺失 1 次", "建议动作：同步导师跟进", "复盘节点：下周三前确认"],
+    },
+  ];
+  const capabilityFlowNodes = [
+    { id: "input", label: "成长输入", detail: "任务 / 提问 / 阶段", x: "5%", y: "14%", color: "#4B9D83" },
+    { id: "parse", label: "AI 解析", detail: "归因 / 摘要 / 优先级", x: "25%", y: "36%", color: "#5E4CB2" },
+    { id: "mentor", label: "导师加工", detail: "观察 / 反馈 / 确认", x: "46%", y: "14%", color: "#A98242" },
+    { id: "risk", label: "风险判断", detail: "信号 / 队列 / 建议", x: "67%", y: "36%", color: "#5E4CB2" },
+    { id: "loop", label: "行动回流", detail: "同步 / 跟进 / 复盘", x: "46%", y: "70%", color: "#4B9D83" },
+  ];
+
+  return (
+    <main ref={homeRef} className="home-shell relative min-h-screen overflow-hidden bg-[#F6F4FA] text-[#171321]">
+      <div className="home-ambient home-ambient-a" data-home-glow="" />
+      <div className="home-ambient home-ambient-b" />
+
+      <nav className="relative z-20 mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-5" data-home-nav="">
+        <BrandLogo />
+        <div className="hidden items-center gap-7 rounded-full border border-[#504678]/10 bg-white/48 px-5 py-2 text-sm font-medium text-[#6F6A7A] backdrop-blur md:flex">
+          <a href="#intro" className="transition hover:text-[#171321]">产品介绍</a>
+          <a href="#capability" className="transition hover:text-[#171321]">核心能力</a>
+        </div>
+        <button
+          type="button"
+          onClick={() => onNavigate("/login")}
+          className="rounded-[12px] bg-[#241A48] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_14px_34px_rgba(36,26,72,0.18)] transition hover:bg-[#4B32C3]"
+        >
+          登录
+        </button>
+      </nav>
+
+      <section id="intro" className="relative z-10 mx-auto grid min-h-[calc(100vh-82px)] max-w-7xl items-center gap-10 px-5 pb-20 pt-8 lg:grid-cols-[0.88fr_1.12fr]">
+        <div className="max-w-3xl">
+          <p className="text-sm font-semibold text-[#4B32C3]" data-home-copy="">AI-powered Internship Growth & Mentorship System</p>
+          <h1 className="mt-5 text-[clamp(3rem,7vw,7.2rem)] font-semibold leading-[0.94] tracking-[0] text-[#171321]" data-home-title="">
+            GrowNest 鹅苗成长舱
+          </h1>
+          <p className="mt-7 max-w-xl text-lg leading-8 text-[#6F6A7A]" data-home-copy="">
+            面向实习生、导师与 HR 的 AI 成长协同系统。
+          </p>
+          <p className="mt-4 max-w-2xl text-2xl font-semibold leading-snug text-[#241A48]" data-home-copy="">
+            让实习生成长可见，让导师带教有序，让 HR 协同更轻。
+          </p>
+          <div className="mt-9 flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={() => onNavigate("/login")}
+              className="inline-flex items-center gap-2 rounded-[14px] bg-[#4B32C3] px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_44px_rgba(75,50,195,0.18)] transition hover:bg-[#241A48]"
+              data-home-cta=""
+            >
+              进入系统
+              <ChevronRight className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => document.getElementById("capability")?.scrollIntoView({ behavior: "smooth" })}
+              className="rounded-[14px] border border-[#504678]/12 bg-white/54 px-5 py-3 text-sm font-semibold text-[#241A48] backdrop-blur transition hover:bg-white/82"
+              data-home-cta=""
+            >
+              查看产品设计
+            </button>
+          </div>
+        </div>
+
+        <div className="relative min-h-[620px] lg:min-h-[700px]" data-home-reveal="">
+          <div className="absolute inset-0" data-home-stage="">
+            <svg className="pointer-events-none absolute inset-0 z-10 h-full w-full" viewBox="0 0 760 680" fill="none" aria-hidden="true">
+              <path data-home-path="student" d="M132 302 C220 254 262 284 330 340" stroke="rgba(75,50,195,0.32)" strokeWidth="1.4" strokeLinecap="round" />
+              <path data-home-path="mentor" d="M604 172 C522 218 484 250 438 330" stroke="rgba(75,50,195,0.32)" strokeWidth="1.4" strokeLinecap="round" />
+              <path data-home-path="hr" d="M575 512 C520 476 506 434 468 378" stroke="rgba(75,50,195,0.32)" strokeWidth="1.4" strokeLinecap="round" />
+              <path data-home-path="insight" d="M468 348 C544 338 590 350 640 392" stroke="rgba(75,50,195,0.3)" strokeWidth="1.4" strokeLinecap="round" />
+            </svg>
+
+            <div className="absolute left-1/2 top-1/2 z-0 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#504678]/10" />
+            <div className="absolute left-1/2 top-1/2 z-0 h-[390px] w-[390px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#504678]/10" />
+
+            <div className="home-product-shell absolute left-1/2 top-1/2 z-20 w-[min(70vw,340px)] -translate-x-1/2 -translate-y-1/2 rounded-[28px] border border-[#504678]/12 bg-white/68 p-4 shadow-[0_28px_84px_rgba(36,26,72,0.10)] backdrop-blur-[22px]">
+              <div className="flex items-center justify-between border-b border-[#504678]/10 pb-4">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-[#4B32C3]">Collaboration Layer</p>
+                  <p className="mt-1 text-lg font-semibold text-[#171321]">三端成长协同引擎</p>
+                </div>
+                <BrainCircuit className="h-7 w-7 text-[#4B32C3]" />
+              </div>
+              <div className="mt-4 grid gap-2.5">
+                {[
+                  ["01", "成长路径", "实习生确认阶段任务", "#32B889"],
+                  ["02", "反馈生成", "导师沉淀结构化建议", "#C9922E"],
+                  ["03", "风险同步", "HR 获取跟进行动", "#4B32C3"],
+                ].map(([step, label, detail, color]) => (
+                  <div key={label} className="rounded-[16px] border border-[#504678]/10 bg-white/58 p-2.5" data-home-screen-row="">
+                    <div className="flex items-start gap-3">
+                      <span className="mt-0.5 rounded-full px-2 py-1 text-[10px] font-semibold text-white" style={{ backgroundColor: color }}>
+                        {step}
+                      </span>
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-[#171321]">{label}</p>
+                        <p className="mt-1 text-[11px] leading-5 text-[#6F6A7A]">{detail}</p>
+                      </div>
+                    </div>
+                    <div className="mt-3 flex items-center gap-1.5">
+                      {[0, 1, 2, 3].map((index) => (
+                        <span
+                          key={index}
+                          className="h-1.5 flex-1 rounded-full"
+                          style={{ backgroundColor: index < Number(step) + 1 ? color : "rgba(80,70,120,0.10)" }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {roleCards.map(({ id, label, title, body, detail, accent, icon: Icon, className, depth }) => (
+              <div
+                key={id}
+                className={cn("home-role-card absolute z-30 w-[200px] rounded-[22px] border border-[#504678]/12 bg-white/68 p-3.5 shadow-[0_22px_60px_rgba(36,26,72,0.08)] backdrop-blur-[18px]", className)}
+                data-home-card={id}
+                data-depth={depth}
+                data-accent={accent}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-semibold" style={{ color: accent }}>{label}</p>
+                    <p className="mt-2 text-lg font-semibold text-[#171321]">{title}</p>
+                  </div>
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] bg-white/70 ring-1 ring-[#504678]/10">
+                    <Icon className="h-5 w-5" style={{ color: accent }} />
+                  </div>
+                </div>
+                <p className="mt-3 text-sm font-medium text-[#241A48]">{body}</p>
+                <p className="mt-2 text-xs leading-5 text-[#6F6A7A]">{detail}</p>
+              </div>
+            ))}
+
+            <div className="home-insight-panel absolute bottom-[-1%] left-[-3%] z-40 w-[220px] rounded-[22px] border border-[#504678]/12 bg-white/72 p-3.5 shadow-[0_22px_60px_rgba(36,26,72,0.08)] backdrop-blur-[18px]" data-home-insight-panel="">
+              <div className="mb-4 flex items-center justify-between">
+                <p className="text-sm font-semibold text-[#171321]">AI Insight</p>
+                <Sparkles className="h-4 w-4 text-[#4B32C3]" data-home-insight-icon="" />
+              </div>
+              {["识别成长阻塞点", "生成导师反馈建议", "同步 HR 跟进行动"].map((item) => (
+                <div key={item} className="mb-2 rounded-[12px] border border-[#504678]/10 bg-[#F6F4FA]/76 px-3 py-2 text-xs font-medium text-[#241A48]" data-home-insight="">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="capability" className="capability-section relative z-30 px-5 pt-14 pb-24" data-capability-section="">
+        <div className="mx-auto max-w-7xl">
+        <div className="mb-8 grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-end">
+          <div>
+            <p className="text-sm font-semibold text-[#4B32C3]" data-capability-kicker="">Core Capability</p>
+            <h2 className="mt-3 max-w-2xl text-3xl font-semibold leading-tight text-[#171321] md:text-[3.2rem]" data-capability-title="">
+              三个角色，不是三套系统，而是一条成长协同链路。
+            </h2>
+          </div>
+          <div className="capability-summary rounded-[24px] border border-[#504678]/10 bg-white/54 p-5 backdrop-blur-[18px]" data-capability-summary="">
+            <p className="text-sm leading-7 text-[#6F6A7A]">
+              从个人成长任务，到导师反馈，再到 HR 跟进行动，信息在同一条产品逻辑里流转。
+            </p>
+            <div className="mt-4 grid grid-cols-3 gap-2 text-center text-xs font-semibold text-[#241A48]">
+              {["Student", "Mentor", "HRBP"].map((item) => (
+                <span key={item} className="rounded-[12px] border border-[#504678]/10 bg-white/58 px-2 py-2">{item}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="capability-rail capability-flow-map relative mb-5 min-h-[360px] overflow-hidden rounded-[28px] border border-[#4E4965]/10 bg-[#FFFFFF]/54 p-5 backdrop-blur-[18px]" data-capability-rail="">
+          <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 1000 360" fill="none" aria-hidden="true">
+            <path data-capability-map-path="" d="M138 92 C226 95 248 176 345 176 C438 176 456 94 548 94 C640 96 660 178 758 178" stroke="rgba(94,76,178,0.34)" strokeWidth="2" strokeLinecap="round" />
+            <path data-capability-map-path="" d="M756 204 C694 286 598 292 540 286 C448 278 360 232 150 122" stroke="rgba(75,157,131,0.26)" strokeWidth="1.7" strokeLinecap="round" />
+          </svg>
+          <div className="absolute right-5 top-5 rounded-full border border-[#4E4965]/10 bg-white/62 px-3 py-1.5 text-xs font-semibold text-[#5E4CB2]" data-capability-map-chip="">
+            同一工作流内完成流转
+          </div>
+          {capabilityFlowNodes.map((node, index) => (
+            <div
+              key={node.id}
+              className="capability-map-node absolute w-[210px] rounded-[20px] border border-[#4E4965]/10 bg-white/70 p-4 shadow-[0_16px_44px_rgba(36,26,72,0.055)] backdrop-blur-[16px]"
+              style={{ left: node.x, top: node.y }}
+              data-capability-map-node=""
+              data-accent={node.color}
+            >
+              <div className="flex items-start gap-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white" style={{ backgroundColor: node.color }}>
+                  0{index + 1}
+                </span>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-[#171321]">{node.label}</p>
+                  <p className="mt-1 text-xs leading-5 text-[#6F6A7A]">{node.detail}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="capability-workbench grid gap-5 rounded-[28px] border border-[#4E4965]/10 bg-[#FFFFFF]/48 p-4 shadow-[0_24px_70px_rgba(36,26,72,0.06)] backdrop-blur-[20px] lg:grid-cols-[0.38fr_0.62fr]">
+          <div className="grid gap-3">
+            {productModules.map(({ title, detail, accent, chips, icon: Icon }, index) => (
+              <div key={title} className="capability-card relative overflow-hidden rounded-[22px] border border-[#4E4965]/10 bg-[#FFFFFF]/62 p-4 shadow-[0_18px_52px_rgba(36,26,72,0.055)] backdrop-blur-[18px]" data-capability-card="" data-home-showcase-card="" data-accent={accent}>
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <span className="text-xs font-semibold" style={{ color: accent }}>0{index + 1}</span>
+                    <h3 className="mt-3 text-lg font-semibold text-[#171321]">{title}</h3>
+                  </div>
+                  <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-[15px] bg-[#F8F7FB]/80 ring-1 ring-[#4E4965]/10">
+                    <span className="absolute inset-0 rounded-[15px]" style={{ backgroundColor: accent, opacity: 0.07 }} data-capability-pulse="" />
+                    <Icon className="relative h-5 w-5" style={{ color: accent }} />
+                  </div>
+                </div>
+                <p className="mt-3 text-sm leading-6 text-[#6F6A7A]">{detail}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {chips.map((chip, chipIndex) => (
+                    <span key={chip} className="rounded-full border border-[#4E4965]/10 bg-[#F8F7FB]/72 px-3 py-1.5 text-[11px] font-medium text-[#2D2544]" data-capability-chip="">
+                      <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full" style={{ backgroundColor: chipIndex === 0 ? accent : "rgba(80,70,120,0.22)" }} />
+                      {chip}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-[#4E4965]/10">
+                  <div className="h-full rounded-full" style={{ backgroundColor: accent }} data-capability-line="" />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="capability-console relative min-h-[520px] overflow-hidden rounded-[24px] border border-[#4E4965]/10 bg-[#F8F7FB]/76 p-5">
+            <div className="mb-5 flex items-center justify-between border-b border-[#4E4965]/10 pb-4">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-[#5E4CB2]">Simulated Workbench</p>

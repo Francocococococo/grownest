@@ -1,0 +1,8 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-  const sidebarCard = (
+-    <Card className={cn("enterprise-sidebar p-2", user.role !== "mentor" && "min-h-[calc(100vh-120px)]")}>
++  const sidebarCard = (
++    <Card className={cn("enterprise-sidebar p-2", user.role === "mentor" ? "mentor-sidebar-card" : "min-h-[calc(100vh-120px)]")}>
+*** End Patch

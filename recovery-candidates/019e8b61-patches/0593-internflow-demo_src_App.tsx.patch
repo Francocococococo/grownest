@@ -1,0 +1,23 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+       {!showLogin && (
+         <button
+           type="button"
+           onClick={() => openLogin(adminUser.role)}
+@@
+           管理员入口
+         </button>
+       )}
+-      <div className="mx-auto grid min-h-[calc(100vh-64px)] max-w-6xl items-center gap-10 lg:grid-cols-[0.95fr_0.88fr]">
++      <div className="mx-auto flex max-w-6xl items-start" data-gsap-logo="">
++        <BrandLogo />
++      </div>
++      <div className="mx-auto grid min-h-[calc(100vh-132px)] max-w-6xl items-center gap-10 pt-8 lg:grid-cols-[0.95fr_0.88fr]">
+         <section className="relative min-w-0" data-gsap-login-brand="">
+-          <div data-gsap-logo="">
+-            <BrandLogo />
+-          </div>
+-          <div className="mt-8 max-w-xl">
++          <div className="max-w-xl">
+*** End Patch

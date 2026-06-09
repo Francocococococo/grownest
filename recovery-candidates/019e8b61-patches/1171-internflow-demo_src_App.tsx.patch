@@ -1,0 +1,16 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-        {user.role === "mentor" ? (
++        {user.role === "mentor" ? (
+           <>
+             <main className="min-w-0 space-y-4">{workbenchCard}</main>
+-            <section className="min-w-0 space-y-4 xl:col-span-2">
++            <section className="min-w-0 space-y-4 xl:contents">
+               {children}
+             </section>
+           </>
+@@
+-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
++      <div className="mentor-stats-row grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+*** End Patch

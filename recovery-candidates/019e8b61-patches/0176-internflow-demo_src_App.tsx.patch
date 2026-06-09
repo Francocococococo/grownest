@@ -1,0 +1,36 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+ 	    <div className="space-y-6">
+ 	      <Dashboard managedInterns={managedInterns} />
+-        <DataManagementPanel
+-          managedInterns={managedInterns}
+-          onCreateIntern={onCreateIntern}
+-          onUpdateIntern={onUpdateIntern}
+-          onDeleteIntern={onDeleteIntern}
+-          onCreateTask={onCreateTask}
+-          onUpdateTask={onUpdateTask}
+-          onDeleteTask={onDeleteTask}
+-          onCreateFeedback={onCreateFeedback}
+-          onUpdateFeedback={onUpdateFeedback}
+-          onDeleteFeedback={onDeleteFeedback}
+-        />
+         <Card className="glass-panel">
+           <SectionTitle icon={ClipboardList} title="今日处理队列" subtitle="HRBP 先处理动作，再查看说明和汇总材料" />
+@@
+       <HrRiskPanel records={records} onAddRecord={onAddRecord} managedInterns={managedInterns} />
+       <ReportModule records={records} managedInterns={managedInterns} />
++      <DataManagementPanel
++        managedInterns={managedInterns}
++        onCreateIntern={onCreateIntern}
++        onUpdateIntern={onUpdateIntern}
++        onDeleteIntern={onDeleteIntern}
++        onCreateTask={onCreateTask}
++        onUpdateTask={onUpdateTask}
++        onDeleteTask={onDeleteTask}
++        onCreateFeedback={onCreateFeedback}
++        onUpdateFeedback={onUpdateFeedback}
++        onDeleteFeedback={onDeleteFeedback}
++      />
+       <RecruiterDashboard records={records} managedInterns={managedInterns} />
+*** End Patch

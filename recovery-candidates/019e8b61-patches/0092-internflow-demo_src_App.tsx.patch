@@ -1,0 +1,22 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+ type TaskStatus = "已完成" | "进行中" | "未开始" | "未完成";
++type LoopStatus = "待确认" | "进行中" | "已完成" | "待复盘";
+@@
+ const collaborationFlow = ["AI 标记关注", "HRBP 同步导师", "导师补充辅导", "一周复盘", "关闭观察"];
++
++const loopStatusStyles: Record<LoopStatus, string> = {
++  待确认: "border-amber-200 bg-amber-50 text-amber-700",
++  进行中: "border-[var(--role-border)] bg-[var(--role-soft)] text-[var(--role-accent)]",
++  已完成: "border-emerald-200 bg-emerald-50 text-emerald-700",
++  待复盘: "border-slate-200 bg-slate-50 text-slate-600",
++};
++
++function toLoopStatus(status: string): LoopStatus {
++  if (status.includes("完成") || status.includes("同步") || status.includes("关闭")) return "已完成";
++  if (status.includes("复盘")) return "待复盘";
++  if (status.includes("处理") || status.includes("确认") || status.includes("创建")) return "待确认";
++  return "进行中";
++}
+*** End Patch

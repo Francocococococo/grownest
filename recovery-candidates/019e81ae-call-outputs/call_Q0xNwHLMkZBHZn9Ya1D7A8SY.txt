@@ -1,0 +1,81 @@
+      depth: 1.35,
+    },
+    {
+      id: "hr",
+      label: "HR",
+      title: "风险洞察",
+      body: "适岗风险识别与跟进建议",
+      detail: "提前发现需要关注的人",
+      accent: "#4B32C3",
+      icon: LayoutDashboard,
+      className: "bottom-[3%] right-[2%]",
+      depth: 1.55,
+    },
+  ];
+  const productModules = [
+    {
+      title: "实习生成长路径",
+      detail: "把阶段目标、任务推进和导师反馈沉淀成清晰的个人成长轨迹。",
+      accent: "#32B889",
+      chips: ["阶段目标", "本周任务", "导师提问"],
+      flow: ["目标拆解", "任务推进", "问题沉淀"],
+      summary: "个人成长输入",
+      icon: GraduationCap,
+    },
+    {
+      title: "导师反馈工作流",
+      detail: "把分散观察整理为结构化反馈，让带教动作稳定、可复用。",
+      accent: "#C9922E",
+      chips: ["观察记录", "反馈草稿", "同步确认"],
+      flow: ["观察记录", "AI 整理", "反馈确认"],
+      summary: "带教动作加工",
+      icon: MessageSquareText,
+    },
+    {
+      title: "HR 风险洞察",
+      detail: "聚合任务、反馈和协同记录，提前识别需要支持的对象。",
+      accent: "#4B32C3",
+      chips: ["关注信号", "风险原因", "跟进行动"],
+      flow: ["信号聚合", "风险判断", "行动同步"],
+      summary: "组织跟进输出",
+      icon: ShieldCheck,
+    },
+  ];
+
+  return (
+    <main ref={homeRef} className="home-shell relative min-h-screen overflow-hidden bg-[#F6F4FA] text-[#171321]">
+      <div className="home-ambient home-ambient-a" data-home-glow="" />
+      <div className="home-ambient home-ambient-b" />
+
+      <nav className="relative z-20 mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-5" data-home-nav="">
+        <BrandLogo />
+        <div className="hidden items-center gap-7 rounded-full border border-[#504678]/10 bg-white/48 px-5 py-2 text-sm font-medium text-[#6F6A7A] backdrop-blur md:flex">
+          <a href="#intro" className="transition hover:text-[#171321]">产品介绍</a>
+              <p className="mt-4 min-h-[56px] text-sm leading-7 text-[#6F6A7A]">{detail}</p>
+
+              <div className="mt-5 rounded-[18px] border border-[#504678]/10 bg-[#F6F4FA]/64 p-3" data-capability-visual="">
+                <div className="grid grid-cols-3 gap-2">
+                  {flow.map((step, flowIndex) => (
+                    <div key={step} className="min-w-0 rounded-[13px] bg-white/66 px-2 py-3 text-center" data-capability-visual-step="">
+                      <span className="mx-auto block h-1.5 w-8 rounded-full" style={{ backgroundColor: flowIndex === 1 ? accent : "rgba(80,70,120,0.16)" }} />
+                      <p className="mt-2 truncate text-[11px] font-semibold text-[#241A48]">{step}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-[#504678]/10">
+                <div className="h-full rounded-full" style={{ backgroundColor: accent }} data-capability-line="" />
+              </div>
+              <div className="mt-2 h-px overflow-hidden rounded-full bg-[#504678]/10">
+                <span className="block h-full w-1/3 rounded-full opacity-70" style={{ backgroundColor: accent }} data-capability-flow="" />
+              </div>
+
+              <div className="mt-5 grid gap-2">
+                {chips.map((chip, chipIndex) => (
+                  <div key={chip} className="flex items-center gap-2 rounded-[13px] border border-[#504678]/10 bg-white/52 px-3 py-2 text-xs font-medium text-[#241A48]" data-capability-chip="">
+                    <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: chipIndex === 0 ? accent : "rgba(80,70,120,0.22)" }} />
+                    {chip}
+                  </div>
+                ))}
+              </div>

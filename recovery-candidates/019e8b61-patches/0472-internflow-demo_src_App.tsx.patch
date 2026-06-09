@@ -1,0 +1,31 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+   const selectedPortal = portalShowcases[role] ?? portalShowcases.student;
+   const PortalIcon = selectedPortal.icon;
++  const primaryPortalRoles = mockUsers.filter((item) => item.role !== "admin");
+   const adminUser = mockUsers.find((item) => item.role === "admin")!;
+@@
+-                <div className="flex justify-end">
++                <div className="flex items-center justify-between gap-4">
++                  <div className="flex items-center gap-2" aria-label="切换登录角色">
++                    {primaryPortalRoles.map((item) => {
++                      const active = item.role === role;
++                      return (
++                        <button
++                          key={item.role}
++                          type="button"
++                          onClick={() => selectRole(item.role)}
++                          className={cn(
++                            "h-2.5 rounded-full transition-all",
++                            active ? "w-7 bg-[#4B32C3]" : "w-2.5 bg-[#C1B5C2]/70 hover:bg-[#4B32C3]/45",
++                          )}
++                          aria-label={`切换到${loginRoleMeta[item.role]?.shortLabel}端`}
++                        />
++                      );
++                    })}
++                  </div>
+                   <button
+                     type="button"
+                     onClick={() => openLogin(role)}
+*** End Patch

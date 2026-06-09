@@ -1,0 +1,26 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-      detail: pendingFeedbackCount > 0 ? "仍有实习生缺少本周阶段反馈，会影响 HRBP 对批次状态的判断。" : "本周阶段反馈已覆盖当前负责对象。",
++      detail: pendingFeedbackCount > 0 ? "仍有实习生缺少阶段反馈，会影响学员下一步行动和 HRBP 跟进节奏。" : "本周阶段反馈已覆盖当前负责对象。",
+@@
+-      title: "关注风险对象",
+-      detail: attentionCount > 0 ? "优先看中高风险学员的任务记录、提问和 HR 同步事项。" : "当前负责对象整体稳定。",
++      title: "关注对象",
++      detail: attentionCount > 0 ? "优先查看需要支持学员的任务记录、提问和 HRBP 同步事项。" : "当前负责对象整体稳定。",
+@@
+-      title: "确认 HR 同步",
++      title: "确认 HRBP 同步",
+@@
+-      source: "HRBP端",
++      source: "HRBP 端",
+@@
+-          <SectionTitle icon={ShieldCheck} title="今日带教工作台" subtitle="先看真实待办，再处理当前对象；导师端动作会回流学生端和 HRBP 看板" />
++          <SectionTitle icon={ShieldCheck} title="今日带教工作台" subtitle="先看负责对象和待确认事项，再处理当前学员；所有动作会回流学生端和 HRBP 看板" />
+@@
+-                title: "导师端确认",
++                title: "导师确认",
+@@
+-                detail: "导师评分、反馈、回复和任务建议会成为学生端下一步动作。",
++                detail: "导师评分、反馈、回复和任务建议会成为学生端下一步行动。",
+*** End Patch

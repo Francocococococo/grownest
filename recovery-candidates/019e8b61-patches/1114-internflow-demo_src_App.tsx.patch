@@ -1,0 +1,145 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+   useScopedEntrance(layoutRef, [user.role]);
+   useGsapHover(layoutRef);
+ 
++  const sidebarCard = (
++    <Card className={cn("enterprise-sidebar p-2", user.role !== "mentor" && "min-h-[calc(100vh-120px)]")}>
++      <div className="mb-3 border-b border-slate-100 px-2 pb-3 pt-1">
++        <BrandLogo small />
++      </div>
++      <button className="mb-1 flex w-full items-center gap-3 rounded-[9px] bg-[var(--role-accent)] px-3 py-2.5 text-left text-sm font-semibold text-white shadow-lg shadow-[var(--role-shadow)]">
++        <Home className="h-4 w-4" />
++        当前工作台
++      </button>
++      {nav.filter((item) => item.roles.includes(user.role)).map((item) => {
++        const Icon = item.icon;
++        return (
++          <button
++            key={item.path}
++            className="mb-1 flex w-full items-center gap-3 rounded-[9px] px-3 py-2.5 text-left text-sm font-semibold text-slate-600 transition hover:bg-[var(--role-soft)] hover:text-[var(--role-accent)]"
++          >
++            <Icon className="h-4 w-4" />
++            {item.label}
++          </button>
++        );
++      })}
++    </Card>
++  );
++
++  const workbenchCard = (
++    <Card className="overflow-hidden p-0">
++      <div className="relative overflow-hidden bg-white p-4" data-gsap-title="">
++        <div className="absolute inset-x-0 top-0 h-1 bg-[var(--role-accent)]" />
++        <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
++          <div>
++            <p className="text-xs font-bold uppercase tracking-wide text-[var(--role-accent)]">
++              当前工作台
++            </p>
++            <h1 className="mt-1 text-xl font-black tracking-[0] text-slate-950 lg:text-2xl">{title}</h1>
++            <p className="mt-1 text-sm text-slate-600">
++              {user.name} / {roleName[user.role]}
++            </p>
++          </div>
++          <div className="flex flex-wrap gap-2">
++            {["实时同步", "AI 赋能"].map((item) => (
++              <span key={item} className="rounded-md bg-[var(--role-soft)] px-3 py-2 text-xs font-black text-[var(--role-accent)] ring-1 ring-[var(--role-border)]">
++                {item}
++              </span>
++            ))}
++          </div>
++        </div>
++      </div>
++    </Card>
++  );
++
+   return (
+-    <div ref={layoutRef} className={cn("enterprise-shell min-h-screen", user.role === "hr" && "glass-theme-shell")} style={roleThemeStyle(user.role)}>
++    <div ref={layoutRef} className={cn("enterprise-shell min-h-screen", user.role === "hr" && "glass-theme-shell", user.role === "mentor" && "mentor-shell")} style={roleThemeStyle(user.role)}>
+       <header className="enterprise-header sticky top-0 z-40 backdrop-blur-xl">
+         <div className="mx-auto flex max-w-[1480px] flex-col gap-4 px-5 py-3 lg:flex-row lg:items-center lg:justify-between">
+           <BrandLogo />
+@@
+         </div>
+       </header>
+ 
+-      <div className="mx-auto flex max-w-[1440px] gap-4 px-4 py-4">
+-        <aside className="hidden w-[228px] shrink-0 xl:block">
+-          <div className="sticky top-24 space-y-3">
+-            <Card className="enterprise-sidebar min-h-[calc(100vh-120px)] p-2">
+-              <div className="mb-3 border-b border-slate-100 px-2 pb-3 pt-1">
+-                <BrandLogo small />
+-              </div>
+-              <button className="mb-1 flex w-full items-center gap-3 rounded-[9px] bg-[var(--role-accent)] px-3 py-2.5 text-left text-sm font-semibold text-white shadow-lg shadow-[var(--role-shadow)]">
+-                <Home className="h-4 w-4" />
+-                当前工作台
+-              </button>
+-              {nav.filter((item) => item.roles.includes(user.role)).map((item) => {
+-                const Icon = item.icon;
+-                return (
+-                  <button
+-                    key={item.path}
+-                    className="mb-1 flex w-full items-center gap-3 rounded-[9px] px-3 py-2.5 text-left text-sm font-semibold text-slate-600 transition hover:bg-[var(--role-soft)] hover:text-[var(--role-accent)]"
+-                  >
+-                    <Icon className="h-4 w-4" />
+-                    {item.label}
+-                  </button>
+-                );
+-              })}
+-            </Card>
+-          </div>
+-        </aside>
+-
+-        <main className="min-w-0 flex-1 space-y-4">
+-          <Card className="overflow-hidden p-0">
+-            <div className="relative overflow-hidden bg-white p-4" data-gsap-title="">
+-              <div className="absolute inset-x-0 top-0 h-1 bg-[var(--role-accent)]" />
+-              <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+-                <div>
+-                  <p className="text-xs font-bold uppercase tracking-wide text-[var(--role-accent)]">
+-                    当前工作台
+-                  </p>
+-                  <h1 className="mt-1 text-xl font-black tracking-[0] text-slate-950 lg:text-2xl">{title}</h1>
+-                  <p className="mt-1 text-sm text-slate-600">
+-                    {user.name} / {roleName[user.role]}
+-                  </p>
+-                </div>
+-                <div className="flex flex-wrap gap-2">
+-                  {["实时同步", "AI 赋能"].map((item) => (
+-                    <span key={item} className="rounded-md bg-[var(--role-soft)] px-3 py-2 text-xs font-black text-[var(--role-accent)] ring-1 ring-[var(--role-border)]">
+-                      {item}
+-                    </span>
+-                  ))}
+-                </div>
+-              </div>
+-            </div>
+-          </Card>
+-          {children}
+-        </main>
++      <div className={cn(
++        "mx-auto max-w-[1440px] gap-4 px-4 py-4",
++        user.role === "mentor" ? "grid xl:grid-cols-[228px_minmax(0,1fr)]" : "flex",
++      )}>
++        <aside className="hidden w-[228px] shrink-0 xl:block">
++          <div className="sticky top-24 space-y-3">{sidebarCard}</div>
++        </aside>
++
++        {user.role === "mentor" ? (
++          <>
++            <main className="min-w-0 space-y-4">{workbenchCard}</main>
++            <section className="min-w-0 space-y-4 xl:col-span-2">
++              {children}
++            </section>
++          </>
++        ) : (
++          <main className="min-w-0 flex-1 space-y-4">
++            {workbenchCard}
++            {children}
++          </main>
++        )}
+       </div>
+     </div>
+   );
+ }
+*** End Patch

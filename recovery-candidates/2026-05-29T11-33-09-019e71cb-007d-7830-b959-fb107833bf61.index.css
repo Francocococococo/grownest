@@ -1,0 +1,271 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: Inter, "PingFang SC", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+  --color-tencent: #1877ff;
+  --color-ink: #172033;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(circle at 78% 8%, rgba(37, 99, 235, 0.16), transparent 28%),
+    radial-gradient(circle at 12% 76%, rgba(42, 210, 116, 0.12), transparent 26%),
+    linear-gradient(135deg, #f8fbff 0%, #edf6ff 48%, #f7fff9 100%);
+  color: #172033;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background:
+    linear-gradient(115deg, transparent 0 42%, rgba(24, 119, 255, 0.08) 42.2% 42.6%, transparent 42.8%),
+    linear-gradient(145deg, transparent 0 63%, rgba(34, 197, 94, 0.07) 63.2% 63.7%, transparent 64%),
+    radial-gradient(ellipse at 82% 12%, transparent 0 28%, rgba(24, 119, 255, 0.12) 28.3% 28.8%, transparent 29.2% 100%);
+}
+
+button,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: rgba(24, 119, 255, 0.18);
+}
+    linear-gradient(145deg, transparent 0 64%, rgba(78, 190, 255, 0.06) 64.2% 64.35%, transparent 64.6%),
+    linear-gradient(rgba(24, 119, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24, 119, 255, 0.028) 1px, transparent 1px);
+  background-size: auto, auto, 42px 42px, 42px 42px;
+  animation: grid-drift 18s linear infinite;
+}
+
+body::after {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  opacity: 0.35;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(24, 119, 255, 0.018) 0,
+      rgba(24, 119, 255, 0.018) 1px,
+      transparent 1px,
+      transparent 7px
+    ),
+    radial-gradient(circle at 50% 0%, rgba(24, 119, 255, 0.08), transparent 48%);
+  animation: scan-field 7s ease-in-out infinite alternate;
+}
+
+button,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: rgba(24, 119, 255, 0.18);
+}
+
+input,
+textarea,
+select {
+  color: #0f172a;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #94a3b8;
+}
+
+.future-card {
+  position: relative;
+  isolation: isolate;
+  transform: translateZ(0);
+  transition:
+    transform 240ms ease,
+    border-color 240ms ease,
+    box-shadow 240ms ease,
+    background-color 240ms ease;
+}
+
+.future-card::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  content: "";
+  opacity: 0.46;
+  background: linear-gradient(120deg, rgba(24, 119, 255, 0.35), transparent 28%, rgba(39, 215, 255, 0.2) 58%, rgba(255, 255, 255, 0.8));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: border-flow 5.5s linear infinite;
+}
+
+.future-card::after {
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  content: "";
+  opacity: 0;
+  background:
+    linear-gradient(105deg, transparent 0 36%, rgba(24, 119, 255, 0.08) 45%, transparent 56%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), transparent 34%);
+  transform: translateX(-34%);
+  transition: opacity 220ms ease;
+}
+
+.future-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(117, 201, 255, 0.34);
+  box-shadow:
+    0 22px 60px rgba(37, 99, 235, 0.12),
+    0 0 30px rgba(24, 119, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.future-card:hover::after {
+  opacity: 1;
+  animation: card-sweep 1.25s ease forwards;
+}
+
+.fx-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.fx-button::before {
+  position: absolute;
+  inset: -60% auto -60% -30%;
+  width: 34%;
+  pointer-events: none;
+  content: "";
+  opacity: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  transform: skewX(-18deg);
+}
+
+.fx-button:hover::before {
+  opacity: 1;
+  animation: button-sheen 760ms ease;
+}
+
+.fx-logo {
+  animation: logo-breathe 3.8s ease-in-out infinite;
+}
+
+.fx-logo::after {
+  position: absolute;
+  inset: 8%;
+  border-radius: inherit;
+  pointer-events: none;
+  content: "";
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  opacity: 0.28;
+  animation: logo-ping 2.8s ease-out infinite;
+}
+
+.fx-reveal {
+  animation: panel-rise 520ms ease both;
+}
+
+.fx-scan {
+  position: relative;
+  overflow: hidden;
+}
+
+.fx-scan::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  opacity: 0.72;
+  background:
+    linear-gradient(90deg, transparent, rgba(117, 201, 255, 0.18), transparent),
+    repeating-linear-gradient(180deg, transparent 0 12px, rgba(255, 255, 255, 0.025) 12px 13px);
+  transform: translateX(-100%);
+  animation: scan-pass 4.6s ease-in-out infinite;
+}
+
+@keyframes grid-drift {
+  from { background-position: 0 0, 0 0, 0 0, 0 0; }
+  to { background-position: 0 0, 0 0, 42px 84px, 84px 42px; }
+}
+
+@keyframes scan-field {
+  from { opacity: 0.22; transform: translateY(-6px); }
+  to { opacity: 0.36; transform: translateY(6px); }
+}
+
+@keyframes border-flow {
+  from { filter: hue-rotate(0deg); transform: rotate(0deg); }
+  to { filter: hue-rotate(18deg); transform: rotate(360deg); }
+}
+
+@keyframes card-sweep {
+  from { transform: translateX(-44%); }
+  to { transform: translateX(44%); }
+}
+
+@keyframes button-sheen {
+  from { left: -35%; }
+  to { left: 118%; }
+}
+
+@keyframes logo-breathe {
+  0%, 100% { box-shadow: 0 0 24px rgba(24, 119, 255, 0.34); }
+  50% { box-shadow: 0 0 42px rgba(39, 215, 255, 0.58); }
+}
+
+@keyframes logo-ping {
+  0% { transform: scale(0.86); opacity: 0.42; }
+  70%, 100% { transform: scale(1.18); opacity: 0; }
+}
+
+@keyframes panel-rise {
+  from { opacity: 0; transform: translateY(14px) scale(0.992); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes scan-pass {
+  0%, 28% { transform: translateX(-100%); opacity: 0; }
+  42% { opacity: 0.62; }
+  70%, 100% { transform: translateX(100%); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}

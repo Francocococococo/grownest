@@ -1,0 +1,37 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+           ) : (
+             <>
+-              <div className="grid gap-3" data-gsap-role-entry="">
+-                {primaryPortalRoles.map((item) => {
+-                  const active = item.role === role;
+-                  const RoleIcon = portalShowcases[item.role].icon;
+-                  return (
+-                    <button
+-                      key={item.role}
+-                      type="button"
+-                      onClick={() => selectRole(item.role)}
+-                      className={cn(
+-                        "future-card flex items-start gap-4 rounded-[16px] border p-4 text-left transition",
+-                        active ? "border-[#4B32C3]/24 bg-white/82 ring-2 ring-[#4B32C3]/10" : "border-[#504678]/10 bg-white/50 hover:bg-white/74",
+-                      )}
+-                    >
+-                      <span className={cn(
+-                        "flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] ring-1",
+-                        active ? "bg-[#4B32C3] text-white ring-[#4B32C3]" : "bg-[#4B32C3]/7 text-[#4B32C3] ring-[#504678]/10",
+-                      )}>
+-                        <RoleIcon className="h-5 w-5" />
+-                      </span>
+-                      <span className="min-w-0 flex-1">
+-                        <span className="block text-sm font-semibold text-[#171321]">{mockUsers.find((user) => user.role === item.role)?.roleLabel}</span>
+-                        <span className="mt-1 block text-sm leading-6 text-[#6F6A7A]">{loginRoleMeta[item.role]?.detail}</span>
+-                      </span>
+-                      <span className="mt-1 shrink-0 text-xs font-semibold text-[#4B32C3]">{active ? "已选择" : "选择"}</span>
+-                    </button>
+-                  );
+-                })}
+-              </div>
+-
+               <div key={`${role}-copy`} className="fx-role-panel">
+*** End Patch

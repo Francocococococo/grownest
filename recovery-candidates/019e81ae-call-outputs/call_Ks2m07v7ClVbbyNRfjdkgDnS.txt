@@ -1,0 +1,78 @@
+ls: /Users/sunkong/.codex/plugins/cache/openai-curated/hyperframes/fef63ecf/skills: No such file or directory
+          });
+          const capTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+          capTl
+            .from("[data-capability-kicker]", { autoAlpha: 0, y: 16, duration: 0.38 })
+            .from("[data-capability-title]", { autoAlpha: 0, y: 22, duration: 0.48 }, "-=0.2")
+            .from("[data-capability-summary]", { autoAlpha: 0, y: 18, duration: 0.42 }, "-=0.24")
+            .from("[data-capability-rail]", { autoAlpha: 0, y: 18, scaleX: 0.96, duration: 0.52 }, "-=0.12")
+            .to(mapPaths, { strokeDashoffset: 0, stagger: 0.09, duration: 0.72, ease: "power2.inOut" }, "-=0.18")
+            .from("[data-capability-map-node]", { autoAlpha: 0, y: 12, scale: 0.88, stagger: 0.075, duration: 0.36 }, "-=0.42")
+            .from("[data-capability-map-chip]", { autoAlpha: 0, y: 8, stagger: 0.04, duration: 0.24 }, "-=0.16")
+            .from("[data-capability-card]", { autoAlpha: 0, y: 42, scale: 0.95, stagger: 0.14, duration: 0.58 }, "-=0.18")
+            .from("[data-capability-visual]", { autoAlpha: 0, y: 14, stagger: 0.08, duration: 0.34 }, "-=0.36")
+            .from("[data-capability-line]", { scaleX: 0, transformOrigin: "left center", stagger: 0.1, duration: 0.55 }, "-=0.28")
+            .from("[data-capability-chip]", { autoAlpha: 0, y: 8, stagger: 0.035, duration: 0.24 }, "-=0.26");
+          gsap.to("[data-capability-pulse]", { scale: 1.18, autoAlpha: 0.45, duration: 1.8, ease: "sine.inOut", repeat: -1, yoyo: true, stagger: 0.28 });
+          gsap.to("[data-capability-flow]", { xPercent: 120, duration: 2.6, ease: "none", repeat: -1, stagger: 0.42 });
+          gsap.to("[data-capability-map-path]", { strokeDashoffset: "-=22", duration: 3.2, ease: "none", repeat: -1, delay: 1.2 });
+          gsap.to("[data-capability-map-node]", { y: -3, duration: 2.2, ease: "sine.inOut", repeat: -1, yoyo: true, stagger: 0.18 });
+          const stageCards = gsap.utils.toArray<HTMLElement>("[data-capability-card]");
+          const stageNodes = gsap.utils.toArray<HTMLElement>("[data-capability-map-node]");
+          const workbenchPanels = gsap.utils.toArray<HTMLElement>("[data-workbench-panel]");
+            <path data-capability-map-path="" d="M790 182 C735 272 628 294 542 270 C410 232 286 208 150 145" stroke="rgba(75,157,131,0.28)" strokeWidth="1.7" strokeLinecap="round" strokeDasharray="6 9" />
+            <path d="M132 122 C245 54 345 54 458 122 S676 214 806 148" stroke="rgba(255,255,255,0.75)" strokeWidth="7" strokeLinecap="round" opacity="0.22" />
+          </svg>
+          <div className="absolute right-5 top-5 rounded-full border border-[#4E4965]/10 bg-white/62 px-3 py-1.5 text-xs font-semibold text-[#5E4CB2]" data-capability-map-chip="">
+            同一工作流内完成流转
+          </div>
+          {capabilityFlowNodes.map((node, index) => (
+            <div
+              key={node.id}
+              className="capability-map-node absolute w-[210px] rounded-[20px] border border-[#4E4965]/10 bg-white/70 p-4 shadow-[0_16px_44px_rgba(36,26,72,0.055)] backdrop-blur-[16px]"
+              style={{ left: node.x, top: node.y }}
+              data-capability-map-node=""
+              data-accent={node.color}
+            >
+              <div className="flex items-start gap-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white" style={{ backgroundColor: node.color }}>
+                  0{index + 1}
+                </span>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-[#171321]">{node.label}</p>
+                  <p className="mt-1 text-xs leading-5 text-[#6F6A7A]">{node.detail}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+          <div className="absolute bottom-5 right-5 grid gap-2 text-xs text-[#6F6A7A]" data-capability-map-chip="">
+            <span className="rounded-full bg-white/62 px-3 py-1.5 ring-1 ring-[#4E4965]/10">任务进入</span>
+            <span className="rounded-full bg-white/62 px-3 py-1.5 ring-1 ring-[#4E4965]/10">反馈加工</span>
+            <span className="rounded-full bg-white/62 px-3 py-1.5 ring-1 ring-[#4E4965]/10">行动回流</span>
+          </div>
+        </div>
+
+        <div className="capability-workbench grid gap-5 rounded-[28px] border border-[#4E4965]/10 bg-[#FFFFFF]/48 p-4 shadow-[0_24px_70px_rgba(36,26,72,0.06)] backdrop-blur-[20px] lg:grid-cols-[0.38fr_0.62fr]">
+          <div className="grid gap-3">
+            {productModules.map(({ title, detail, accent, chips, icon: Icon }, index) => (
+              <div key={title} className="capability-card relative overflow-hidden rounded-[22px] border border-[#4E4965]/10 bg-[#FFFFFF]/62 p-4 shadow-[0_18px_52px_rgba(36,26,72,0.055)] backdrop-blur-[18px]" data-capability-card="" data-home-showcase-card="" data-accent={accent}>
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <span className="text-xs font-semibold" style={{ color: accent }}>0{index + 1}</span>
+                    <h3 className="mt-3 text-lg font-semibold text-[#171321]">{title}</h3>
+                  </div>
+                  <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-[15px] bg-[#F8F7FB]/80 ring-1 ring-[#4E4965]/10">
+                    <span className="absolute inset-0 rounded-[15px]" style={{ backgroundColor: accent, opacity: 0.07 }} data-capability-pulse="" />
+                    <Icon className="relative h-5 w-5" style={{ color: accent }} />
+                  </div>
+                </div>
+                <p className="mt-3 text-sm leading-6 text-[#6F6A7A]">{detail}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {chips.map((chip, chipIndex) => (
+                    <span key={chip} className="rounded-full border border-[#4E4965]/10 bg-[#F8F7FB]/72 px-3 py-1.5 text-[11px] font-medium text-[#2D2544]" data-capability-chip="">
+                      <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full" style={{ backgroundColor: chipIndex === 0 ? accent : "rgba(80,70,120,0.22)" }} />
+                      {chip}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-[#4E4965]/10">

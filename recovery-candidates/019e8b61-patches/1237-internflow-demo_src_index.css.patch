@@ -1,0 +1,52 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/index.css
+@@
+ .mentor-sidebar-card {
+-  min-height: 360px;
++  min-height: 324px;
+ }
+ 
+ @media (min-width: 1280px) {
++  .mentor-shell > div {
++    row-gap: 12px;
++  }
++
+   .mentor-shell aside {
+     grid-row: 1 / span 2;
+   }
+@@
+   .mentor-shell .mentor-stats-row {
+     grid-column: 2;
+     grid-row: 2;
++    gap: 12px;
+   }
++
++  .mentor-shell .mentor-stats-row [data-stat-card] {
++    padding: 18px;
++  }
++
++  .mentor-shell .mentor-stats-row [data-stat-card] p:first-child {
++    font-size: 13px;
++  }
++
++  .mentor-shell .mentor-stats-row [data-stat-card] p:nth-child(2) {
++    margin-top: 6px;
++    font-size: 28px;
++    line-height: 1.05;
++  }
++
++  .mentor-shell .mentor-stats-row [data-stat-card] .h-12.w-12 {
++    width: 42px;
++    height: 42px;
++    border-radius: 14px;
++  }
++
++  .mentor-shell .mentor-stats-row [data-stat-card] svg {
++    width: 21px;
++    height: 21px;
++  }
+ 
+   .mentor-shell .mentor-dashboard > :not(.mentor-stats-row) {
+     grid-column: 1 / -1;
+   }
+*** End Patch

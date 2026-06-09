@@ -1,0 +1,13 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/index.css
+@@
+ .enterprise-sidebar {
+   background: rgba(255, 255, 255, 0.58);
+ }
++
++.mentor-sidebar-card {
++  min-height: 360px;
++}
+ 
+ .enterprise-hero {
+*** End Patch

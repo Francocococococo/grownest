@@ -1,0 +1,24 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-            <p className="text-sm font-black text-slate-950">90 天成长地图</p>
++            <p className="text-sm font-black text-slate-950">90 天成长路径</p>
+@@
+-          <p className="mt-1 text-xs font-semibold text-slate-500">沿着路线推进 13 个成长站点，点击站点切换周。</p>
++          <p className="mt-1 text-xs font-semibold text-slate-500">按阶段推进成长动作，点击周节点查看任务安排。</p>
+@@
+-            <p className="text-xs font-black text-[var(--role-accent)]">当前站点 · {currentStop.name}</p>
++            <p className="text-xs font-black text-[var(--role-accent)]">当前节点 · {currentStop.name}</p>
+@@
+-                  <p className="text-sm font-black text-[var(--role-accent)]">AI 今日建议</p>
++                  <p className="text-sm font-black text-[var(--role-accent)]">AI 辅助整理</p>
+@@
+-                    {dailyPlanLoading ? "AI 正在分析..." : "重新生成建议"}
++                    {dailyPlanLoading ? "AI 正在整理..." : "重新整理建议"}
+@@
+-                    <p className="text-xs font-black text-[var(--role-accent)]">今日判断</p>
++                    <p className="text-xs font-black text-[var(--role-accent)]">今日建议</p>
+@@
+-                  {dailyPlanLoading ? "AI 正在根据当前任务和岗位生成今日建议..." : "点击“重新生成建议”获取今日建议。"}
++                  {dailyPlanLoading ? "AI 正在根据当前任务和岗位整理行动建议..." : "点击“重新整理建议”获取今日建议。"}
+*** End Patch

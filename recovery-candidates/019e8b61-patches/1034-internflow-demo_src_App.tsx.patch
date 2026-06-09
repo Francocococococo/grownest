@@ -1,0 +1,17 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-  const selectedWeekDayIndex = Math.max(0, weekDays.findIndex((day) => day.key === selectedDateKey));
++  const todayDate = startOfDay(new Date());
++  const rhythmDay = weekDays.find((day) => day.key === toDateKey(todayDate))
++    ?? (todayDate < currentWeekStart.date ? currentWeekStart : currentWeekEnd);
++  const rhythmDateKey = rhythmDay?.key ?? selectedDateKey;
++  const selectedWeekDayIndex = Math.max(0, weekDays.findIndex((day) => day.key === rhythmDateKey));
+   const mentorRhythmProgress = weekDays.length ? ((selectedWeekDayIndex + 0.5) / weekDays.length) * 100 : 0;
+   const mentorRhythmStyle = {
+     "--mentor-rhythm-progress": `${mentorRhythmProgress}%`,
+   } as CSSProperties;
+@@
+-                  className={cn("mentor-rhythm-clip", checkpoint.dateKey === selectedDateKey && "is-active")}
++                  className={cn("mentor-rhythm-clip", checkpoint.dateKey === rhythmDateKey && "is-active")}
+*** End Patch

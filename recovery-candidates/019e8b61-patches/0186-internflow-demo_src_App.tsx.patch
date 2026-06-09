@@ -1,0 +1,9 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-    { label: "高潜加压", value: `${highPotentialCount} 人`, detail: "推动导师安排挑战任务验证上限", tone: "green" },
++    { label: "挑战观察", value: `${highPotentialCount} 人`, detail: "推动导师安排边界清晰的挑战任务", tone: "green" },
+@@
+-              ["高潜观察", `${highPotentialCount} 人`, "适合安排挑战任务"],
++              ["挑战观察", `${highPotentialCount} 人`, "适合安排挑战任务"],
+*** End Patch

@@ -1,0 +1,9 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-  { title: "自动组织决策", detail: "涉及关键用人判断，首版只提供参考证据，不自动给出结论。", status: "暂缓" },
++  { title: "组织结论自动化", detail: "涉及关键用人判断，首版只提供参考证据，不自动给出结论。", status: "暂缓" },
+@@
+-                          placeholder="请输入给实习生的回复，例如：你可以先看 GMV、转化率和留存率分别对应哪个业务环节..."
++                          placeholder="请输入给实习生的回复，例如：你可以先明确这项任务的验收标准，再把不确定点带到下一次 1v1 中确认..."
+*** End Patch

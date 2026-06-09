@@ -1,0 +1,23 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/index.css
+@@
+ .mentor-sidebar-card {
+   min-height: 360px;
+ }
++
++@media (min-width: 1280px) {
++  .mentor-shell .mentor-dashboard {
++    display: contents;
++  }
++
++  .mentor-shell .mentor-stats-row {
++    grid-column: 2;
++  }
++
++  .mentor-shell .mentor-dashboard > :not(.mentor-stats-row) {
++    grid-column: 1 / -1;
++  }
++}
+ 
+ .enterprise-hero {
+*** End Patch

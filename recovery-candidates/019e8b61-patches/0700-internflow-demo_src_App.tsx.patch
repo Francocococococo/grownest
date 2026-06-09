@@ -1,0 +1,134 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+       </Card>
+ 
++      <Card>
++        <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
++          <SectionTitle icon={CalendarCheck} title="带教日历" subtitle={`${selected.name} 的阶段任务与学生端成长路径保持同步`} />
++          <div className="flex w-full flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-200 bg-white p-2 xl:w-auto">
++            <div className="flex items-center gap-1">
++              <button
++                className="inline-flex items-center gap-1 rounded-md px-2.5 py-1.5 text-xs font-black text-slate-600 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
++                disabled={selectedWeekIndex === 0}
++                onClick={() => changeMentorGrowthWeek(-1)}
++              >
++                <ChevronRight className="h-3.5 w-3.5 rotate-180" />
++                上一周
++              </button>
++              <span className="text-xs font-black text-[var(--role-accent)]">第 {currentWeekNumber}/13 周</span>
++              <button
++                className="inline-flex items-center gap-1 rounded-md px-2.5 py-1.5 text-xs font-black text-slate-600 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
++                disabled={selectedWeekIndex === maxGrowthWeekIndex}
++                onClick={() => changeMentorGrowthWeek(1)}
++              >
++                下一周
++                <ChevronRight className="h-3.5 w-3.5" />
++              </button>
++            </div>
++            <span className="rounded-md bg-[var(--role-soft)] px-3 py-1.5 text-xs font-bold text-[var(--role-accent)] ring-1 ring-[var(--role-border)]">
++              {currentWeekStart.monthDay}-{currentWeekEnd.monthDay}
++            </span>
++          </div>
++        </div>
++
++        <div className="mt-5 grid gap-4 xl:grid-cols-[minmax(0,1fr)_340px]">
++          <div className="min-w-0 space-y-4">
++            <div className="grid auto-cols-[minmax(92px,1fr)] grid-flow-col gap-2 overflow-x-auto pb-2 md:grid-flow-row md:grid-cols-7 md:overflow-visible md:pb-0">
++              {weekDays.map((day) => {
++                const dayTasks = selectedDisplayTasks.filter((task) => task.dateKey === day.key);
++                const doneCount = dayTasks.filter((task) => task.status === "已完成").length;
++                const active = day.key === selectedDateKey;
++                const weekend = day.date.getDay() === 0 || day.date.getDay() === 6;
++                return (
++                  <button
++                    key={day.key}
++                    onClick={() => setSelectedDateKey(day.key)}
++                    className={cn(
++                      "min-w-0 rounded-lg border p-2 text-left transition",
++                      active && "border-[var(--role-border)] bg-[var(--role-soft)] ring-2 ring-[var(--role-border)]",
++                      !active && weekend && "border-slate-100 bg-slate-50/70 text-slate-400 hover:border-slate-200",
++                      !active && !weekend && "border-slate-200 bg-white hover:border-[var(--role-border)] hover:bg-slate-50",
++                    )}
++                  >
++                    <div className="flex items-center justify-between gap-2">
++                      <span className="whitespace-nowrap text-xs font-black text-[var(--role-accent)]">{day.label}</span>
++                      <span className="text-xs font-semibold text-slate-500">{day.monthDay}</span>
++                    </div>
++                    <p className="mt-1.5 text-xs font-semibold text-slate-500">{day.weekday}</p>
++                    <p className={cn("mt-2 text-sm font-black", weekend && !dayTasks.length ? "text-slate-400" : "text-slate-950")}>
++                      {weekend && !dayTasks.length ? "休息" : `${doneCount}/${dayTasks.length} 完成`}
++                    </p>
++                  </button>
++                );
++              })}
++            </div>
++
++            <div className="rounded-lg border border-slate-200 bg-white p-3">
++              <div className="flex flex-wrap items-center justify-between gap-3">
++                <div>
++                  <p className="text-base font-black text-slate-950">{selectedDate.label}节点任务</p>
++                  <p className="mt-1 text-sm text-slate-500">与学生端任务池一致，导师在这里确认进展和辅导点。</p>
++                </div>
++                <span className="rounded-full bg-[var(--role-soft)] px-3 py-1 text-xs font-bold text-[var(--role-accent)] ring-1 ring-[var(--role-border)]">
++                  {selectedTodayTasks.filter((task) => task.status === "已完成").length}/{selectedTodayTasks.length} 完成
++                </span>
++              </div>
++              <div className="mt-3 grid gap-2">
++                {selectedTodayTasks.length > 0 ? (
++                  selectedTodayTasks.map((task) => (
++                    <div key={task.id} className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-slate-100 bg-slate-50 p-2.5">
++                      <div className="flex items-start gap-3">
++                        <CheckCircle2 className={cn("mt-0.5 h-5 w-5", task.status === "已完成" ? "text-emerald-500" : "text-slate-300")} />
++                        <div>
++                          <p className="text-sm font-bold text-slate-950">{task.label}</p>
++                          <p className="mt-1 text-xs text-slate-500">{task.owner} · {task.note}</p>
++                        </div>
++                      </div>
++                      <StatusPill status={task.status} />
++                    </div>
++                  ))
++                ) : (
++                  <div className="rounded-lg border border-dashed border-slate-200 bg-slate-50 px-4 py-5 text-center text-sm text-slate-500">
++                    这一天暂无学生端节点任务，可查看本周待办或补充一次带教观察。
++                  </div>
++                )}
++              </div>
++            </div>
++          </div>
++
++          <div className="rounded-lg border border-[var(--role-border)] bg-[var(--role-soft)] p-4">
++            <p className="text-xs font-black text-[var(--role-accent)]">{selectedStage?.period ?? "当前阶段"} · {selectedStage?.theme ?? "阶段目标推进"}</p>
++            <div className="mt-3 flex items-end justify-between gap-3">
++              <div>
++                <p className="text-sm font-semibold text-slate-600">学生端同步进度</p>
++                <p className="mt-1 text-4xl font-black text-slate-950">{selected.progress}%</p>
++              </div>
++              <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-[var(--role-accent)] ring-1 ring-[var(--role-border)]">
++                {selected.completedTaskCount}/{selected.taskCount} 已完成
++              </span>
++            </div>
++            <div className="mt-4 h-2 rounded-full bg-white">
++              <div className="h-2 rounded-full bg-[var(--role-accent)]" data-progress-fill="" style={{ width: `${selected.progress}%` }} />
++            </div>
++            <div className="mt-4 rounded-lg bg-white/66 p-3 ring-1 ring-white/70">
++              <p className="text-xs font-black text-slate-500">阶段任务</p>
++              <div className="mt-2 grid gap-2">
++                {selectedStageTasks.map((task) => (
++                  <div key={task.label} className="flex items-center justify-between gap-3 rounded-lg bg-white px-3 py-2 text-sm">
++                    <span className="min-w-0 truncate font-semibold text-slate-700">{task.label}</span>
++                    <StatusPill status={task.status} />
++                  </div>
++                ))}
++              </div>
++              <p className="mt-3 text-xs font-semibold text-[var(--role-accent)]">
++                当前阶段 {selectedStageDone}/{selectedStageTotal} 个节点已完成，待办 {selectedPendingTasks.length} 个。
++              </p>
++            </div>
++          </div>
++        </div>
++      </Card>
++
+ 	      <Card>
+ 	        <SectionTitle icon={CalendarCheck} title="今日带教优先事项" subtitle="只展示真实待处理信号；具体处理在下方问答、反馈和协同记录里完成" />
+*** End Patch

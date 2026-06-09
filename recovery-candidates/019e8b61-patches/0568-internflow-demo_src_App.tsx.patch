@@ -1,0 +1,32 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+             <div
+               key={role}
+-              className="portal-stage login-hero-panel glass-panel relative overflow-hidden rounded-[20px] p-7 lg:min-h-[480px]"
++              className={cn(
++                "portal-stage login-hero-panel glass-panel relative overflow-hidden rounded-[20px] p-7",
++                showLogin ? "lg:min-h-[420px]" : "lg:min-h-[480px]",
++              )}
+               style={{ transform: `rotate(${selectedPortal.rotate}deg)` }}
+             >
+-              <div className={cn("relative z-10 flex flex-col gap-7", showLogin ? "min-h-[420px] justify-between" : "min-h-[420px] justify-between")}>
++              <div className={cn("relative z-10 flex flex-col", showLogin ? "min-h-[350px] justify-start gap-5" : "min-h-[420px] justify-between gap-7")}>
+                 <div>
+                   <p className="login-kicker">{selectedPortal.eyebrow}</p>
+-                  <h1 className="login-hero-title mt-5 max-w-[480px] text-4xl font-semibold leading-[1.12] text-[#171321] sm:text-[3.1rem]">
++                  <h1 className={cn(
++                    "login-hero-title max-w-[480px] font-semibold leading-[1.12] text-[#171321]",
++                    showLogin ? "mt-4 text-4xl sm:text-[2.8rem]" : "mt-5 text-4xl sm:text-[3.1rem]",
++                  )}>
+                     {selectedPortal.title}
+                   </h1>
+-                  <p className="mt-6 max-w-[520px] text-base font-normal leading-8 text-[#6F6A7A]">
++                  <p className={cn("max-w-[520px] text-base font-normal leading-8 text-[#6F6A7A]", showLogin ? "mt-4" : "mt-6")}>
+                     {selectedPortal.description}
+                   </p>
+                 </div>
+ 
+-                <div className="grid gap-3 sm:grid-cols-3">
++                <div className={cn("grid gap-3 sm:grid-cols-3", showLogin && "mt-1")}>
+*** End Patch

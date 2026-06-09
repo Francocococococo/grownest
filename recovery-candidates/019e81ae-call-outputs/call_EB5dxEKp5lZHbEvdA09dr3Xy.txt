@@ -1,0 +1,26 @@
+      chips: ["观察记录", "反馈草稿", "同步确认"],
+      flow: ["观察记录", "AI 整理", "反馈确认"],
+      summary: "带教动作加工",
+      icon: MessageSquareText,
+      workbenchTitle: "导师反馈工作台",
+      workbenchMeta: "AI 已整理反馈草稿",
+      workbenchItems: ["表现亮点：主动拆解任务", "待提升：业务上下文补齐", "下阶段：安排一次复盘"],
+    },
+    {
+      title: "HR 风险洞察",
+      detail: "聚合任务、反馈和协同记录，提前识别需要支持的对象。",
+      accent: "#5E4CB2",
+      chips: ["关注信号", "风险原因", "跟进行动"],
+      flow: ["信号聚合", "风险判断", "行动同步"],
+      summary: "组织跟进输出",
+      icon: ShieldCheck,
+      workbenchTitle: "HR 风险洞察台",
+      workbenchMeta: "关注队列 · 自动生成行动",
+      workbenchItems: ["风险原因：反馈缺失 1 次", "建议动作：同步导师跟进", "复盘节点：下周三前确认"],
+    },
+  ];
+
+  return (
+    <main ref={homeRef} className="home-shell relative min-h-screen overflow-hidden bg-[#F6F4FA] text-[#171321]">
+      <div className="home-ambient home-ambient-a" data-home-glow="" />
+      <div className="home-ambient home-ambient-b" />

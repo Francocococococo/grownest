@@ -1,0 +1,21 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-      setReportMessage("适岗周报已生成，可复制到周会材料。");
++      setReportMessage("复盘摘要已生成，可复制到周会材料。");
+@@
+-        <SectionTitle icon={FileText} title="适岗周报生成模块" subtitle="汇总成长状态、关注原因和下周动作" />
++        <SectionTitle icon={FileText} title="复盘摘要生成模块" subtitle="汇总成长状态、关注原因和后续动作" />
+@@
+-          {generating ? "AI 正在分析..." : visible ? "重新生成周报" : "一键生成本周适岗周报"}
++          {generating ? "AI 正在整理..." : visible ? "重新生成摘要" : "一键生成复盘摘要"}
+@@
+-            <p className="text-sm font-bold text-[var(--role-accent)]">已生成适岗周报，可复制到周会材料或招聘同步记录。</p>
++            <p className="text-sm font-bold text-[var(--role-accent)]">已生成复盘摘要，可复制到周会材料或招聘同步记录。</p>
+@@
+-              {copied ? "已复制" : "复制周报"}
++              {copied ? "已复制" : "复制摘要"}
+@@
+-          点击按钮后，这里会生成面向 HR 和招聘同学的本周适岗情况周报。
++          点击按钮后，这里会生成面向 HRBP 和招聘同学的成长复盘摘要。
+*** End Patch

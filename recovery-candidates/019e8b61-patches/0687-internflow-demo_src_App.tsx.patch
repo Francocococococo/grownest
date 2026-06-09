@@ -1,0 +1,64 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-    return scoped.map((intern) => ({
+-      name: intern.name,
+-      title: intern.title,
+-      department: intern.department,
+-      progress: intern.progress,
+-      risk: intern.risk,
+-      action: intern.feedbacks.length ? "已记录反馈" : "待阶段反馈",
+-      detail: intern.reason || intern.todo || "当前暂无风险说明，建议保持每周反馈节奏。",
+-      observationHint: intern.feedbacks[0]?.content || `${intern.name}当前成长进度 ${intern.progress}%，主要关注点是${intern.reason || intern.todo || "阶段目标推进"}。`,
+-      focus: intern.risk === "低风险" ? "挑战任务安排" : intern.reason || "阶段能力补齐",
+-      weeklyRecord: intern.tasks.map((task) => `${task.title} ${task.status}`),
+-      aiSignals: [`成长信号：${attentionLabel[intern.risk]}`, `导师观察重点：${intern.reason || intern.todo || "阶段目标推进"}`, `阶段任务：${intern.tasks.length ? "已有可跟进动作" : "待补充任务"}`],
+-      managedId: intern.id,
+-    }));
++    return scoped.map((intern) => {
++      const completedTaskCount = intern.tasks.filter((task) => task.status === "已完成").length;
++      const taskProgress = intern.tasks.length ? Math.round((completedTaskCount / intern.tasks.length) * 100) : intern.progress;
++      return {
++        name: intern.name,
++        role: intern.role,
++        title: intern.title,
++        department: intern.department,
++        progress: taskProgress,
++        completedTaskCount,
++        taskCount: intern.tasks.length,
++        tasks: intern.tasks,
++        risk: intern.risk,
++        action: intern.feedbacks.length ? "已记录反馈" : "待阶段反馈",
++        detail: intern.reason || intern.todo || "当前暂无风险说明，建议保持每周反馈节奏。",
++        observationHint: intern.feedbacks[0]?.content || `${intern.name}当前成长进度 ${taskProgress}%，主要关注点是${intern.reason || intern.todo || "阶段目标推进"}。`,
++        focus: intern.risk === "低风险" ? "挑战任务安排" : intern.reason || "阶段能力补齐",
++        weeklyRecord: intern.tasks.map((task) => `${task.title} ${task.status}`),
++        aiSignals: [`成长信号：${attentionLabel[intern.risk]}`, `学生端任务进度：${completedTaskCount}/${intern.tasks.length || 0} 已完成`, `导师观察重点：${intern.reason || intern.todo || "阶段目标推进"}`],
++        managedId: intern.id,
++      };
++    });
+   }, [managedInterns, user.department, user.name, user.ownedInterns]);
+@@
+   });
+   const [answerDrafts, setAnswerDrafts] = useState<Record<string, string>>({});
++  const [selectedWeekIndex, setSelectedWeekIndex] = useState(0);
++  const [selectedDateKey, setSelectedDateKey] = useState(studentCalendarStartDate);
++  const allGrowthDays = useMemo(() => {
++    const startDate = startOfDay(new Date(`${studentCalendarStartDate}T00:00:00`));
++    return Array.from({ length: studentGrowthCycleDays }, (_, index) => {
++      const date = addDays(startDate, index);
++      return {
++        key: toDateKey(date),
++        date,
++        label: `第${index + 1}天`,
++        weekday: formatWeekday(date),
++        monthDay: formatMonthDay(date),
++      };
++    });
++  }, []);
++  const maxGrowthWeekIndex = Math.ceil(studentGrowthCycleDays / studentGrowthWeekSize) - 1;
++  const weekDays = useMemo(
++    () => allGrowthDays.slice(selectedWeekIndex * studentGrowthWeekSize, selectedWeekIndex * studentGrowthWeekSize + studentGrowthWeekSize),
++    [allGrowthDays, selectedWeekIndex],
++  );
+*** End Patch

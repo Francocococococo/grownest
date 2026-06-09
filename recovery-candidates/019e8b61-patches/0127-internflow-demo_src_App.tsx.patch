@@ -1,0 +1,32 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-      aiSignals: [`成长进度 ${intern.progress}%`, `关注状态 ${attentionLabel[intern.risk]}`, `任务数量 ${intern.tasks.length}`],
++      aiSignals: [`成长信号：${attentionLabel[intern.risk]}`, `导师观察重点：${intern.reason || intern.todo || "阶段目标推进"}`, `阶段任务：${intern.tasks.length ? "已有可跟进动作" : "待补充任务"}`],
+@@
+-    { day: "第 30 天", action: "完成成长评价并同步 HR/招聘观察结论", status: "未开始" },
++    { day: "第 30 天", action: "完成阶段反馈并同步 HRBP 复盘线索", status: "未开始" },
+   ];
++  const mentorLoopItems = [
++    {
++      label: "确认负责对象",
++      detail: `当前负责 ${mentorInternCount} 名实习生，已选中 ${selected.name} 作为本次处理对象。`,
++      status: "已完成" as LoopStatus,
++    },
++    {
++      label: "处理待反馈",
++      detail: pendingFeedbackCount > 0 ? "仍有阶段反馈需要导师确认，避免学员下一步动作不清楚。" : "当前负责对象的阶段反馈已覆盖。",
++      status: pendingFeedbackCount > 0 ? "进行中" as LoopStatus : "已完成" as LoopStatus,
++    },
++    {
++      label: "确认 AI 建议",
++      detail: draftFeedback ? "AI 已整理反馈建议，请导师编辑确认后再同步。" : "先补充导师观察，再生成可编辑反馈建议。",
++      status: saved ? "已完成" as LoopStatus : draftFeedback ? "待确认" as LoopStatus : "进行中" as LoopStatus,
++    },
++    {
++      label: "同步 HRBP",
++      detail: saved ? "反馈已同步给学员与 HRBP，可进入后续复盘。" : "导师确认后会形成跨端协同记录。",
++      status: saved ? "待复盘" as LoopStatus : "待确认" as LoopStatus,
++    },
++  ];
+*** End Patch

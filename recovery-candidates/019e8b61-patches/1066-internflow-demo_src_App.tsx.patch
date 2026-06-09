@@ -1,0 +1,20 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+     return {
+       dateKey: day.key,
+-      day: `${day.monthDay} ${day.weekday}`,
++      day: day.monthDay,
++      weekday: day.weekday,
+       action,
+       status,
+     };
+   });
+@@
+                 >
+-                  <span>{checkpoint.day}</span>
++                  <span>{checkpoint.day}</span>
++                  <em>{checkpoint.weekday}</em>
+                   <strong>{checkpoint.status}</strong>
+                 </div>
+*** End Patch

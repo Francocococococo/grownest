@@ -1,0 +1,6 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-    { name: "招聘效能复盘模块", owner: "校招/TA 团队", permission: "嵌入 HRBP 成长运营台，只读查看适岗趋势、留用观察和画像反哺建议" },
++    { name: "成长复盘沉淀模块", owner: "校招/TA 团队", permission: "嵌入 HRBP 成长运营台，只读查看成长趋势、后续观察和支持反哺建议" },
+*** End Patch

@@ -1,0 +1,31 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+       <div className="grid gap-5 xl:grid-cols-[0.8fr_1.2fr]">
+         <Card>
+-          <SectionTitle icon={CalendarCheck} title="带教节奏提醒" subtitle="本周需要完成的导师动作" />
+-          <div className="mentor-rhythm-track mt-5" aria-label="标准化带教时间轴">
++          <SectionTitle icon={CalendarCheck} title="带教节奏提醒" subtitle={`${currentWeekStart.monthDay}-${currentWeekEnd.monthDay} 与学生端阶段任务同步`} />
++          <div className="mentor-rhythm-track mt-5" aria-label="本周带教时间轴">
+             <div className="mentor-rhythm-rail">
+               <span className="mentor-rhythm-playhead" aria-hidden="true" />
+             </div>
+             <div className="mentor-rhythm-clips">
+               {mentorCheckpoints.map((checkpoint, index) => (
+@@
+             ))}
+           </div>
+           <div className="mt-5 rounded-3xl border border-[var(--role-border)] bg-white p-4">
+-            <p className="text-sm font-black text-slate-950">标准化带教节点</p>
+-            <p className="mt-1 text-xs text-slate-500">把导师经验沉淀成可检查节奏，避免只凭感觉带教。</p>
++            <p className="text-sm font-black text-slate-950">本周带教节点</p>
++            <p className="mt-1 text-xs text-slate-500">跟随学生端阶段任务变化，导师只确认需要反馈的动作。</p>
+             <div className="mt-4 space-y-2">
+               {mentorCheckpoints.map((checkpoint) => (
+-                <div key={checkpoint.day} className="grid grid-cols-[64px_1fr_auto] items-center gap-3 rounded-2xl bg-slate-50 px-3 py-3 text-sm">
++                <div key={checkpoint.day} className="grid grid-cols-[88px_1fr_auto] items-center gap-3 rounded-2xl bg-slate-50 px-3 py-3 text-sm">
+                   <span className="font-black text-[var(--role-accent)]">{checkpoint.day}</span>
+                   <span className="leading-6 text-slate-700">{checkpoint.action}</span>
+                   <StatusPill status={checkpoint.status} />
+                 </div>
+*** End Patch

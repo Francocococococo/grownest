@@ -1,0 +1,51 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+   const inReview = managedInterns.filter((intern) => intern.processStatus === "复盘中").length;
++  const closedCount = managedInterns.filter((intern) => intern.processStatus === "已关闭").length;
+   const priorityQueue = [
+@@
+     { label: "高潜加压", value: `${highPotentialCount} 人`, detail: "推动导师安排挑战任务验证上限", tone: "green" },
+   ];
++  const hrLoopItems = [
++    {
++      label: "看到成长信号",
++      detail: attentionCount > 0 ? `${attentionCount} 名对象需要 HRBP 关注，先查看证据摘要。` : "当前批次整体稳定，保持常规观察节奏。",
++      status: attentionCount > 0 ? "进行中" as LoopStatus : "已完成" as LoopStatus,
++    },
++    {
++      label: "确认跟进动作",
++      detail: pendingMentorSync > 0 ? "将关注信号转成导师可执行的辅导动作。" : "当前无需新增导师同步动作。",
++      status: pendingMentorSync > 0 ? "待确认" as LoopStatus : "已完成" as LoopStatus,
++    },
++    {
++      label: "记录处理状态",
++      detail: `${inReview} 条记录处于复盘中，${closedCount} 条已完成处理。`,
++      status: inReview > 0 ? "待复盘" as LoopStatus : "进行中" as LoopStatus,
++    },
++    {
++      label: "进入复盘沉淀",
++      detail: records.length ? `已沉淀 ${records.length} 条跨端协同记录，可用于后续复盘。` : "完成同步后会自动形成跨端协同记录。",
++      status: records.length ? "已完成" as LoopStatus : "待确认" as LoopStatus,
++    },
++  ];
+@@
+-            {[
+-              "优先推动 2 位超过 10 天未反馈的导师补齐阶段评价。",
+-              "对 3 位重点关注实习生发起 HRBP 与导师联合复盘。",
+-              "销售岗整体客户场景训练不足，建议下周安排一次集中演练。",
++            {[
++              "优先推动导师补齐阶段反馈，避免关注对象缺少下一步动作。",
++              "对重点关注对象发起 HRBP 与导师联合复盘，先确认支持卡点。",
++              "若同类成长信号集中出现，可沉淀为入职支持材料的优化项。",
+             ].map((item) => (
+@@
+         </Card>
+       </div>
++      <ActionLoopPanel
++        title="HRBP 行动闭环"
++        subtitle="风险信号、跟进动作、处理状态和复盘依据统一沉淀"
++        items={hrLoopItems}
++      />
+       <HrRiskPanel records={records} onAddRecord={onAddRecord} managedInterns={managedInterns} />
+*** End Patch

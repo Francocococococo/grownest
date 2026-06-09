@@ -1,0 +1,41 @@
+                  </div>
+                  <div className="mt-5 grid grid-cols-3 gap-3" data-workbench-item="">
+                    {flow.map((step, flowIndex) => (
+                      <div key={step} className="rounded-[15px] bg-white/72 p-3 text-center">
+                        <span className="mx-auto block h-1.5 w-10 rounded-full" style={{ backgroundColor: flowIndex === 1 ? accent : "rgba(80,70,120,0.16)" }} />
+                        <p className="mt-2 truncate text-[11px] font-semibold text-[#241A48]">{step}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function LoginPage({ onLogin }: { onLogin: (user: AuthUser) => void }) {
+  const loginRef = useRef<HTMLElement | null>(null);
+  const [role, setRole] = useState<UserRole>("student");
+  const [username, setUsername] = useState("student");
+  const [password, setPassword] = useState("123456");
+  const [error, setError] = useState("");
+  const [showLogin, setShowLogin] = useState(false);
+
+  const selectedUser = mockUsers.find((user) => user.role === role)!;
+  const loginRoleMeta: Record<string, { shortLabel: string; title: string; detail: string }> = {
+    student: {
+      shortLabel: "实习生",
+      title: "成长端",
+      detail: "查看今日任务、成长路径、导师反馈，并把困惑整理成可沟通的问题。",
+    },
+    mentor: {
+      shortLabel: "导师",
+      title: "带教端",
+      detail: "查看带教优先事项，回复实习生提问，并生成结构化阶段反馈。",
+    },
+    hr: {

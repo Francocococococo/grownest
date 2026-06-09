@@ -1,0 +1,9 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-                      <span className="rounded-full bg-white px-2 py-1 text-xs font-bold text-[var(--role-accent)]">{record.status}</span>
++                      <LoopStatusPill status={toLoopStatus(record.status)} />
+@@
+-                    <span className="shrink-0 rounded-full bg-white px-2 py-0.5 text-[11px] font-bold text-[var(--role-accent)]">{record.sourceRole} → {record.targetRole}</span>
++                    <span className="shrink-0 rounded-full bg-white px-2 py-0.5 text-[11px] font-bold text-[var(--role-accent)]">{record.sourceRole} → {record.targetRole} · {toLoopStatus(record.status)}</span>
+*** End Patch

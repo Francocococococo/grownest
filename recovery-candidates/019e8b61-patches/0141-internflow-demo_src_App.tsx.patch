@@ -1,0 +1,30 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-          <SectionTitle icon={Bot} title="AI 结构化反馈生成器" subtitle={`当前反馈对象：${selected.name}`} />
++          <SectionTitle icon={Bot} title="AI 反馈建议草稿" subtitle={`当前反馈对象：${selected.name}，生成后仍需导师确认`} />
+@@
+-            <p className="text-sm font-black text-slate-950">轻量评价维度</p>
+-            <p className="mt-1 text-xs text-slate-500">导师先点选五个维度评分，AI 再结合碎片观察生成可同步反馈。</p>
++            <p className="text-sm font-black text-slate-950">带教观察维度</p>
++            <p className="mt-1 text-xs text-slate-500">导师先确认观察维度，AI 再结合碎片记录整理可编辑反馈建议。</p>
+@@
+-              {isGenerating ? "AI 正在分析..." : "AI 生成结构化反馈"}
++              {isGenerating ? "AI 正在整理..." : "生成反馈建议"}
+@@
+-              {isSaving ? "正在同步..." : saved ? "已同步 HR" : "同步给学员和 HR"}
++              {isSaving ? "正在同步..." : saved ? "已同步 HRBP" : "同步给学员和 HRBP"}
+@@
+-              正在分析导师观察、成长进度、关注信号和本周任务记录...
++              正在整理导师观察、成长信号和本周任务记录...
+@@
+-          {feedbackGenerated && !saved && <FeedbackNotice tone="success" className="mt-4">AI 反馈草稿已生成，可编辑后同步。</FeedbackNotice>}
+-          {saved && <FeedbackNotice tone="success" className="mt-4">反馈已发送给学员，HR 可在关注看板中查看同步记录。</FeedbackNotice>}
++          {feedbackGenerated && !saved && <FeedbackNotice tone="success" className="mt-4">反馈建议已生成，请导师编辑确认后同步。</FeedbackNotice>}
++          {saved && <FeedbackNotice tone="success" className="mt-4">反馈已发送给学员，HRBP 可在关注看板中查看同步记录。</FeedbackNotice>}
+@@
+-                <h3 className="font-black text-slate-950">AI 生成的导师反馈草稿</h3>
+-                <p className="mt-1 text-sm text-slate-500">上方四项是导师管理版草稿，可编辑；发布后会分别同步到学员端反馈收件箱和 HR 关注看板。</p>
++                <h3 className="font-black text-slate-950">AI 整理的导师反馈建议</h3>
++                <p className="mt-1 text-sm text-slate-500">上方四项均可编辑；发布前需要导师确认，发布后同步到学员端反馈收件箱和 HRBP 关注看板。</p>
+*** End Patch

@@ -1,0 +1,16 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+     },
+     {
+       label: "处理待反馈",
+-      detail: pendingFeedbackCount > 0 ? "仍有阶段反馈需要导师确认，避免学员下一步动作不清楚。" : "当前负责对象的阶段反馈已覆盖。",
+-      status: pendingFeedbackCount > 0 ? "进行中" as LoopStatus : "已完成" as LoopStatus,
++      detail: saved
++        ? "本次阶段反馈已由导师确认并同步到学生端与 HRBP。"
++        : draftFeedback
++          ? "AI 已整理草稿，仍需要导师确认后发布。"
++          : "当前负责对象还需要导师确认阶段反馈。",
++      status: saved ? "已完成" as LoopStatus : draftFeedback ? "待确认" as LoopStatus : "进行中" as LoopStatus,
+     },
+*** End Patch

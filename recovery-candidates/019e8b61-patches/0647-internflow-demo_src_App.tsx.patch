@@ -1,0 +1,9 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+             ))}
+             <span className="mentor-sync-line" aria-hidden="true" />
+-            <span className="mentor-sync-packet mentor-sync-packet-a" aria-hidden="true" />
+-            <span className="mentor-sync-packet mentor-sync-packet-b" aria-hidden="true" />
+           </div>
+*** End Patch

@@ -1,0 +1,41 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+               className={cn(
+                 "portal-stage login-hero-panel glass-panel relative overflow-hidden rounded-[20px] p-7",
+-                showLogin ? "lg:min-h-[420px]" : "lg:min-h-[480px]",
++                showLogin ? "lg:min-h-[560px]" : "lg:min-h-[480px]",
+               )}
+               style={{ transform: `rotate(${selectedPortal.rotate}deg)` }}
+             >
+-              <div className={cn("relative z-10 flex flex-col", showLogin ? "min-h-[350px] justify-start gap-5" : "min-h-[420px] justify-between gap-7")}>
++              <div className={cn("relative z-10 flex flex-col", showLogin ? "min-h-[490px] justify-between gap-5" : "min-h-[420px] justify-between gap-7")}>
+@@
+                 <div className={cn("grid gap-3 sm:grid-cols-3", showLogin && "mt-1")}>
+                   {selectedAccessNotes.map(([label, detail]) => (
+@@
+                   ))}
+                 </div>
++
++                {showLogin && (
++                  <div className="rounded-[16px] border border-[#504678]/10 bg-white/52 p-4" data-gsap-feature="">
++                    <p className="text-xs font-semibold text-[var(--login-label)]">进入后你会看到</p>
++                    <div className="mt-3 grid gap-2">
++                      {selectedRoleContent.features.map(([title, detail, Icon]) => (
++                        <div key={title as string} className="flex items-center gap-3 rounded-[12px] bg-white/58 px-3 py-2 ring-1 ring-white/70">
++                          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[9px] bg-[var(--role-soft)] text-[var(--role-accent)]">
++                            <Icon className="h-4 w-4" />
++                          </span>
++                          <span className="min-w-0">
++                            <span className="block text-sm font-semibold text-[#171321]">{title as string}</span>
++                            <span className="block truncate text-xs text-[#6F6A7A]">{detail as string}</span>
++                          </span>
++                        </div>
++                      ))}
++                    </div>
++                    <div className="mt-3 rounded-[12px] bg-[var(--role-soft)] px-3 py-2 text-xs font-semibold leading-5 text-[#6F6A7A] ring-1 ring-[var(--role-border)]">
++                      成长信号、导师确认与 HRBP 复盘会在系统内形成可追踪的行动记录。
++                    </div>
++                  </div>
++                )}
+*** End Patch

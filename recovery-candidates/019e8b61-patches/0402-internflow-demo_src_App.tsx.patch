@@ -1,0 +1,6 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-  const primaryPortalRoles = mockUsers.filter((item) => item.role !== "admin");
+   const adminUser = mockUsers.find((item) => item.role === "admin")!;
+*** End Patch

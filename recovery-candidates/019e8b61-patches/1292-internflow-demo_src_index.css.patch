@@ -1,0 +1,23 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/index.css
+@@
+ .mentor-sidebar-card {
+-  min-height: 276px;
++  height: 100%;
++  min-height: 0;
+ }
+ 
+ @media (min-width: 1280px) {
+   .mentor-shell > div {
+     row-gap: 8px;
+@@
+ 
+   .mentor-shell aside {
+     grid-row: 1 / span 2;
++    align-self: stretch;
++  }
++
++  .mentor-shell aside > .sticky {
++    height: 100%;
+   }
+*** End Patch

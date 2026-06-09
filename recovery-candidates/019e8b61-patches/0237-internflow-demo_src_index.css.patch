@@ -1,0 +1,10 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/index.css
+@@
+ .app-feedback {
+   border: 1px solid currentColor;
+   border-radius: 10px;
+   box-shadow: 0 12px 28px rgba(36, 26, 72, 0.06);
++  animation: feedback-in 260ms var(--ease-couch) both;
+ }
+*** End Patch

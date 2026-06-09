@@ -1,0 +1,41 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/data/mock.ts
+@@
+-    detail: "执行稳定，业务理解需加强；建议补充 GMV、转化率、留存率等基础指标。",
+-    observationHint: "林小鹅执行力稳定，竞品分析和 SOP 阅读能按时推进，但主动提问较少，对 GMV、转化率、留存率等业务指标理解还不够深入。",
++    detail: "执行稳定，业务理解还需要导师补充上下文；建议先对齐任务标准和关键概念。",
++    observationHint: "林小鹅执行力稳定，竞品分析和 SOP 阅读能按时推进，但主动提问较少，对部分业务概念和验收标准还不够确定。",
+@@
+-      { label: "形成转正或留用建议参考", status: "未开始" },
++      { label: "形成阶段复盘参考", status: "未开始" },
+@@
+-        { label: "完成导师终期代码评价", status: "未开始" },
+-        { label: "形成留用技术能力建议", status: "未开始" },
++        { label: "完成导师终期反馈", status: "未开始" },
++        { label: "形成阶段能力复盘", status: "未开始" },
+@@
+-        { label: "形成留用销售能力建议", status: "未开始" },
++        { label: "形成阶段能力复盘", status: "未开始" },
+@@
+-        { label: "形成留用建议参考", status: "未开始" },
++        { label: "形成阶段复盘参考", status: "未开始" },
+@@
+-  "第 30 天：完成成长评价",
++  "第 30 天：完成阶段反馈",
+@@
+-  const reviewReminder = danger ? "三天后复盘支持动作是否生效" : warning ? "下周检查改善动作完成情况" : "第 30 天阶段评价时复盘";
++  const reviewReminder = danger ? "后续复盘支持动作是否生效" : warning ? "下次检查改善动作完成情况" : "阶段反馈时复盘";
+@@
+-      { label: "打卡信号", value: reason, status },
++      { label: "成长信号", value: reason, status },
+@@
+-      `今天 09:30 AI 标记为${risk}`,
++      `系统整理为${risk}`,
+@@
+-  retentionReady: interns.filter((intern) => intern.risk === "低风险" && intern.progress >= 75).length,
++  retentionReady: interns.filter((intern) => intern.risk === "低风险" && intern.progress >= 75).length,
+@@
+-  hiringSignal: "研发岗两极分化明显，产品岗整体适配较好，销售岗需要加强客户场景训练。",
++  hiringSignal: "不同岗位的成长节奏存在差异，后续可结合导师反馈复盘入职支持材料。",
+ };
+*** End Patch

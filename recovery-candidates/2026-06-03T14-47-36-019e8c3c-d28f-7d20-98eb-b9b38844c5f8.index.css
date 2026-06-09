@@ -1,0 +1,1882 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "SF Pro Display", "Geist Sans", "PingFang SC", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+  --color-tencent: #4B32C3;
+  --color-ink: #171321;
+}
+
+:root {
+  --ease-couch: cubic-bezier(0.16, 1, 0.3, 1);
+  --app-bg: #f6f4fa;
+  --app-bg-deep: #f6f4fa;
+  --surface: rgba(255, 255, 255, 0.72);
+  --surface-soft: rgba(255, 255, 255, 0.66);
+  --surface-muted: rgba(255, 255, 255, 0.52);
+  --line-soft: rgba(80, 70, 120, 0.12);
+  --line-strong: rgba(80, 70, 120, 0.18);
+  --shadow-soft: 0 18px 44px rgba(36, 26, 72, 0.06);
+  --shadow-rest: 0 1px 2px rgba(36, 26, 72, 0.035), 0 12px 28px rgba(36, 26, 72, 0.045);
+  --brand-blue: #4b32c3;
+  --brand-blue-strong: #241a48;
+  --brand-teal: #32b889;
+  --brand-ink: #171321;
+  --brand-muted: #6f6a7a;
+  --role-accent: #4b32c3;
+  --role-accent-strong: #241a48;
+  --role-soft: rgba(75, 50, 195, 0.07);
+  --role-border: rgba(80, 70, 120, 0.12);
+  --role-shadow: rgba(36, 26, 72, 0.08);
+  --radius-card: 16px;
+  --radius-control: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  max-width: 100%;
+  overflow-x: hidden;
+  background: var(--app-bg);
+  color: var(--brand-ink);
+  font-feature-settings: "tnum" 1, "cv02" 1, "cv03" 1;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(244, 241, 248, 0)),
+    linear-gradient(rgba(193, 181, 194, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(193, 181, 194, 0.12) 1px, transparent 1px);
+  background-size: auto, 32px 32px, 32px 32px;
+}
+
+body::after {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  opacity: 0.16;
+  background-image:
+    linear-gradient(135deg, rgba(80, 70, 120, 0.035) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(80, 70, 120, 0.025) 25%, transparent 25%);
+  background-position: 0 0, 8px 8px;
+  background-size: 16px 16px;
+}
+
+button,
+textarea,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: rgba(75, 50, 195, 0.16);
+}
+
+input,
+textarea,
+select {
+  color: var(--brand-ink);
+  transition:
+    border-color 180ms var(--ease-couch),
+    box-shadow 180ms var(--ease-couch),
+    background-color 180ms var(--ease-couch),
+    transform 180ms var(--ease-couch);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #98a2b3;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--role-border);
+  outline-offset: 2px;
+}
+
+.future-card {
+  position: relative;
+  isolation: isolate;
+  border-color: var(--line-soft) !important;
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow-rest);
+  transition:
+    transform 220ms var(--ease-couch),
+    border-color 220ms var(--ease-couch),
+    box-shadow 220ms var(--ease-couch),
+    background-color 220ms var(--ease-couch);
+}
+
+.future-card::before {
+  display: none;
+}
+
+.future-card::after {
+  display: none;
+}
+
+.future-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--line-strong) !important;
+  box-shadow: var(--shadow-soft);
+}
+
+.home-shell {
+  background:
+    linear-gradient(rgba(80, 70, 120, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(80, 70, 120, 0.035) 1px, transparent 1px),
+    #f7f6fb;
+  background-size: 40px 40px, 40px 40px, auto;
+}
+
+.home-shell::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(circle at 14% 22%, rgba(75, 50, 195, 0.08), transparent 30%),
+    radial-gradient(circle at 78% 16%, rgba(50, 184, 137, 0.09), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(246, 244, 250, 0));
+}
+
+.home-title-brand {
+  display: grid;
+  gap: 0.18em;
+  max-width: 9.4ch;
+  font-family: "Geist Sans", "SF Pro Display", "PingFang SC", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+  line-height: 0.9;
+  letter-spacing: 0;
+}
+
+.home-title-brand-main {
+  display: block;
+  font-size: clamp(4.15rem, 7.2vw, 7.6rem);
+  font-weight: 680;
+  letter-spacing: -0.015em;
+  line-height: 0.86;
+}
+
+.home-title-brand-sub {
+  display: block;
+  max-width: 7.2em;
+  color: #263750;
+  font-size: clamp(2.55rem, 4.55vw, 4.85rem);
+  font-weight: 620;
+  letter-spacing: 0.01em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.home-hero-copy {
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .home-hero-copy {
+    white-space: normal;
+    text-wrap: balance;
+  }
+}
+
+.home-ambient {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 999px;
+  filter: blur(28px);
+}
+
+.home-ambient-a {
+  right: 8%;
+  top: 18%;
+  width: 360px;
+  height: 360px;
+  background: rgba(23, 50, 77, 0.11);
+}
+
+.home-ambient-b {
+  left: 44%;
+  bottom: 8%;
+  width: 300px;
+  height: 300px;
+  background: rgba(42, 157, 168, 0.1);
+}
+
+.home-product-shell,
+.home-role-card,
+.home-insight-panel {
+  will-change: transform, opacity;
+}
+
+.home-product-shell::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  border-radius: inherit;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.66), transparent 28%),
+    radial-gradient(circle at 80% 10%, rgba(23, 50, 77, 0.075), transparent 32%);
+}
+
+.home-product-shell > *,
+.home-insight-panel > * {
+  position: relative;
+  z-index: 1;
+}
+/* RECOVERY_GAP_LINE_260 */
+/* RECOVERY_GAP_LINE_261 */
+/* RECOVERY_GAP_LINE_262 */
+/* RECOVERY_GAP_LINE_263 */
+/* RECOVERY_GAP_LINE_264 */
+/* RECOVERY_GAP_LINE_265 */
+/* RECOVERY_GAP_LINE_266 */
+/* RECOVERY_GAP_LINE_267 */
+/* RECOVERY_GAP_LINE_268 */
+/* RECOVERY_GAP_LINE_269 */
+/* RECOVERY_GAP_LINE_270 */
+/* RECOVERY_GAP_LINE_271 */
+/* RECOVERY_GAP_LINE_272 */
+/* RECOVERY_GAP_LINE_273 */
+/* RECOVERY_GAP_LINE_274 */
+/* RECOVERY_GAP_LINE_275 */
+/* RECOVERY_GAP_LINE_276 */
+/* RECOVERY_GAP_LINE_277 */
+/* RECOVERY_GAP_LINE_278 */
+/* RECOVERY_GAP_LINE_279 */
+/* RECOVERY_GAP_LINE_280 */
+/* RECOVERY_GAP_LINE_281 */
+/* RECOVERY_GAP_LINE_282 */
+/* RECOVERY_GAP_LINE_283 */
+/* RECOVERY_GAP_LINE_284 */
+/* RECOVERY_GAP_LINE_285 */
+/* RECOVERY_GAP_LINE_286 */
+/* RECOVERY_GAP_LINE_287 */
+/* RECOVERY_GAP_LINE_288 */
+/* RECOVERY_GAP_LINE_289 */
+/* RECOVERY_GAP_LINE_290 */
+/* RECOVERY_GAP_LINE_291 */
+/* RECOVERY_GAP_LINE_292 */
+/* RECOVERY_GAP_LINE_293 */
+/* RECOVERY_GAP_LINE_294 */
+/* RECOVERY_GAP_LINE_295 */
+/* RECOVERY_GAP_LINE_296 */
+/* RECOVERY_GAP_LINE_297 */
+/* RECOVERY_GAP_LINE_298 */
+/* RECOVERY_GAP_LINE_299 */
+/* RECOVERY_GAP_LINE_300 */
+/* RECOVERY_GAP_LINE_301 */
+/* RECOVERY_GAP_LINE_302 */
+/* RECOVERY_GAP_LINE_303 */
+/* RECOVERY_GAP_LINE_304 */
+/* RECOVERY_GAP_LINE_305 */
+/* RECOVERY_GAP_LINE_306 */
+/* RECOVERY_GAP_LINE_307 */
+/* RECOVERY_GAP_LINE_308 */
+/* RECOVERY_GAP_LINE_309 */
+/* RECOVERY_GAP_LINE_310 */
+/* RECOVERY_GAP_LINE_311 */
+/* RECOVERY_GAP_LINE_312 */
+/* RECOVERY_GAP_LINE_313 */
+/* RECOVERY_GAP_LINE_314 */
+/* RECOVERY_GAP_LINE_315 */
+/* RECOVERY_GAP_LINE_316 */
+/* RECOVERY_GAP_LINE_317 */
+/* RECOVERY_GAP_LINE_318 */
+/* RECOVERY_GAP_LINE_319 */
+/* RECOVERY_GAP_LINE_320 */
+/* RECOVERY_GAP_LINE_321 */
+/* RECOVERY_GAP_LINE_322 */
+/* RECOVERY_GAP_LINE_323 */
+/* RECOVERY_GAP_LINE_324 */
+/* RECOVERY_GAP_LINE_325 */
+/* RECOVERY_GAP_LINE_326 */
+/* RECOVERY_GAP_LINE_327 */
+/* RECOVERY_GAP_LINE_328 */
+/* RECOVERY_GAP_LINE_329 */
+/* RECOVERY_GAP_LINE_330 */
+/* RECOVERY_GAP_LINE_331 */
+/* RECOVERY_GAP_LINE_332 */
+/* RECOVERY_GAP_LINE_333 */
+/* RECOVERY_GAP_LINE_334 */
+/* RECOVERY_GAP_LINE_335 */
+/* RECOVERY_GAP_LINE_336 */
+/* RECOVERY_GAP_LINE_337 */
+/* RECOVERY_GAP_LINE_338 */
+/* RECOVERY_GAP_LINE_339 */
+/* RECOVERY_GAP_LINE_340 */
+/* RECOVERY_GAP_LINE_341 */
+/* RECOVERY_GAP_LINE_342 */
+/* RECOVERY_GAP_LINE_343 */
+/* RECOVERY_GAP_LINE_344 */
+/* RECOVERY_GAP_LINE_345 */
+/* RECOVERY_GAP_LINE_346 */
+/* RECOVERY_GAP_LINE_347 */
+/* RECOVERY_GAP_LINE_348 */
+/* RECOVERY_GAP_LINE_349 */
+/* RECOVERY_GAP_LINE_350 */
+/* RECOVERY_GAP_LINE_351 */
+/* RECOVERY_GAP_LINE_352 */
+/* RECOVERY_GAP_LINE_353 */
+/* RECOVERY_GAP_LINE_354 */
+/* RECOVERY_GAP_LINE_355 */
+/* RECOVERY_GAP_LINE_356 */
+/* RECOVERY_GAP_LINE_357 */
+/* RECOVERY_GAP_LINE_358 */
+/* RECOVERY_GAP_LINE_359 */
+/* RECOVERY_GAP_LINE_360 */
+/* RECOVERY_GAP_LINE_361 */
+/* RECOVERY_GAP_LINE_362 */
+/* RECOVERY_GAP_LINE_363 */
+/* RECOVERY_GAP_LINE_364 */
+/* RECOVERY_GAP_LINE_365 */
+/* RECOVERY_GAP_LINE_366 */
+/* RECOVERY_GAP_LINE_367 */
+/* RECOVERY_GAP_LINE_368 */
+/* RECOVERY_GAP_LINE_369 */
+/* RECOVERY_GAP_LINE_370 */
+/* RECOVERY_GAP_LINE_371 */
+/* RECOVERY_GAP_LINE_372 */
+/* RECOVERY_GAP_LINE_373 */
+/* RECOVERY_GAP_LINE_374 */
+/* RECOVERY_GAP_LINE_375 */
+/* RECOVERY_GAP_LINE_376 */
+/* RECOVERY_GAP_LINE_377 */
+/* RECOVERY_GAP_LINE_378 */
+/* RECOVERY_GAP_LINE_379 */
+/* RECOVERY_GAP_LINE_380 */
+/* RECOVERY_GAP_LINE_381 */
+/* RECOVERY_GAP_LINE_382 */
+/* RECOVERY_GAP_LINE_383 */
+/* RECOVERY_GAP_LINE_384 */
+/* RECOVERY_GAP_LINE_385 */
+/* RECOVERY_GAP_LINE_386 */
+/* RECOVERY_GAP_LINE_387 */
+/* RECOVERY_GAP_LINE_388 */
+/* RECOVERY_GAP_LINE_389 */
+/* RECOVERY_GAP_LINE_390 */
+/* RECOVERY_GAP_LINE_391 */
+/* RECOVERY_GAP_LINE_392 */
+/* RECOVERY_GAP_LINE_393 */
+/* RECOVERY_GAP_LINE_394 */
+/* RECOVERY_GAP_LINE_395 */
+/* RECOVERY_GAP_LINE_396 */
+/* RECOVERY_GAP_LINE_397 */
+/* RECOVERY_GAP_LINE_398 */
+/* RECOVERY_GAP_LINE_399 */
+/* RECOVERY_GAP_LINE_400 */
+/* RECOVERY_GAP_LINE_401 */
+/* RECOVERY_GAP_LINE_402 */
+/* RECOVERY_GAP_LINE_403 */
+/* RECOVERY_GAP_LINE_404 */
+/* RECOVERY_GAP_LINE_405 */
+/* RECOVERY_GAP_LINE_406 */
+/* RECOVERY_GAP_LINE_407 */
+/* RECOVERY_GAP_LINE_408 */
+/* RECOVERY_GAP_LINE_409 */
+/* RECOVERY_GAP_LINE_410 */
+/* RECOVERY_GAP_LINE_411 */
+/* RECOVERY_GAP_LINE_412 */
+/* RECOVERY_GAP_LINE_413 */
+/* RECOVERY_GAP_LINE_414 */
+/* RECOVERY_GAP_LINE_415 */
+/* RECOVERY_GAP_LINE_416 */
+/* RECOVERY_GAP_LINE_417 */
+/* RECOVERY_GAP_LINE_418 */
+/* RECOVERY_GAP_LINE_419 */
+/* RECOVERY_GAP_LINE_420 */
+/* RECOVERY_GAP_LINE_421 */
+/* RECOVERY_GAP_LINE_422 */
+/* RECOVERY_GAP_LINE_423 */
+/* RECOVERY_GAP_LINE_424 */
+/* RECOVERY_GAP_LINE_425 */
+/* RECOVERY_GAP_LINE_426 */
+/* RECOVERY_GAP_LINE_427 */
+/* RECOVERY_GAP_LINE_428 */
+/* RECOVERY_GAP_LINE_429 */
+/* RECOVERY_GAP_LINE_430 */
+/* RECOVERY_GAP_LINE_431 */
+/* RECOVERY_GAP_LINE_432 */
+/* RECOVERY_GAP_LINE_433 */
+/* RECOVERY_GAP_LINE_434 */
+/* RECOVERY_GAP_LINE_435 */
+/* RECOVERY_GAP_LINE_436 */
+/* RECOVERY_GAP_LINE_437 */
+/* RECOVERY_GAP_LINE_438 */
+/* RECOVERY_GAP_LINE_439 */
+/* RECOVERY_GAP_LINE_440 */
+/* RECOVERY_GAP_LINE_441 */
+/* RECOVERY_GAP_LINE_442 */
+/* RECOVERY_GAP_LINE_443 */
+/* RECOVERY_GAP_LINE_444 */
+/* RECOVERY_GAP_LINE_445 */
+/* RECOVERY_GAP_LINE_446 */
+/* RECOVERY_GAP_LINE_447 */
+/* RECOVERY_GAP_LINE_448 */
+/* RECOVERY_GAP_LINE_449 */
+/* RECOVERY_GAP_LINE_450 */
+/* RECOVERY_GAP_LINE_451 */
+/* RECOVERY_GAP_LINE_452 */
+/* RECOVERY_GAP_LINE_453 */
+/* RECOVERY_GAP_LINE_454 */
+/* RECOVERY_GAP_LINE_455 */
+/* RECOVERY_GAP_LINE_456 */
+/* RECOVERY_GAP_LINE_457 */
+/* RECOVERY_GAP_LINE_458 */
+/* RECOVERY_GAP_LINE_459 */
+/* RECOVERY_GAP_LINE_460 */
+/* RECOVERY_GAP_LINE_461 */
+/* RECOVERY_GAP_LINE_462 */
+/* RECOVERY_GAP_LINE_463 */
+/* RECOVERY_GAP_LINE_464 */
+/* RECOVERY_GAP_LINE_465 */
+/* RECOVERY_GAP_LINE_466 */
+/* RECOVERY_GAP_LINE_467 */
+/* RECOVERY_GAP_LINE_468 */
+/* RECOVERY_GAP_LINE_469 */
+/* RECOVERY_GAP_LINE_470 */
+/* RECOVERY_GAP_LINE_471 */
+/* RECOVERY_GAP_LINE_472 */
+/* RECOVERY_GAP_LINE_473 */
+/* RECOVERY_GAP_LINE_474 */
+/* RECOVERY_GAP_LINE_475 */
+/* RECOVERY_GAP_LINE_476 */
+/* RECOVERY_GAP_LINE_477 */
+/* RECOVERY_GAP_LINE_478 */
+/* RECOVERY_GAP_LINE_479 */
+/* RECOVERY_GAP_LINE_480 */
+/* RECOVERY_GAP_LINE_481 */
+/* RECOVERY_GAP_LINE_482 */
+/* RECOVERY_GAP_LINE_483 */
+/* RECOVERY_GAP_LINE_484 */
+/* RECOVERY_GAP_LINE_485 */
+/* RECOVERY_GAP_LINE_486 */
+/* RECOVERY_GAP_LINE_487 */
+/* RECOVERY_GAP_LINE_488 */
+/* RECOVERY_GAP_LINE_489 */
+/* RECOVERY_GAP_LINE_490 */
+/* RECOVERY_GAP_LINE_491 */
+/* RECOVERY_GAP_LINE_492 */
+/* RECOVERY_GAP_LINE_493 */
+/* RECOVERY_GAP_LINE_494 */
+/* RECOVERY_GAP_LINE_495 */
+/* RECOVERY_GAP_LINE_496 */
+/* RECOVERY_GAP_LINE_497 */
+/* RECOVERY_GAP_LINE_498 */
+/* RECOVERY_GAP_LINE_499 */
+/* RECOVERY_GAP_LINE_500 */
+/* RECOVERY_GAP_LINE_501 */
+/* RECOVERY_GAP_LINE_502 */
+/* RECOVERY_GAP_LINE_503 */
+/* RECOVERY_GAP_LINE_504 */
+/* RECOVERY_GAP_LINE_505 */
+/* RECOVERY_GAP_LINE_506 */
+/* RECOVERY_GAP_LINE_507 */
+/* RECOVERY_GAP_LINE_508 */
+/* RECOVERY_GAP_LINE_509 */
+/* RECOVERY_GAP_LINE_510 */
+/* RECOVERY_GAP_LINE_511 */
+/* RECOVERY_GAP_LINE_512 */
+/* RECOVERY_GAP_LINE_513 */
+/* RECOVERY_GAP_LINE_514 */
+/* RECOVERY_GAP_LINE_515 */
+/* RECOVERY_GAP_LINE_516 */
+/* RECOVERY_GAP_LINE_517 */
+/* RECOVERY_GAP_LINE_518 */
+/* RECOVERY_GAP_LINE_519 */
+/* RECOVERY_GAP_LINE_520 */
+/* RECOVERY_GAP_LINE_521 */
+/* RECOVERY_GAP_LINE_522 */
+/* RECOVERY_GAP_LINE_523 */
+/* RECOVERY_GAP_LINE_524 */
+/* RECOVERY_GAP_LINE_525 */
+/* RECOVERY_GAP_LINE_526 */
+/* RECOVERY_GAP_LINE_527 */
+/* RECOVERY_GAP_LINE_528 */
+/* RECOVERY_GAP_LINE_529 */
+/* RECOVERY_GAP_LINE_530 */
+/* RECOVERY_GAP_LINE_531 */
+/* RECOVERY_GAP_LINE_532 */
+/* RECOVERY_GAP_LINE_533 */
+/* RECOVERY_GAP_LINE_534 */
+/* RECOVERY_GAP_LINE_535 */
+/* RECOVERY_GAP_LINE_536 */
+/* RECOVERY_GAP_LINE_537 */
+/* RECOVERY_GAP_LINE_538 */
+/* RECOVERY_GAP_LINE_539 */
+/* RECOVERY_GAP_LINE_540 */
+/* RECOVERY_GAP_LINE_541 */
+/* RECOVERY_GAP_LINE_542 */
+/* RECOVERY_GAP_LINE_543 */
+/* RECOVERY_GAP_LINE_544 */
+/* RECOVERY_GAP_LINE_545 */
+/* RECOVERY_GAP_LINE_546 */
+/* RECOVERY_GAP_LINE_547 */
+/* RECOVERY_GAP_LINE_548 */
+/* RECOVERY_GAP_LINE_549 */
+/* RECOVERY_GAP_LINE_550 */
+/* RECOVERY_GAP_LINE_551 */
+/* RECOVERY_GAP_LINE_552 */
+/* RECOVERY_GAP_LINE_553 */
+/* RECOVERY_GAP_LINE_554 */
+/* RECOVERY_GAP_LINE_555 */
+/* RECOVERY_GAP_LINE_556 */
+/* RECOVERY_GAP_LINE_557 */
+/* RECOVERY_GAP_LINE_558 */
+/* RECOVERY_GAP_LINE_559 */
+/* RECOVERY_GAP_LINE_560 */
+/* RECOVERY_GAP_LINE_561 */
+/* RECOVERY_GAP_LINE_562 */
+/* RECOVERY_GAP_LINE_563 */
+/* RECOVERY_GAP_LINE_564 */
+/* RECOVERY_GAP_LINE_565 */
+/* RECOVERY_GAP_LINE_566 */
+/* RECOVERY_GAP_LINE_567 */
+/* RECOVERY_GAP_LINE_568 */
+/* RECOVERY_GAP_LINE_569 */
+/* RECOVERY_GAP_LINE_570 */
+/* RECOVERY_GAP_LINE_571 */
+/* RECOVERY_GAP_LINE_572 */
+/* RECOVERY_GAP_LINE_573 */
+/* RECOVERY_GAP_LINE_574 */
+/* RECOVERY_GAP_LINE_575 */
+/* RECOVERY_GAP_LINE_576 */
+/* RECOVERY_GAP_LINE_577 */
+/* RECOVERY_GAP_LINE_578 */
+/* RECOVERY_GAP_LINE_579 */
+/* RECOVERY_GAP_LINE_580 */
+/* RECOVERY_GAP_LINE_581 */
+/* RECOVERY_GAP_LINE_582 */
+/* RECOVERY_GAP_LINE_583 */
+/* RECOVERY_GAP_LINE_584 */
+/* RECOVERY_GAP_LINE_585 */
+/* RECOVERY_GAP_LINE_586 */
+/* RECOVERY_GAP_LINE_587 */
+/* RECOVERY_GAP_LINE_588 */
+/* RECOVERY_GAP_LINE_589 */
+/* RECOVERY_GAP_LINE_590 */
+/* RECOVERY_GAP_LINE_591 */
+/* RECOVERY_GAP_LINE_592 */
+/* RECOVERY_GAP_LINE_593 */
+/* RECOVERY_GAP_LINE_594 */
+/* RECOVERY_GAP_LINE_595 */
+/* RECOVERY_GAP_LINE_596 */
+/* RECOVERY_GAP_LINE_597 */
+/* RECOVERY_GAP_LINE_598 */
+/* RECOVERY_GAP_LINE_599 */
+/* RECOVERY_GAP_LINE_600 */
+/* RECOVERY_GAP_LINE_601 */
+/* RECOVERY_GAP_LINE_602 */
+/* RECOVERY_GAP_LINE_603 */
+/* RECOVERY_GAP_LINE_604 */
+/* RECOVERY_GAP_LINE_605 */
+/* RECOVERY_GAP_LINE_606 */
+/* RECOVERY_GAP_LINE_607 */
+/* RECOVERY_GAP_LINE_608 */
+/* RECOVERY_GAP_LINE_609 */
+/* RECOVERY_GAP_LINE_610 */
+/* RECOVERY_GAP_LINE_611 */
+/* RECOVERY_GAP_LINE_612 */
+/* RECOVERY_GAP_LINE_613 */
+/* RECOVERY_GAP_LINE_614 */
+/* RECOVERY_GAP_LINE_615 */
+/* RECOVERY_GAP_LINE_616 */
+/* RECOVERY_GAP_LINE_617 */
+/* RECOVERY_GAP_LINE_618 */
+/* RECOVERY_GAP_LINE_619 */
+/* RECOVERY_GAP_LINE_620 */
+/* RECOVERY_GAP_LINE_621 */
+/* RECOVERY_GAP_LINE_622 */
+/* RECOVERY_GAP_LINE_623 */
+/* RECOVERY_GAP_LINE_624 */
+/* RECOVERY_GAP_LINE_625 */
+/* RECOVERY_GAP_LINE_626 */
+/* RECOVERY_GAP_LINE_627 */
+/* RECOVERY_GAP_LINE_628 */
+/* RECOVERY_GAP_LINE_629 */
+/* RECOVERY_GAP_LINE_630 */
+/* RECOVERY_GAP_LINE_631 */
+/* RECOVERY_GAP_LINE_632 */
+/* RECOVERY_GAP_LINE_633 */
+/* RECOVERY_GAP_LINE_634 */
+/* RECOVERY_GAP_LINE_635 */
+/* RECOVERY_GAP_LINE_636 */
+/* RECOVERY_GAP_LINE_637 */
+/* RECOVERY_GAP_LINE_638 */
+/* RECOVERY_GAP_LINE_639 */
+/* RECOVERY_GAP_LINE_640 */
+/* RECOVERY_GAP_LINE_641 */
+/* RECOVERY_GAP_LINE_642 */
+/* RECOVERY_GAP_LINE_643 */
+/* RECOVERY_GAP_LINE_644 */
+/* RECOVERY_GAP_LINE_645 */
+/* RECOVERY_GAP_LINE_646 */
+/* RECOVERY_GAP_LINE_647 */
+/* RECOVERY_GAP_LINE_648 */
+/* RECOVERY_GAP_LINE_649 */
+/* RECOVERY_GAP_LINE_650 */
+/* RECOVERY_GAP_LINE_651 */
+/* RECOVERY_GAP_LINE_652 */
+/* RECOVERY_GAP_LINE_653 */
+/* RECOVERY_GAP_LINE_654 */
+/* RECOVERY_GAP_LINE_655 */
+/* RECOVERY_GAP_LINE_656 */
+/* RECOVERY_GAP_LINE_657 */
+/* RECOVERY_GAP_LINE_658 */
+/* RECOVERY_GAP_LINE_659 */
+/* RECOVERY_GAP_LINE_660 */
+/* RECOVERY_GAP_LINE_661 */
+/* RECOVERY_GAP_LINE_662 */
+/* RECOVERY_GAP_LINE_663 */
+/* RECOVERY_GAP_LINE_664 */
+/* RECOVERY_GAP_LINE_665 */
+/* RECOVERY_GAP_LINE_666 */
+/* RECOVERY_GAP_LINE_667 */
+/* RECOVERY_GAP_LINE_668 */
+/* RECOVERY_GAP_LINE_669 */
+/* RECOVERY_GAP_LINE_670 */
+/* RECOVERY_GAP_LINE_671 */
+/* RECOVERY_GAP_LINE_672 */
+/* RECOVERY_GAP_LINE_673 */
+/* RECOVERY_GAP_LINE_674 */
+/* RECOVERY_GAP_LINE_675 */
+/* RECOVERY_GAP_LINE_676 */
+/* RECOVERY_GAP_LINE_677 */
+/* RECOVERY_GAP_LINE_678 */
+/* RECOVERY_GAP_LINE_679 */
+/* RECOVERY_GAP_LINE_680 */
+/* RECOVERY_GAP_LINE_681 */
+/* RECOVERY_GAP_LINE_682 */
+/* RECOVERY_GAP_LINE_683 */
+/* RECOVERY_GAP_LINE_684 */
+/* RECOVERY_GAP_LINE_685 */
+/* RECOVERY_GAP_LINE_686 */
+/* RECOVERY_GAP_LINE_687 */
+/* RECOVERY_GAP_LINE_688 */
+/* RECOVERY_GAP_LINE_689 */
+/* RECOVERY_GAP_LINE_690 */
+/* RECOVERY_GAP_LINE_691 */
+/* RECOVERY_GAP_LINE_692 */
+/* RECOVERY_GAP_LINE_693 */
+/* RECOVERY_GAP_LINE_694 */
+/* RECOVERY_GAP_LINE_695 */
+/* RECOVERY_GAP_LINE_696 */
+/* RECOVERY_GAP_LINE_697 */
+/* RECOVERY_GAP_LINE_698 */
+/* RECOVERY_GAP_LINE_699 */
+/* RECOVERY_GAP_LINE_700 */
+/* RECOVERY_GAP_LINE_701 */
+/* RECOVERY_GAP_LINE_702 */
+/* RECOVERY_GAP_LINE_703 */
+/* RECOVERY_GAP_LINE_704 */
+/* RECOVERY_GAP_LINE_705 */
+/* RECOVERY_GAP_LINE_706 */
+/* RECOVERY_GAP_LINE_707 */
+/* RECOVERY_GAP_LINE_708 */
+/* RECOVERY_GAP_LINE_709 */
+/* RECOVERY_GAP_LINE_710 */
+/* RECOVERY_GAP_LINE_711 */
+/* RECOVERY_GAP_LINE_712 */
+/* RECOVERY_GAP_LINE_713 */
+/* RECOVERY_GAP_LINE_714 */
+/* RECOVERY_GAP_LINE_715 */
+/* RECOVERY_GAP_LINE_716 */
+/* RECOVERY_GAP_LINE_717 */
+/* RECOVERY_GAP_LINE_718 */
+/* RECOVERY_GAP_LINE_719 */
+/* RECOVERY_GAP_LINE_720 */
+/* RECOVERY_GAP_LINE_721 */
+/* RECOVERY_GAP_LINE_722 */
+/* RECOVERY_GAP_LINE_723 */
+/* RECOVERY_GAP_LINE_724 */
+/* RECOVERY_GAP_LINE_725 */
+/* RECOVERY_GAP_LINE_726 */
+/* RECOVERY_GAP_LINE_727 */
+/* RECOVERY_GAP_LINE_728 */
+/* RECOVERY_GAP_LINE_729 */
+/* RECOVERY_GAP_LINE_730 */
+/* RECOVERY_GAP_LINE_731 */
+/* RECOVERY_GAP_LINE_732 */
+/* RECOVERY_GAP_LINE_733 */
+/* RECOVERY_GAP_LINE_734 */
+/* RECOVERY_GAP_LINE_735 */
+/* RECOVERY_GAP_LINE_736 */
+/* RECOVERY_GAP_LINE_737 */
+/* RECOVERY_GAP_LINE_738 */
+/* RECOVERY_GAP_LINE_739 */
+/* RECOVERY_GAP_LINE_740 */
+/* RECOVERY_GAP_LINE_741 */
+/* RECOVERY_GAP_LINE_742 */
+/* RECOVERY_GAP_LINE_743 */
+/* RECOVERY_GAP_LINE_744 */
+/* RECOVERY_GAP_LINE_745 */
+/* RECOVERY_GAP_LINE_746 */
+/* RECOVERY_GAP_LINE_747 */
+/* RECOVERY_GAP_LINE_748 */
+/* RECOVERY_GAP_LINE_749 */
+/* RECOVERY_GAP_LINE_750 */
+/* RECOVERY_GAP_LINE_751 */
+/* RECOVERY_GAP_LINE_752 */
+/* RECOVERY_GAP_LINE_753 */
+/* RECOVERY_GAP_LINE_754 */
+/* RECOVERY_GAP_LINE_755 */
+/* RECOVERY_GAP_LINE_756 */
+/* RECOVERY_GAP_LINE_757 */
+/* RECOVERY_GAP_LINE_758 */
+/* RECOVERY_GAP_LINE_759 */
+/* RECOVERY_GAP_LINE_760 */
+/* RECOVERY_GAP_LINE_761 */
+/* RECOVERY_GAP_LINE_762 */
+/* RECOVERY_GAP_LINE_763 */
+/* RECOVERY_GAP_LINE_764 */
+/* RECOVERY_GAP_LINE_765 */
+/* RECOVERY_GAP_LINE_766 */
+/* RECOVERY_GAP_LINE_767 */
+/* RECOVERY_GAP_LINE_768 */
+/* RECOVERY_GAP_LINE_769 */
+/* RECOVERY_GAP_LINE_770 */
+/* RECOVERY_GAP_LINE_771 */
+/* RECOVERY_GAP_LINE_772 */
+/* RECOVERY_GAP_LINE_773 */
+/* RECOVERY_GAP_LINE_774 */
+/* RECOVERY_GAP_LINE_775 */
+/* RECOVERY_GAP_LINE_776 */
+/* RECOVERY_GAP_LINE_777 */
+/* RECOVERY_GAP_LINE_778 */
+/* RECOVERY_GAP_LINE_779 */
+/* RECOVERY_GAP_LINE_780 */
+/* RECOVERY_GAP_LINE_781 */
+/* RECOVERY_GAP_LINE_782 */
+/* RECOVERY_GAP_LINE_783 */
+/* RECOVERY_GAP_LINE_784 */
+/* RECOVERY_GAP_LINE_785 */
+/* RECOVERY_GAP_LINE_786 */
+/* RECOVERY_GAP_LINE_787 */
+/* RECOVERY_GAP_LINE_788 */
+/* RECOVERY_GAP_LINE_789 */
+/* RECOVERY_GAP_LINE_790 */
+/* RECOVERY_GAP_LINE_791 */
+/* RECOVERY_GAP_LINE_792 */
+/* RECOVERY_GAP_LINE_793 */
+/* RECOVERY_GAP_LINE_794 */
+/* RECOVERY_GAP_LINE_795 */
+/* RECOVERY_GAP_LINE_796 */
+/* RECOVERY_GAP_LINE_797 */
+/* RECOVERY_GAP_LINE_798 */
+/* RECOVERY_GAP_LINE_799 */
+/* RECOVERY_GAP_LINE_800 */
+/* RECOVERY_GAP_LINE_801 */
+/* RECOVERY_GAP_LINE_802 */
+/* RECOVERY_GAP_LINE_803 */
+/* RECOVERY_GAP_LINE_804 */
+/* RECOVERY_GAP_LINE_805 */
+/* RECOVERY_GAP_LINE_806 */
+/* RECOVERY_GAP_LINE_807 */
+/* RECOVERY_GAP_LINE_808 */
+/* RECOVERY_GAP_LINE_809 */
+/* RECOVERY_GAP_LINE_810 */
+/* RECOVERY_GAP_LINE_811 */
+/* RECOVERY_GAP_LINE_812 */
+/* RECOVERY_GAP_LINE_813 */
+/* RECOVERY_GAP_LINE_814 */
+/* RECOVERY_GAP_LINE_815 */
+/* RECOVERY_GAP_LINE_816 */
+/* RECOVERY_GAP_LINE_817 */
+/* RECOVERY_GAP_LINE_818 */
+/* RECOVERY_GAP_LINE_819 */
+/* RECOVERY_GAP_LINE_820 */
+/* RECOVERY_GAP_LINE_821 */
+/* RECOVERY_GAP_LINE_822 */
+/* RECOVERY_GAP_LINE_823 */
+/* RECOVERY_GAP_LINE_824 */
+/* RECOVERY_GAP_LINE_825 */
+/* RECOVERY_GAP_LINE_826 */
+/* RECOVERY_GAP_LINE_827 */
+/* RECOVERY_GAP_LINE_828 */
+/* RECOVERY_GAP_LINE_829 */
+/* RECOVERY_GAP_LINE_830 */
+/* RECOVERY_GAP_LINE_831 */
+/* RECOVERY_GAP_LINE_832 */
+/* RECOVERY_GAP_LINE_833 */
+/* RECOVERY_GAP_LINE_834 */
+/* RECOVERY_GAP_LINE_835 */
+/* RECOVERY_GAP_LINE_836 */
+/* RECOVERY_GAP_LINE_837 */
+/* RECOVERY_GAP_LINE_838 */
+/* RECOVERY_GAP_LINE_839 */
+/* RECOVERY_GAP_LINE_840 */
+/* RECOVERY_GAP_LINE_841 */
+/* RECOVERY_GAP_LINE_842 */
+/* RECOVERY_GAP_LINE_843 */
+/* RECOVERY_GAP_LINE_844 */
+/* RECOVERY_GAP_LINE_845 */
+/* RECOVERY_GAP_LINE_846 */
+/* RECOVERY_GAP_LINE_847 */
+/* RECOVERY_GAP_LINE_848 */
+/* RECOVERY_GAP_LINE_849 */
+/* RECOVERY_GAP_LINE_850 */
+/* RECOVERY_GAP_LINE_851 */
+/* RECOVERY_GAP_LINE_852 */
+/* RECOVERY_GAP_LINE_853 */
+/* RECOVERY_GAP_LINE_854 */
+/* RECOVERY_GAP_LINE_855 */
+/* RECOVERY_GAP_LINE_856 */
+/* RECOVERY_GAP_LINE_857 */
+/* RECOVERY_GAP_LINE_858 */
+/* RECOVERY_GAP_LINE_859 */
+/* RECOVERY_GAP_LINE_860 */
+/* RECOVERY_GAP_LINE_861 */
+/* RECOVERY_GAP_LINE_862 */
+/* RECOVERY_GAP_LINE_863 */
+/* RECOVERY_GAP_LINE_864 */
+/* RECOVERY_GAP_LINE_865 */
+/* RECOVERY_GAP_LINE_866 */
+/* RECOVERY_GAP_LINE_867 */
+/* RECOVERY_GAP_LINE_868 */
+/* RECOVERY_GAP_LINE_869 */
+/* RECOVERY_GAP_LINE_870 */
+/* RECOVERY_GAP_LINE_871 */
+/* RECOVERY_GAP_LINE_872 */
+/* RECOVERY_GAP_LINE_873 */
+/* RECOVERY_GAP_LINE_874 */
+/* RECOVERY_GAP_LINE_875 */
+/* RECOVERY_GAP_LINE_876 */
+/* RECOVERY_GAP_LINE_877 */
+/* RECOVERY_GAP_LINE_878 */
+/* RECOVERY_GAP_LINE_879 */
+.fx-button::before {
+  display: none;
+}
+
+.fx-button:hover::before {
+  display: none;
+}
+
+.fx-logo {
+  box-shadow: inset 0 0 0 1px rgba(18, 102, 219, 0.08);
+}
+
+.fx-logo::after {
+  display: none;
+}
+
+.fx-reveal {
+  animation: panel-rise 360ms var(--ease-couch) both;
+}
+
+.fx-role-panel {
+  animation: role-panel-in 420ms var(--ease-couch) both;
+}
+
+.fx-float-card {
+  animation: none;
+}
+
+.fx-stagger-item {
+  opacity: 0;
+  animation: soft-row-in 520ms var(--ease-couch) forwards;
+}
+
+.fx-role-tab {
+  transform-origin: 50% 80%;
+}
+
+.fx-role-tab:hover {
+  transform: translateY(-2px) rotate(-0.6deg);
+}
+
+.fx-role-tab:active {
+  transform: translateY(0) scale(0.985);
+}
+
+.fx-portal-next {
+  transform-origin: 45% 55%;
+  animation: none;
+}
+
+.fx-portal-next:hover {
+  transform: translateY(-1px);
+}
+
+.fx-soft-blob {
+  display: none;
+}
+
+.fx-soft-blob-delayed {
+  display: none;
+}
+
+.portal-stage {
+  transform-origin: 16% 12%;
+  transition:
+    transform 620ms var(--ease-couch),
+    box-shadow 260ms var(--ease-couch),
+    filter 260ms var(--ease-couch);
+  will-change: transform;
+  animation: portal-turn-in 520ms var(--ease-couch) both;
+}
+
+.portal-stage::after {
+  display: none;
+}
+
+.portal-stage:hover {
+  box-shadow: 0 20px 48px rgba(36, 26, 72, 0.07);
+  filter: none;
+}
+
+.portal-stage:active {
+  filter: saturate(0.98);
+}
+
+.mentor-sync-strip {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  overflow: hidden;
+  border: 1px solid var(--role-border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.72);
+  padding: 14px;
+}
+
+.mentor-sync-line {
+  position: absolute;
+  left: 16%;
+  right: 16%;
+  top: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(75, 50, 195, 0.16), rgba(75, 50, 195, 0.08), transparent);
+  transform: translateY(-50%);
+}
+
+.mentor-sync-node {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  border: 1px solid var(--role-border);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 12px;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
+  transition:
+    transform 180ms var(--ease-couch),
+    border-color 180ms var(--ease-couch),
+    background-color 180ms var(--ease-couch);
+}
+
+.mentor-sync-node:hover {
+  transform: translateY(-1px);
+  border-color: rgba(75, 50, 195, 0.2);
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.mentor-sync-node span,
+.mentor-sync-node strong {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mentor-sync-node span {
+  color: #6f6e72;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.mentor-sync-node strong {
+  margin-top: 5px;
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.mentor-command-panel {
+  position: relative;
+  border-color: var(--role-border);
+  box-shadow:
+    0 20px 55px rgba(21, 41, 71, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  animation: mentor-panel-enter 520ms var(--ease-couch) both;
+}
+
+.mentor-command-panel::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  content: "";
+  background:
+    linear-gradient(115deg, rgba(23, 32, 51, 0.028) 0 18%, transparent 18% 100%),
+    linear-gradient(90deg, var(--role-soft), transparent 34%, rgba(255, 255, 255, 0.28));
+}
+
+.mentor-command-panel::after {
+  position: absolute;
+  inset: auto 18px 18px auto;
+  z-index: -1;
+  width: 34%;
+  height: 46%;
+  content: "";
+  border: 1px solid rgba(15, 118, 110, 0.12);
+  border-radius: 18px;
+  background:
+    repeating-linear-gradient(90deg, rgba(15, 118, 110, 0.08) 0 1px, transparent 1px 22px),
+    repeating-linear-gradient(0deg, rgba(37, 99, 235, 0.06) 0 1px, transparent 1px 22px);
+  transform: rotate(-2deg);
+}
+
+.mentor-flow-card,
+.mentor-priority-card,
+.mentor-intern-card,
+.mentor-detail-card {
+  animation: mentor-card-enter 520ms var(--ease-couch) both;
+}
+
+.mentor-flow-card {
+  min-height: 0;
+}
+
+.mentor-flow-card p {
+  letter-spacing: 0;
+}
+
+.mentor-focus-card {
+  position: relative;
+  overflow: hidden;
+  border-color: var(--role-border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(248, 250, 252, 0.94)),
+    linear-gradient(135deg, var(--role-soft), transparent);
+  animation: mentor-focus-enter 580ms var(--ease-couch) both;
+}
+
+.mentor-focus-card::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 5px;
+  content: "";
+  background: linear-gradient(90deg, var(--role-accent), var(--role-accent-strong));
+}
+
+.mentor-kicker {
+  display: inline-flex;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  background: var(--role-accent);
+  padding: 5px 9px;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.mentor-progress-fill {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, var(--role-accent), var(--role-accent-strong));
+  transition: width 520ms var(--ease-couch);
+}
+
+.mentor-progress-fill::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.48), transparent);
+  transform: translateX(-100%);
+  animation: mentor-progress-sheen 2.8s ease-in-out infinite;
+}
+
+.mentor-rhythm-track {
+  position: relative;
+  overflow: hidden;
+  --mentor-rhythm-progress: 7.14%;
+  border: 1px solid var(--role-border);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(239, 246, 255, 0.72));
+  padding: 14px;
+}
+
+.mentor-rhythm-rail {
+  position: relative;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(193, 181, 194, 0.28);
+}
+
+.mentor-rhythm-rail::before {
+  position: absolute;
+  inset: 0;
+  width: var(--mentor-rhythm-progress);
+  content: "";
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--role-accent), var(--role-accent-strong));
+  transition: width 360ms var(--ease-couch);
+}
+
+.mentor-rhythm-playhead {
+  position: absolute;
+  top: 50%;
+  left: var(--mentor-rhythm-progress);
+  z-index: 2;
+  width: 14px;
+  height: 14px;
+  border: 3px solid #ffffff;
+  border-radius: 999px;
+  background: var(--role-accent);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.18);
+  transform: translate(-50%, -50%);
+  transition: left 360ms var(--ease-couch);
+}
+
+.mentor-rhythm-clips {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(86px, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: thin;
+}
+
+.mentor-rhythm-clip {
+  min-width: 86px;
+  border: 1px solid var(--role-border);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.88);
+  padding: 10px;
+  animation: mentor-card-enter 520ms var(--ease-couch) both;
+  transition: background 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.mentor-rhythm-clip.is-active {
+/* RECOVERY_GAP_LINE_1189 */
+/* RECOVERY_GAP_LINE_1190 */
+/* RECOVERY_GAP_LINE_1191 */
+/* RECOVERY_GAP_LINE_1192 */
+/* RECOVERY_GAP_LINE_1193 */
+/* RECOVERY_GAP_LINE_1194 */
+/* RECOVERY_GAP_LINE_1195 */
+/* RECOVERY_GAP_LINE_1196 */
+/* RECOVERY_GAP_LINE_1197 */
+/* RECOVERY_GAP_LINE_1198 */
+/* RECOVERY_GAP_LINE_1199 */
+/* RECOVERY_GAP_LINE_1200 */
+/* RECOVERY_GAP_LINE_1201 */
+/* RECOVERY_GAP_LINE_1202 */
+/* RECOVERY_GAP_LINE_1203 */
+/* RECOVERY_GAP_LINE_1204 */
+/* RECOVERY_GAP_LINE_1205 */
+/* RECOVERY_GAP_LINE_1206 */
+/* RECOVERY_GAP_LINE_1207 */
+/* RECOVERY_GAP_LINE_1208 */
+/* RECOVERY_GAP_LINE_1209 */
+/* RECOVERY_GAP_LINE_1210 */
+/* RECOVERY_GAP_LINE_1211 */
+/* RECOVERY_GAP_LINE_1212 */
+/* RECOVERY_GAP_LINE_1213 */
+/* RECOVERY_GAP_LINE_1214 */
+/* RECOVERY_GAP_LINE_1215 */
+/* RECOVERY_GAP_LINE_1216 */
+/* RECOVERY_GAP_LINE_1217 */
+/* RECOVERY_GAP_LINE_1218 */
+/* RECOVERY_GAP_LINE_1219 */
+/* RECOVERY_GAP_LINE_1220 */
+/* RECOVERY_GAP_LINE_1221 */
+/* RECOVERY_GAP_LINE_1222 */
+/* RECOVERY_GAP_LINE_1223 */
+/* RECOVERY_GAP_LINE_1224 */
+/* RECOVERY_GAP_LINE_1225 */
+/* RECOVERY_GAP_LINE_1226 */
+/* RECOVERY_GAP_LINE_1227 */
+/* RECOVERY_GAP_LINE_1228 */
+/* RECOVERY_GAP_LINE_1229 */
+/* RECOVERY_GAP_LINE_1230 */
+/* RECOVERY_GAP_LINE_1231 */
+/* RECOVERY_GAP_LINE_1232 */
+/* RECOVERY_GAP_LINE_1233 */
+/* RECOVERY_GAP_LINE_1234 */
+/* RECOVERY_GAP_LINE_1235 */
+/* RECOVERY_GAP_LINE_1236 */
+/* RECOVERY_GAP_LINE_1237 */
+/* RECOVERY_GAP_LINE_1238 */
+/* RECOVERY_GAP_LINE_1239 */
+/* RECOVERY_GAP_LINE_1240 */
+/* RECOVERY_GAP_LINE_1241 */
+/* RECOVERY_GAP_LINE_1242 */
+/* RECOVERY_GAP_LINE_1243 */
+/* RECOVERY_GAP_LINE_1244 */
+/* RECOVERY_GAP_LINE_1245 */
+/* RECOVERY_GAP_LINE_1246 */
+/* RECOVERY_GAP_LINE_1247 */
+/* RECOVERY_GAP_LINE_1248 */
+/* RECOVERY_GAP_LINE_1249 */
+/* RECOVERY_GAP_LINE_1250 */
+/* RECOVERY_GAP_LINE_1251 */
+/* RECOVERY_GAP_LINE_1252 */
+/* RECOVERY_GAP_LINE_1253 */
+/* RECOVERY_GAP_LINE_1254 */
+/* RECOVERY_GAP_LINE_1255 */
+/* RECOVERY_GAP_LINE_1256 */
+/* RECOVERY_GAP_LINE_1257 */
+/* RECOVERY_GAP_LINE_1258 */
+/* RECOVERY_GAP_LINE_1259 */
+/* RECOVERY_GAP_LINE_1260 */
+/* RECOVERY_GAP_LINE_1261 */
+/* RECOVERY_GAP_LINE_1262 */
+/* RECOVERY_GAP_LINE_1263 */
+/* RECOVERY_GAP_LINE_1264 */
+/* RECOVERY_GAP_LINE_1265 */
+/* RECOVERY_GAP_LINE_1266 */
+/* RECOVERY_GAP_LINE_1267 */
+/* RECOVERY_GAP_LINE_1268 */
+/* RECOVERY_GAP_LINE_1269 */
+/* RECOVERY_GAP_LINE_1270 */
+/* RECOVERY_GAP_LINE_1271 */
+/* RECOVERY_GAP_LINE_1272 */
+/* RECOVERY_GAP_LINE_1273 */
+/* RECOVERY_GAP_LINE_1274 */
+/* RECOVERY_GAP_LINE_1275 */
+/* RECOVERY_GAP_LINE_1276 */
+/* RECOVERY_GAP_LINE_1277 */
+/* RECOVERY_GAP_LINE_1278 */
+/* RECOVERY_GAP_LINE_1279 */
+/* RECOVERY_GAP_LINE_1280 */
+/* RECOVERY_GAP_LINE_1281 */
+/* RECOVERY_GAP_LINE_1282 */
+/* RECOVERY_GAP_LINE_1283 */
+/* RECOVERY_GAP_LINE_1284 */
+/* RECOVERY_GAP_LINE_1285 */
+/* RECOVERY_GAP_LINE_1286 */
+/* RECOVERY_GAP_LINE_1287 */
+/* RECOVERY_GAP_LINE_1288 */
+/* RECOVERY_GAP_LINE_1289 */
+/* RECOVERY_GAP_LINE_1290 */
+/* RECOVERY_GAP_LINE_1291 */
+/* RECOVERY_GAP_LINE_1292 */
+/* RECOVERY_GAP_LINE_1293 */
+/* RECOVERY_GAP_LINE_1294 */
+/* RECOVERY_GAP_LINE_1295 */
+/* RECOVERY_GAP_LINE_1296 */
+/* RECOVERY_GAP_LINE_1297 */
+/* RECOVERY_GAP_LINE_1298 */
+/* RECOVERY_GAP_LINE_1299 */
+/* RECOVERY_GAP_LINE_1300 */
+/* RECOVERY_GAP_LINE_1301 */
+/* RECOVERY_GAP_LINE_1302 */
+/* RECOVERY_GAP_LINE_1303 */
+/* RECOVERY_GAP_LINE_1304 */
+/* RECOVERY_GAP_LINE_1305 */
+/* RECOVERY_GAP_LINE_1306 */
+/* RECOVERY_GAP_LINE_1307 */
+/* RECOVERY_GAP_LINE_1308 */
+/* RECOVERY_GAP_LINE_1309 */
+/* RECOVERY_GAP_LINE_1310 */
+/* RECOVERY_GAP_LINE_1311 */
+/* RECOVERY_GAP_LINE_1312 */
+/* RECOVERY_GAP_LINE_1313 */
+/* RECOVERY_GAP_LINE_1314 */
+/* RECOVERY_GAP_LINE_1315 */
+/* RECOVERY_GAP_LINE_1316 */
+/* RECOVERY_GAP_LINE_1317 */
+/* RECOVERY_GAP_LINE_1318 */
+/* RECOVERY_GAP_LINE_1319 */
+/* RECOVERY_GAP_LINE_1320 */
+/* RECOVERY_GAP_LINE_1321 */
+/* RECOVERY_GAP_LINE_1322 */
+/* RECOVERY_GAP_LINE_1323 */
+/* RECOVERY_GAP_LINE_1324 */
+/* RECOVERY_GAP_LINE_1325 */
+/* RECOVERY_GAP_LINE_1326 */
+/* RECOVERY_GAP_LINE_1327 */
+/* RECOVERY_GAP_LINE_1328 */
+/* RECOVERY_GAP_LINE_1329 */
+/* RECOVERY_GAP_LINE_1330 */
+/* RECOVERY_GAP_LINE_1331 */
+/* RECOVERY_GAP_LINE_1332 */
+/* RECOVERY_GAP_LINE_1333 */
+/* RECOVERY_GAP_LINE_1334 */
+/* RECOVERY_GAP_LINE_1335 */
+/* RECOVERY_GAP_LINE_1336 */
+/* RECOVERY_GAP_LINE_1337 */
+/* RECOVERY_GAP_LINE_1338 */
+/* RECOVERY_GAP_LINE_1339 */
+/* RECOVERY_GAP_LINE_1340 */
+/* RECOVERY_GAP_LINE_1341 */
+/* RECOVERY_GAP_LINE_1342 */
+/* RECOVERY_GAP_LINE_1343 */
+/* RECOVERY_GAP_LINE_1344 */
+/* RECOVERY_GAP_LINE_1345 */
+/* RECOVERY_GAP_LINE_1346 */
+/* RECOVERY_GAP_LINE_1347 */
+/* RECOVERY_GAP_LINE_1348 */
+/* RECOVERY_GAP_LINE_1349 */
+/* RECOVERY_GAP_LINE_1350 */
+/* RECOVERY_GAP_LINE_1351 */
+/* RECOVERY_GAP_LINE_1352 */
+/* RECOVERY_GAP_LINE_1353 */
+/* RECOVERY_GAP_LINE_1354 */
+/* RECOVERY_GAP_LINE_1355 */
+/* RECOVERY_GAP_LINE_1356 */
+/* RECOVERY_GAP_LINE_1357 */
+/* RECOVERY_GAP_LINE_1358 */
+/* RECOVERY_GAP_LINE_1359 */
+/* RECOVERY_GAP_LINE_1360 */
+/* RECOVERY_GAP_LINE_1361 */
+/* RECOVERY_GAP_LINE_1362 */
+/* RECOVERY_GAP_LINE_1363 */
+/* RECOVERY_GAP_LINE_1364 */
+/* RECOVERY_GAP_LINE_1365 */
+/* RECOVERY_GAP_LINE_1366 */
+/* RECOVERY_GAP_LINE_1367 */
+/* RECOVERY_GAP_LINE_1368 */
+/* RECOVERY_GAP_LINE_1369 */
+/* RECOVERY_GAP_LINE_1370 */
+/* RECOVERY_GAP_LINE_1371 */
+/* RECOVERY_GAP_LINE_1372 */
+/* RECOVERY_GAP_LINE_1373 */
+/* RECOVERY_GAP_LINE_1374 */
+/* RECOVERY_GAP_LINE_1375 */
+/* RECOVERY_GAP_LINE_1376 */
+/* RECOVERY_GAP_LINE_1377 */
+/* RECOVERY_GAP_LINE_1378 */
+/* RECOVERY_GAP_LINE_1379 */
+/* RECOVERY_GAP_LINE_1380 */
+/* RECOVERY_GAP_LINE_1381 */
+/* RECOVERY_GAP_LINE_1382 */
+/* RECOVERY_GAP_LINE_1383 */
+/* RECOVERY_GAP_LINE_1384 */
+/* RECOVERY_GAP_LINE_1385 */
+/* RECOVERY_GAP_LINE_1386 */
+/* RECOVERY_GAP_LINE_1387 */
+/* RECOVERY_GAP_LINE_1388 */
+/* RECOVERY_GAP_LINE_1389 */
+/* RECOVERY_GAP_LINE_1390 */
+/* RECOVERY_GAP_LINE_1391 */
+/* RECOVERY_GAP_LINE_1392 */
+/* RECOVERY_GAP_LINE_1393 */
+/* RECOVERY_GAP_LINE_1394 */
+/* RECOVERY_GAP_LINE_1395 */
+/* RECOVERY_GAP_LINE_1396 */
+/* RECOVERY_GAP_LINE_1397 */
+/* RECOVERY_GAP_LINE_1398 */
+/* RECOVERY_GAP_LINE_1399 */
+/* RECOVERY_GAP_LINE_1400 */
+/* RECOVERY_GAP_LINE_1401 */
+/* RECOVERY_GAP_LINE_1402 */
+/* RECOVERY_GAP_LINE_1403 */
+/* RECOVERY_GAP_LINE_1404 */
+/* RECOVERY_GAP_LINE_1405 */
+/* RECOVERY_GAP_LINE_1406 */
+/* RECOVERY_GAP_LINE_1407 */
+/* RECOVERY_GAP_LINE_1408 */
+/* RECOVERY_GAP_LINE_1409 */
+/* RECOVERY_GAP_LINE_1410 */
+/* RECOVERY_GAP_LINE_1411 */
+/* RECOVERY_GAP_LINE_1412 */
+/* RECOVERY_GAP_LINE_1413 */
+/* RECOVERY_GAP_LINE_1414 */
+/* RECOVERY_GAP_LINE_1415 */
+/* RECOVERY_GAP_LINE_1416 */
+/* RECOVERY_GAP_LINE_1417 */
+/* RECOVERY_GAP_LINE_1418 */
+/* RECOVERY_GAP_LINE_1419 */
+/* RECOVERY_GAP_LINE_1420 */
+/* RECOVERY_GAP_LINE_1421 */
+/* RECOVERY_GAP_LINE_1422 */
+/* RECOVERY_GAP_LINE_1423 */
+/* RECOVERY_GAP_LINE_1424 */
+/* RECOVERY_GAP_LINE_1425 */
+/* RECOVERY_GAP_LINE_1426 */
+/* RECOVERY_GAP_LINE_1427 */
+/* RECOVERY_GAP_LINE_1428 */
+/* RECOVERY_GAP_LINE_1429 */
+/* RECOVERY_GAP_LINE_1430 */
+/* RECOVERY_GAP_LINE_1431 */
+/* RECOVERY_GAP_LINE_1432 */
+/* RECOVERY_GAP_LINE_1433 */
+/* RECOVERY_GAP_LINE_1434 */
+/* RECOVERY_GAP_LINE_1435 */
+/* RECOVERY_GAP_LINE_1436 */
+/* RECOVERY_GAP_LINE_1437 */
+/* RECOVERY_GAP_LINE_1438 */
+/* RECOVERY_GAP_LINE_1439 */
+/* RECOVERY_GAP_LINE_1440 */
+/* RECOVERY_GAP_LINE_1441 */
+/* RECOVERY_GAP_LINE_1442 */
+/* RECOVERY_GAP_LINE_1443 */
+/* RECOVERY_GAP_LINE_1444 */
+/* RECOVERY_GAP_LINE_1445 */
+/* RECOVERY_GAP_LINE_1446 */
+/* RECOVERY_GAP_LINE_1447 */
+/* RECOVERY_GAP_LINE_1448 */
+/* RECOVERY_GAP_LINE_1449 */
+/* RECOVERY_GAP_LINE_1450 */
+/* RECOVERY_GAP_LINE_1451 */
+/* RECOVERY_GAP_LINE_1452 */
+/* RECOVERY_GAP_LINE_1453 */
+/* RECOVERY_GAP_LINE_1454 */
+/* RECOVERY_GAP_LINE_1455 */
+/* RECOVERY_GAP_LINE_1456 */
+/* RECOVERY_GAP_LINE_1457 */
+/* RECOVERY_GAP_LINE_1458 */
+/* RECOVERY_GAP_LINE_1459 */
+/* RECOVERY_GAP_LINE_1460 */
+/* RECOVERY_GAP_LINE_1461 */
+/* RECOVERY_GAP_LINE_1462 */
+/* RECOVERY_GAP_LINE_1463 */
+/* RECOVERY_GAP_LINE_1464 */
+/* RECOVERY_GAP_LINE_1465 */
+/* RECOVERY_GAP_LINE_1466 */
+/* RECOVERY_GAP_LINE_1467 */
+/* RECOVERY_GAP_LINE_1468 */
+/* RECOVERY_GAP_LINE_1469 */
+/* RECOVERY_GAP_LINE_1470 */
+/* RECOVERY_GAP_LINE_1471 */
+/* RECOVERY_GAP_LINE_1472 */
+/* RECOVERY_GAP_LINE_1473 */
+/* RECOVERY_GAP_LINE_1474 */
+/* RECOVERY_GAP_LINE_1475 */
+/* RECOVERY_GAP_LINE_1476 */
+/* RECOVERY_GAP_LINE_1477 */
+/* RECOVERY_GAP_LINE_1478 */
+/* RECOVERY_GAP_LINE_1479 */
+/* RECOVERY_GAP_LINE_1480 */
+/* RECOVERY_GAP_LINE_1481 */
+/* RECOVERY_GAP_LINE_1482 */
+/* RECOVERY_GAP_LINE_1483 */
+/* RECOVERY_GAP_LINE_1484 */
+/* RECOVERY_GAP_LINE_1485 */
+/* RECOVERY_GAP_LINE_1486 */
+/* RECOVERY_GAP_LINE_1487 */
+/* RECOVERY_GAP_LINE_1488 */
+/* RECOVERY_GAP_LINE_1489 */
+/* RECOVERY_GAP_LINE_1490 */
+/* RECOVERY_GAP_LINE_1491 */
+/* RECOVERY_GAP_LINE_1492 */
+/* RECOVERY_GAP_LINE_1493 */
+/* RECOVERY_GAP_LINE_1494 */
+/* RECOVERY_GAP_LINE_1495 */
+/* RECOVERY_GAP_LINE_1496 */
+/* RECOVERY_GAP_LINE_1497 */
+/* RECOVERY_GAP_LINE_1498 */
+/* RECOVERY_GAP_LINE_1499 */
+/* RECOVERY_GAP_LINE_1500 */
+/* RECOVERY_GAP_LINE_1501 */
+/* RECOVERY_GAP_LINE_1502 */
+/* RECOVERY_GAP_LINE_1503 */
+/* RECOVERY_GAP_LINE_1504 */
+/* RECOVERY_GAP_LINE_1505 */
+/* RECOVERY_GAP_LINE_1506 */
+/* RECOVERY_GAP_LINE_1507 */
+/* RECOVERY_GAP_LINE_1508 */
+/* RECOVERY_GAP_LINE_1509 */
+/* RECOVERY_GAP_LINE_1510 */
+/* RECOVERY_GAP_LINE_1511 */
+/* RECOVERY_GAP_LINE_1512 */
+/* RECOVERY_GAP_LINE_1513 */
+/* RECOVERY_GAP_LINE_1514 */
+/* RECOVERY_GAP_LINE_1515 */
+/* RECOVERY_GAP_LINE_1516 */
+/* RECOVERY_GAP_LINE_1517 */
+/* RECOVERY_GAP_LINE_1518 */
+/* RECOVERY_GAP_LINE_1519 */
+/* RECOVERY_GAP_LINE_1520 */
+/* RECOVERY_GAP_LINE_1521 */
+/* RECOVERY_GAP_LINE_1522 */
+/* RECOVERY_GAP_LINE_1523 */
+/* RECOVERY_GAP_LINE_1524 */
+/* RECOVERY_GAP_LINE_1525 */
+/* RECOVERY_GAP_LINE_1526 */
+/* RECOVERY_GAP_LINE_1527 */
+/* RECOVERY_GAP_LINE_1528 */
+/* RECOVERY_GAP_LINE_1529 */
+/* RECOVERY_GAP_LINE_1530 */
+/* RECOVERY_GAP_LINE_1531 */
+/* RECOVERY_GAP_LINE_1532 */
+/* RECOVERY_GAP_LINE_1533 */
+/* RECOVERY_GAP_LINE_1534 */
+/* RECOVERY_GAP_LINE_1535 */
+/* RECOVERY_GAP_LINE_1536 */
+/* RECOVERY_GAP_LINE_1537 */
+/* RECOVERY_GAP_LINE_1538 */
+/* RECOVERY_GAP_LINE_1539 */
+/* RECOVERY_GAP_LINE_1540 */
+/* RECOVERY_GAP_LINE_1541 */
+/* RECOVERY_GAP_LINE_1542 */
+/* RECOVERY_GAP_LINE_1543 */
+/* RECOVERY_GAP_LINE_1544 */
+/* RECOVERY_GAP_LINE_1545 */
+/* RECOVERY_GAP_LINE_1546 */
+/* RECOVERY_GAP_LINE_1547 */
+/* RECOVERY_GAP_LINE_1548 */
+/* RECOVERY_GAP_LINE_1549 */
+/* RECOVERY_GAP_LINE_1550 */
+/* RECOVERY_GAP_LINE_1551 */
+/* RECOVERY_GAP_LINE_1552 */
+/* RECOVERY_GAP_LINE_1553 */
+/* RECOVERY_GAP_LINE_1554 */
+/* RECOVERY_GAP_LINE_1555 */
+/* RECOVERY_GAP_LINE_1556 */
+/* RECOVERY_GAP_LINE_1557 */
+/* RECOVERY_GAP_LINE_1558 */
+/* RECOVERY_GAP_LINE_1559 */
+/* RECOVERY_GAP_LINE_1560 */
+/* RECOVERY_GAP_LINE_1561 */
+/* RECOVERY_GAP_LINE_1562 */
+/* RECOVERY_GAP_LINE_1563 */
+/* RECOVERY_GAP_LINE_1564 */
+/* RECOVERY_GAP_LINE_1565 */
+/* RECOVERY_GAP_LINE_1566 */
+/* RECOVERY_GAP_LINE_1567 */
+/* RECOVERY_GAP_LINE_1568 */
+/* RECOVERY_GAP_LINE_1569 */
+/* RECOVERY_GAP_LINE_1570 */
+/* RECOVERY_GAP_LINE_1571 */
+/* RECOVERY_GAP_LINE_1572 */
+/* RECOVERY_GAP_LINE_1573 */
+/* RECOVERY_GAP_LINE_1574 */
+/* RECOVERY_GAP_LINE_1575 */
+/* RECOVERY_GAP_LINE_1576 */
+/* RECOVERY_GAP_LINE_1577 */
+/* RECOVERY_GAP_LINE_1578 */
+/* RECOVERY_GAP_LINE_1579 */
+/* RECOVERY_GAP_LINE_1580 */
+/* RECOVERY_GAP_LINE_1581 */
+/* RECOVERY_GAP_LINE_1582 */
+/* RECOVERY_GAP_LINE_1583 */
+/* RECOVERY_GAP_LINE_1584 */
+/* RECOVERY_GAP_LINE_1585 */
+/* RECOVERY_GAP_LINE_1586 */
+/* RECOVERY_GAP_LINE_1587 */
+}
+
+.app-table {
+  border-collapse: separate;
+  border-spacing: 0 8px;
+}
+
+.app-table thead th {
+  color: #6f6a7a;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.app-table tbody tr {
+  box-shadow: none;
+}
+
+.app-table tbody tr td {
+  border-top: 1px solid rgba(80, 70, 120, 0.08);
+  border-bottom: 1px solid rgba(80, 70, 120, 0.08);
+}
+
+.app-table tbody tr td:first-child {
+  border-left: 1px solid rgba(80, 70, 120, 0.08);
+}
+
+.app-table tbody tr td:last-child {
+  border-right: 1px solid rgba(80, 70, 120, 0.08);
+}
+
+.app-table tbody tr:hover {
+  box-shadow: 0 8px 22px rgba(36, 26, 72, 0.055);
+}
+
+.app-table tbody tr[aria-selected="true"] {
+  box-shadow: inset 3px 0 0 #4b32c3, 0 8px 22px rgba(36, 26, 72, 0.055);
+}
+
+.app-feedback {
+  border: 1px solid currentColor;
+  border-radius: 10px;
+  box-shadow: 0 12px 28px rgba(36, 26, 72, 0.06);
+  animation: feedback-in 260ms var(--ease-couch) both;
+}
+
+.app-feedback-success {
+  background: #ecfdf3;
+  color: #067647;
+  border-color: rgba(6, 118, 71, 0.14);
+}
+
+.app-feedback-error {
+  background: #fff1f3;
+  color: #b42318;
+  border-color: rgba(180, 35, 24, 0.14);
+}
+
+.app-feedback-info {
+  background: #eff6ff;
+  color: #175cd3;
+  border-color: rgba(23, 92, 211, 0.14);
+}
+
+.app-feedback-warning {
+  background: #fffaeb;
+  color: #b54708;
+  border-color: rgba(181, 71, 8, 0.14);
+}
+
+.glass-theme-shell {
+  background: #f6f4fa;
+}
+
+.login-theme-shell.glass-theme-shell {
+  background-color: var(--login-bg-base) !important;
+  background: var(--login-wash) !important;
+}
+
+.login-theme-shell.glass-theme-shell::before {
+  opacity: 0.14;
+  background:
+    linear-gradient(color-mix(in srgb, var(--role-accent) 18%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--role-accent) 14%, transparent) 1px, transparent 1px);
+}
+
+.glass-theme-shell::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  opacity: 0.18;
+  background:
+    linear-gradient(rgba(29, 12, 59, 0.034) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(29, 12, 59, 0.026) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.7), transparent 82%);
+}
+
+.glass-panel {
+  border: 1px solid rgba(80, 70, 120, 0.12) !important;
+  background: rgba(255, 255, 255, 0.72) !important;
+  box-shadow: 0 18px 44px rgba(36, 26, 72, 0.06) !important;
+  backdrop-filter: blur(18px);
+}
+
+.glass-panel-soft {
+  border: 1px solid rgba(80, 70, 120, 0.1) !important;
+  background: rgba(255, 255, 255, 0.56) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(16px);
+}
+
+.login-theme-shell .login-hero-panel.glass-panel,
+.login-theme-shell .login-form-panel.glass-panel {
+  border-color: var(--role-border) !important;
+  background: var(--login-panel) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    0 22px 54px rgba(29, 12, 59, 0.075) !important;
+}
+
+.login-theme-shell .login-info-panel.glass-panel-soft {
+  border-color: var(--role-border) !important;
+  background: var(--login-panel-alt) !important;
+}
+
+.login-theme-shell .future-card.glass-panel-soft {
+  border-color: var(--role-border) !important;
+  background: color-mix(in srgb, var(--login-panel-alt) 76%, rgba(255, 255, 255, 0.54)) !important;
+}
+
+.glass-violet-button {
+  border-color: rgba(29, 12, 59, 0.28) !important;
+  background: #1d0c3b !important;
+  color: #ffffff !important;
+  box-shadow: 0 12px 32px rgba(29, 12, 59, 0.18) !important;
+}
+
+.glass-violet-button:hover {
+  background: #2b1c4a !important;
+}
+
+.glass-muted-button {
+  border-color: rgba(80, 70, 120, 0.12) !important;
+  background: rgba(255, 255, 255, 0.56) !important;
+  color: #6f6a7a !important;
+  backdrop-filter: blur(14px);
+}
+
+.glass-ai-panel {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(80, 70, 120, 0.12) !important;
+  background: rgba(255, 255, 255, 0.72) !important;
+  box-shadow: 0 18px 44px rgba(36, 26, 72, 0.06) !important;
+  backdrop-filter: blur(18px);
+}
+
+.glass-ai-panel::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  content: "";
+  background: #4b32c3;
+}
+
+.glass-table-row {
+  background: rgba(255, 255, 255, 0.56) !important;
+  transition:
+    background-color 180ms var(--ease-couch),
+    box-shadow 180ms var(--ease-couch),
+    transform 180ms var(--ease-couch);
+}
+
+.glass-table-row:hover {
+  background: rgba(255, 255, 255, 0.78) !important;
+  box-shadow: 0 8px 22px rgba(36, 26, 72, 0.055);
+  transform: none;
+}
+
+.glass-table-row[aria-selected="true"] {
+  background: rgba(75, 50, 195, 0.07) !important;
+  box-shadow: inset 3px 0 0 #4b32c3, 0 8px 22px rgba(36, 26, 72, 0.055);
+}
+
+.glass-theme-shell .enterprise-header,
+.glass-theme-shell .enterprise-sidebar {
+  border-color: rgba(80, 70, 120, 0.1);
+    linear-gradient(90deg, rgba(75, 50, 195, 0.05), transparent 58%) !important;
+}
+
+.hrbp-stat-card,
+.hrbp-object-card {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.hrbp-object-list {
+  min-height: 0;
+}
+
+.hrbp-object-card {
+  position: relative;
+  display: block;
+  min-height: 132px;
+  color: inherit;
+  opacity: 1 !important;
+  visibility: visible !important;
+  animation: hrbp-row-in 260ms var(--ease-couch) both;
+}
+
+.hrbp-object-card::before {
+  position: absolute;
+  inset: 12px auto 12px 0;
+  width: 3px;
+  border-radius: 999px;
+  background: transparent;
+  content: "";
+  transition: background 180ms var(--ease-couch);
+}
+
+.hrbp-object-card[aria-selected="true"] {
+  border-color: rgba(75, 50, 195, 0.22);
+  background: rgba(75, 50, 195, 0.07) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.76),
+    0 12px 28px rgba(36, 26, 72, 0.055);
+}
+
+.hrbp-object-card[aria-selected="true"]::before {
+  background: #4b32c3;
+}
+
+.hrbp-insight-card {
+  border-color: rgba(75, 50, 195, 0.14) !important;
+}
+
+.hrbp-insight-card .app-feedback {
+  animation: feedback-in 260ms var(--ease-couch) both, status-highlight 980ms ease-out both;
+}
+
+.action-loop-step {
+  transition:
+    transform 180ms var(--ease-couch),
+    border-color 180ms var(--ease-couch),
+    background-color 180ms var(--ease-couch);
+}
+
+.action-loop-step:hover {
+  transform: translateY(-1px);
+  border-color: rgba(75, 50, 195, 0.18);
+}
+
+@keyframes status-highlight {
+  0% {
+    box-shadow: 0 0 0 0 rgba(75, 50, 195, 0.18);
+/* RECOVERY_GAP_LINE_1846 */
+/* RECOVERY_GAP_LINE_1847 */
+/* RECOVERY_GAP_LINE_1848 */
+/* RECOVERY_GAP_LINE_1849 */
+/* RECOVERY_GAP_LINE_1850 */
+/* RECOVERY_GAP_LINE_1851 */
+/* RECOVERY_GAP_LINE_1852 */
+/* RECOVERY_GAP_LINE_1853 */
+/* RECOVERY_GAP_LINE_1854 */
+/* RECOVERY_GAP_LINE_1855 */
+/* RECOVERY_GAP_LINE_1856 */
+/* RECOVERY_GAP_LINE_1857 */
+/* RECOVERY_GAP_LINE_1858 */
+/* RECOVERY_GAP_LINE_1859 */
+/* RECOVERY_GAP_LINE_1860 */
+/* RECOVERY_GAP_LINE_1861 */
+/* RECOVERY_GAP_LINE_1862 */
+/* RECOVERY_GAP_LINE_1863 */
+.glass-theme-shell .enterprise-sidebar {
+  border-color: rgba(80, 70, 120, 0.1);
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(18px);
+}
+
+.glass-theme-shell .hr-sidebar-card {
+  min-height: 282px;
+  padding: 10px !important;
+}
+
+.glass-theme-shell .hr-sidebar-card .mb-3 {
+  margin-bottom: 8px;
+}
+
+.theme-preview {
+  background:
+    radial-gradient(circle at 14% 8%, rgba(79, 124, 128, 0.16), transparent 24%),
+    radial-gradient(circle at 92% 16%, rgba(194, 80, 85, 0.12), transparent 22%),

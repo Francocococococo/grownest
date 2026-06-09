@@ -1,0 +1,60 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-                <div className="flex items-center justify-between gap-4">
+-                  <div className="flex items-center gap-2" aria-label="切换登录角色">
+-                    {primaryPortalRoles.map((item) => {
+-                      const active = item.role === role;
+-                      return (
+-                        <button
+-                          key={item.role}
+-                          type="button"
+-                          onClick={() => selectRole(item.role)}
+-                          className={cn(
+-                            "h-2.5 rounded-full transition-all",
+-                            active ? "w-7 bg-[#4B32C3]" : "w-2.5 bg-[#C1B5C2]/70 hover:bg-[#4B32C3]/45",
+-                          )}
+-                          aria-label={`切换到${loginRoleMeta[item.role]?.shortLabel}端`}
+-                        />
+-                      );
+-                    })}
+-                  </div>
+-                  <button
+-                    type="button"
+-                    onClick={() => openLogin(role)}
+-                    className="inline-flex h-12 w-12 items-center justify-center rounded-[14px] border border-[#4B32C3]/18 bg-white/70 text-[#4B32C3] shadow-[0_12px_28px_rgba(36,26,72,0.08)] transition hover:-translate-y-0.5 hover:border-[#4B32C3]/28 hover:bg-white"
+-                    aria-label={`进入${loginRoleMeta[role]?.shortLabel}端登录`}
+-                  >
+-                    <LogIn className="h-5 w-5" />
+-                  </button>
+-                </div>
++                {!showLogin && (
++                  <div className="flex items-center justify-between gap-4">
++                    <div className="flex items-center gap-2" aria-label="切换登录角色">
++                      {primaryPortalRoles.map((item) => {
++                        const active = item.role === role;
++                        return (
++                          <button
++                            key={item.role}
++                            type="button"
++                            onClick={() => selectRole(item.role)}
++                            className={cn(
++                              "h-2.5 rounded-full transition-all",
++                              active ? "w-7 bg-[#4B32C3]" : "w-2.5 bg-[#C1B5C2]/70 hover:bg-[#4B32C3]/45",
++                            )}
++                            aria-label={`切换到${loginRoleMeta[item.role]?.shortLabel}端`}
++                          />
++                        );
++                      })}
++                    </div>
++                    <button
++                      type="button"
++                      onClick={() => openLogin(role)}
++                      className="inline-flex h-12 w-12 items-center justify-center rounded-[14px] border border-[#4B32C3]/18 bg-white/70 text-[#4B32C3] shadow-[0_12px_28px_rgba(36,26,72,0.08)] transition hover:-translate-y-0.5 hover:border-[#4B32C3]/28 hover:bg-white"
++                      aria-label={`进入${loginRoleMeta[role]?.shortLabel}端登录`}
++                    >
++                      <LogIn className="h-5 w-5" />
++                    </button>
++                  </div>
++                )}
+*** End Patch

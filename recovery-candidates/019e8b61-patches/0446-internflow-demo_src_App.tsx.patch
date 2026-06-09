@@ -1,0 +1,25 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+                 <div className="grid gap-3 sm:grid-cols-3">
+                   {selectedAccessNotes.map(([label, detail]) => (
+                     <div key={label} className="rounded-[14px] border border-[#504678]/10 bg-white/48 px-4 py-3" data-gsap-feature="">
+                       <p className="text-sm font-medium text-[#171321]">{label}</p>
+                       <p className="mt-2 text-xs leading-5 text-[#6F6A7A]">{detail}</p>
+                     </div>
+                   ))}
+                 </div>
+ 
++                <div className="flex justify-end">
++                  <button
++                    type="button"
++                    onClick={() => openLogin(role)}
++                    className="inline-flex h-12 w-12 items-center justify-center rounded-[14px] border border-[#4B32C3]/18 bg-white/70 text-[#4B32C3] shadow-[0_12px_28px_rgba(36,26,72,0.08)] transition hover:-translate-y-0.5 hover:border-[#4B32C3]/28 hover:bg-white"
++                    aria-label={`进入${loginRoleMeta[role]?.shortLabel}端登录`}
++                  >
++                    <ChevronRight className="h-5 w-5" />
++                  </button>
++                </div>
++
+                 {showLogin && (
+*** End Patch

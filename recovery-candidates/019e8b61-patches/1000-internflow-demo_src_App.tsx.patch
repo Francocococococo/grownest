@@ -1,0 +1,39 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+     const action = dayTasks.length
+       ? dayTasks.map((task) => task.label).join(" / ")
+       : "暂无需要导师处理的阶段任务";
+     return {
++      dateKey: day.key,
+       day: `${day.monthDay} ${day.weekday}`,
+       action,
+       status,
+     };
+   });
++  const selectedWeekDayIndex = Math.max(0, weekDays.findIndex((day) => day.key === selectedDateKey));
++  const mentorRhythmProgress = weekDays.length ? ((selectedWeekDayIndex + 0.5) / weekDays.length) * 100 : 0;
++  const mentorRhythmStyle = {
++    "--mentor-rhythm-progress": `${mentorRhythmProgress}%`,
++  } as CSSProperties;
+   const mentorLoopItems = [
+@@
+-          <div className="mentor-rhythm-track mt-5" aria-label="本周带教时间轴">
++          <div className="mentor-rhythm-track mt-5" aria-label="本周带教时间轴" style={mentorRhythmStyle}>
+             <div className="mentor-rhythm-rail">
+               <span className="mentor-rhythm-playhead" aria-hidden="true" />
+             </div>
+             <div className="mentor-rhythm-clips">
+               {mentorCheckpoints.map((checkpoint, index) => (
+-                <div key={checkpoint.day} className="mentor-rhythm-clip" style={{ animationDelay: `${index * 95}ms` }} data-gsap-result="">
++                <div
++                  key={checkpoint.dateKey}
++                  className={cn("mentor-rhythm-clip", checkpoint.dateKey === selectedDateKey && "is-active")}
++                  style={{ animationDelay: `${index * 95}ms` }}
++                  data-gsap-result=""
++                >
+                   <span>{checkpoint.day}</span>
+                   <strong>{checkpoint.status}</strong>
+                 </div>
+               ))}
+*** End Patch

@@ -1,0 +1,45 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/App.tsx
+@@
+-  const recruiterBrief = `招聘效能摘要：${recruiterSummary.batch} 共 ${managedInterns.length} 人。可进入留用观察池 ${retentionReady} 人，需继续观察 ${watchList} 人，需 HRBP 先复盘 ${urgentRisk} 人。${recruiterSummary.hiringSignal}`;
++  const recruiterBrief = `成长复盘摘要：${recruiterSummary.batch} 共 ${managedInterns.length} 人。状态稳定可进入后续观察 ${retentionReady} 人，需继续跟进 ${watchList} 人，需 HRBP 先复盘 ${urgentRisk} 人。${recruiterSummary.hiringSignal}`;
+@@
+-        <SectionTitle icon={TrendingUp} title="招聘效能复盘模块" subtitle="嵌入 HRBP 成长运营台，供 TA/校招团队低频复盘使用，不参与日常带教管理" />
++        <SectionTitle icon={TrendingUp} title="成长复盘沉淀模块" subtitle="嵌入 HRBP 成长运营台，供 TA/校招团队低频复盘使用，不参与日常带教管理" />
+@@
+-            ["看整体质量", "这批人入职后是否稳定适岗，哪些岗位需要继续观察。"],
+-            ["看留用信号", "提前识别表现稳定、高进度的同学，关注后续留用意愿。"],
+-            ["看画像反哺", "把适岗差异回流到筛选标准、面试题和入职前学习包。"],
++            ["看成长节奏", "这批人入职后哪些支持动作更有效，哪些岗位需要继续观察。"],
++            ["看后续观察", "提前识别状态稳定、任务推进顺畅的同学，关注后续发展意愿。"],
++            ["看支持反哺", "把成长差异回流到筛选标准、面试题和入职前学习包。"],
+@@
+-        <StatCard label="留用观察池" value={`${retentionReady} 人`} icon={ShieldCheck} tone="green" />
++        <StatCard label="后续观察" value={`${retentionReady} 人`} icon={ShieldCheck} tone="green" />
+@@
+-          <SectionTitle icon={TrendingUp} title="岗位适岗趋势" subtitle="只看汇总趋势和留用信号，不介入带教操作" />
++          <SectionTitle icon={TrendingUp} title="岗位成长趋势" subtitle="只看汇总趋势和观察信号，不介入带教操作" />
+@@
+-        <SectionTitle icon={Target} title="招聘画像反哺" subtitle="把入职后的适岗信号回流到校招筛选和面试题设计" />
++        <SectionTitle icon={Target} title="招聘画像反哺" subtitle="把入职后的成长信号回流到校招筛选和面试题设计" />
+@@
+-              <p className="mt-3 text-xs font-bold text-[var(--role-accent)]">适岗信号</p>
++              <p className="mt-3 text-xs font-bold text-[var(--role-accent)]">成长信号</p>
+@@
+-        <SectionTitle icon={ShieldCheck} title="适岗观察原则" subtitle="模块只展示趋势和证据摘要，不展示完整私聊与过程明细" />
++        <SectionTitle icon={ShieldCheck} title="观察原则" subtitle="模块只展示趋势和证据摘要，不展示完整私聊与过程明细" />
+@@
+-            ["上升", "状态稳定、高进度、导师反馈稳定", "进入留用观察池"],
+-            ["平稳", "任务推进正常，但仍需补充一次阶段验证", "继续观察 2 周"],
++            ["上升", "状态稳定、高进度、导师反馈稳定", "进入后续观察"],
++            ["平稳", "任务推进正常，但仍需补充一次阶段验证", "继续观察"],
+@@
+-          <SectionTitle icon={UserCheck} title="留用观察池" subtitle="状态稳定且进度较高，建议招聘提前关注留用意愿" />
++          <SectionTitle icon={UserCheck} title="后续观察池" subtitle="状态稳定且进度较高，可由招聘侧低频关注发展意愿" />
+@@
+-                <p className="mt-3 text-sm leading-6 text-slate-600">复盘动作：提前进入留用意愿观察，结合导师终期评价判断是否发起留用沟通。</p>
++                <p className="mt-3 text-sm leading-6 text-slate-600">复盘动作：进入后续发展意愿观察，结合导师终期反馈确认是否需要进一步沟通。</p>
+@@
+-                <p className="mt-3 text-sm leading-6 text-slate-600">复盘判断：暂不推进留用沟通，等待 HRBP 复盘结果和导师下一轮反馈。</p>
++                <p className="mt-3 text-sm leading-6 text-slate-600">复盘状态：暂不推进后续沟通，等待 HRBP 复盘结果和导师下一轮反馈。</p>
+*** End Patch

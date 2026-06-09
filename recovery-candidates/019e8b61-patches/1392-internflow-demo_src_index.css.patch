@@ -1,0 +1,28 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/index.css
+@@
+ .mentor-sidebar-card {
+-  height: 312px;
++  height: 276px;
+   min-height: 0;
+ }
+@@
+   .mentor-shell .mentor-stats-row {
+     grid-column: 2;
+     grid-row: 2;
+     align-items: stretch;
+     gap: 10px;
+   }
+ 
++  .mentor-shell .mentor-stats-row > * {
++    height: 112px;
++    min-height: 0;
++    padding: 16px !important;
++  }
++
+   .mentor-shell .mentor-stats-row [data-stat-card] {
+     height: 112px;
+     min-height: 0;
+     padding: 16px !important;
+   }
+*** End Patch

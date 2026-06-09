@@ -1,0 +1,487 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "SF Pro Display", "Geist Sans", "PingFang SC", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+  --color-tencent: #4F7C80;
+  --color-ink: #172033;
+}
+
+:root {
+  --ease-couch: cubic-bezier(0.16, 1, 0.3, 1);
+  --app-bg: #f4f1f8;
+  --app-bg-deep: #f4f1f8;
+  --surface: rgba(255, 255, 255, 0.62);
+  --surface-soft: rgba(255, 255, 255, 0.62);
+  --surface-muted: rgba(255, 255, 255, 0.42);
+  --line-soft: rgba(193, 181, 194, 0.38);
+  --line-strong: rgba(193, 181, 194, 0.46);
+  --shadow-soft: 0 20px 54px rgba(29, 12, 59, 0.08);
+  --shadow-rest: 0 1px 2px rgba(29, 12, 59, 0.04), 0 14px 34px rgba(29, 12, 59, 0.055);
+  --brand-blue: #4F7C80;
+  --brand-blue-strong: #3E6569;
+  --brand-teal: #167c80;
+  --brand-ink: #1d0c3b;
+  --brand-muted: #6f6e72;
+  --role-accent: #31b88a;
+  --role-accent-strong: #269b73;
+  --role-soft: rgba(49, 184, 138, 0.12);
+  --role-border: rgba(49, 184, 138, 0.28);
+  --role-shadow: rgba(49, 184, 138, 0.2);
+  --radius-card: 22px;
+  --radius-control: 9px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  max-width: 100%;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 12% -8%, rgba(255, 255, 255, 0.72), transparent 30%),
+    radial-gradient(circle at 88% 0%, rgba(193, 181, 194, 0.22), transparent 32%),
+    linear-gradient(180deg, var(--app-bg) 0%, var(--app-bg-deep) 100%);
+  color: var(--brand-ink);
+  font-feature-settings: "tnum" 1, "cv02" 1, "cv03" 1;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(244, 241, 248, 0)),
+    linear-gradient(rgba(193, 181, 194, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(193, 181, 194, 0.12) 1px, transparent 1px);
+  background-size: auto, 32px 32px, 32px 32px;
+}
+
+body::after {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  opacity: 0.36;
+  background-image:
+    linear-gradient(135deg, rgba(23, 32, 51, 0.035) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(23, 32, 51, 0.025) 25%, transparent 25%);
+  background-position: 0 0, 8px 8px;
+  background-size: 16px 16px;
+}
+
+button,
+textarea,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: rgba(24, 119, 255, 0.18);
+}
+
+input,
+textarea,
+select {
+  color: var(--brand-ink);
+  transition:
+    border-color 180ms var(--ease-couch),
+    box-shadow 180ms var(--ease-couch),
+    background-color 180ms var(--ease-couch),
+    transform 180ms var(--ease-couch);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #98a2b3;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--role-border);
+  outline-offset: 2px;
+}
+
+.future-card {
+  position: relative;
+  isolation: isolate;
+  border-color: var(--line-soft) !important;
+  border-radius: var(--radius-card);
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow-rest);
+  transition:
+    transform 220ms var(--ease-couch),
+    border-color 220ms var(--ease-couch),
+    box-shadow 220ms var(--ease-couch),
+    background-color 220ms var(--ease-couch);
+}
+
+.future-card::before {
+  display: none;
+}
+
+.future-card::after {
+  display: none;
+}
+
+.future-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--role-border) !important;
+  box-shadow: 0 18px 38px rgba(29, 12, 59, 0.08), 0 10px 24px var(--role-shadow);
+}
+
+.login-theme-shell {
+  background-color: var(--login-bg-base);
+  background:
+    var(--login-wash);
+  font-family: "SF Pro Display", "SF Pro Text", "PingFang SC", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+  transition:
+    background-color 220ms var(--ease-couch),
+    background 220ms var(--ease-couch);
+}
+
+.login-theme-shell .font-black,
+.login-theme-shell .font-extrabold {
+  font-weight: 650;
+}
+
+.login-theme-shell > *:not(.login-theme-transition) {
+  position: relative;
+  z-index: 1;
+}
+
+.login-theme-transition {
+  position: absolute;
+  };
+}
+
+function LogoMark({ compact = false }: { compact?: boolean }) {
+  return (
+    <div
+      className={cn(
+        "fx-logo relative shrink-0 overflow-hidden rounded-xl border border-[#c1b5c2]/50 bg-white shadow-sm",
+        compact ? "h-9 w-9" : "h-12 w-12",
+      )}
+    >
+      <svg viewBox="0 0 64 64" aria-hidden="true" className="h-full w-full">
+        <defs>
+          <linearGradient id="grownest-wave" x1="10" x2="55" y1="49" y2="27" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#4F7C80" />
+            <stop offset="1" stopColor="#167c80" />
+          </linearGradient>
+          <linearGradient id="grownest-neck" x1="18" x2="36" y1="16" y2="38" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#5aa7f2" />
+            <stop offset="1" stopColor="#3E6569" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M8 33c8.8 11.4 24.6 15.4 45 5.6-3.4 10.9-13.9 19.1-27.4 18.3C16.1 56.3 9.4 47.4 8 33Z"
+          fill="url(#grownest-wave)"
+        />
+        <path
+          d="M13.2 42.2c8.2 5.7 21.8 8.9 37.2 1.2"
+          fill="none"
+          stroke="#fff"
+          strokeLinecap="round"
+          strokeWidth="3.8"
+        />
+        <path
+          d="M20.4 35.7c8.8-6.7 9.4-10.9 9.9-17.3.4-5.2 3.3-8.7 8-8.3 3.8.3 6.3 2.4 7.6 5.3"
+          fill="none"
+          stroke="url(#grownest-neck)"
+          strokeLinecap="round"
+          strokeWidth="7"
+        />
+        <path d="M43.4 21.8c2.7 1.8 5.5 2.4 8.5 1.9-1.4 2.7-4.5 4.3-9 4.2 1-1.8 1.2-3.8.5-6.1Z" fill="#f0a38e" />
+        <circle cx="39.3" cy="16.4" r="2.3" fill="#172033" />
+        <path d="M31.8 42.5V32.4" stroke="#4F7C80" strokeLinecap="round" strokeWidth="3.4" />
+        <path d="M31.8 34.6c-4.6-1.1-7.3-4-8.2-8.6 4.8.2 8 2.9 9.5 8" fill="#b8d7ff" />
+        <path d="M32.8 34.4c2.2-5 6.2-7.5 11.8-7.4-2.2 4.8-6.1 7.4-11.8 7.4Z" fill="#5aa7f2" />
+      </svg>
+    </div>
+  );
+}
+
+function BrandLogo({ small = false }: { small?: boolean }) {
+  return (
+    <div className="flex min-w-0 items-center gap-3">
+      <LogoMark compact={small} />
+      <div className="min-w-0">
+        <div className={cn("whitespace-nowrap font-black leading-none tracking-[0]", small ? "text-sm" : "text-xl sm:text-2xl")}>
+          <span className="inline-block text-[#4F7C80]">GrowNest</span>
+          <span className="ml-2 inline-block text-slate-950">鹅苗成长舱</span>
+        </div>
+        {!small && <p className="mt-2 text-sm tracking-wide text-slate-500">企业级实习生成长与 HR-AI 协同工作台</p>}
+      </div>
+    </div>
+  );
+}
+
+function Card({ className, children, ...props }: HTMLAttributes<HTMLElement> & { children: ReactNode }) {
+  return (
+    <section
+      className={cn(
+        "future-card fx-reveal rounded-[22px] border border-[#C1B5C2]/40 bg-white/60 p-4 shadow-[0_1px_2px_rgba(29,12,59,0.04),0_14px_34px_rgba(29,12,59,0.055)] backdrop-blur-[18px]",
+        className,
+      )}
+      data-gsap-hover=""
+      {...props}
+    >
+      {children}
+    </section>
+  );
+}
+
+function Button({
+  className,
+  variant = "primary",
+  children,
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "primary" | "soft" | "ghost" }) {
+  return (
+    <button
+      className={cn(
+        "fx-button inline-flex items-center justify-center gap-2 rounded-[9px] px-4 py-2.5 text-sm font-semibold transition active:scale-[0.985] disabled:cursor-not-allowed disabled:opacity-55",
+        variant === "primary" && "border border-[var(--role-accent)] bg-[var(--role-accent)] text-white shadow-[0_10px_24px_var(--role-shadow)] hover:border-[var(--role-accent-strong)] hover:bg-[var(--role-accent-strong)]",
+        variant === "soft" && "border border-[var(--role-border)] bg-[var(--role-soft)] text-[var(--role-accent)] hover:shadow-[0_10px_22px_var(--role-shadow)]",
+        variant === "ghost" && "border border-[#C1B5C2]/38 bg-white/60 text-[#6F6E72] hover:border-[var(--role-border)] hover:bg-[var(--role-soft)] hover:text-[var(--role-accent)]",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+}
+
+function AttentionBadge({ risk }: { risk: RiskLevel }) {
+  return <span className={cn("inline-flex items-center rounded-md border px-2.5 py-1 text-xs font-semibold", riskClass[risk])}>{attentionLabel[risk]}</span>;
+}
+
+function StatusPill({ status }: { status: string }) {
+  const styles: Record<string, string> = {
+    已完成: "border-emerald-200 bg-emerald-50 text-emerald-700",
+    进行中: "border-[var(--role-border)] bg-[var(--role-soft)] text-[var(--role-accent)]",
+    未开始: "border-slate-200 bg-slate-100 text-slate-500",
+              </button>
+              {nav.filter((item) => item.roles.includes(user.role)).map((item) => {
+                const Icon = item.icon;
+                return (
+                  <button
+                    key={item.path}
+                    className="mb-1 flex w-full items-center gap-3 rounded-[9px] px-3 py-2.5 text-left text-sm font-semibold text-slate-600 transition hover:bg-[var(--role-soft)] hover:text-[var(--role-accent)]"
+                  >
+                    <Icon className="h-4 w-4" />
+                    {item.label}
+                  </button>
+                );
+              })}
+            </Card>
+          </div>
+        </aside>
+
+        <main className="min-w-0 flex-1 space-y-4">
+          <Card className="overflow-hidden p-0">
+            <div className="relative overflow-hidden bg-white p-4" data-gsap-title="">
+              <div className="absolute inset-x-0 top-0 h-1 bg-[var(--role-accent)]" />
+              <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wide text-[var(--role-accent)]">
+                    当前工作台
+                  </p>
+                  <h1 className="mt-1 text-xl font-black tracking-[0] text-slate-950 lg:text-2xl">{title}</h1>
+                  <p className="mt-1 text-sm text-slate-600">
+                    {user.name} / {roleName[user.role]}
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {["实时同步", "AI 赋能"].map((item) => (
+                    <span key={item} className="rounded-md bg-[var(--role-soft)] px-3 py-2 text-xs font-black text-[var(--role-accent)] ring-1 ring-[var(--role-border)]">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Card>
+          {children}
+        </main>
+      </div>
+    </div>
+  );
+}
+
+function StatCard({ label, value, icon: Icon, tone }: { label: string; value: string; icon: ElementType; tone: "blue" | "green" | "amber" | "rose" }) {
+  const styles = {
+    blue: "border border-[var(--role-border)] bg-[var(--role-soft)] text-[var(--role-accent)]",
+    green: "border border-emerald-100 bg-emerald-50 text-emerald-700",
+    amber: "border border-amber-100 bg-amber-50 text-amber-700",
+    rose: "border border-rose-100 bg-rose-50 text-rose-700",
+  };
+  return (
+    <Card className="p-5" data-stat-card="">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-sm font-medium text-slate-500">{label}</p>
+          <p className="mt-2 text-3xl font-black text-slate-950">{value}</p>
+        </div>
+        <div className={cn("flex h-12 w-12 items-center justify-center rounded-2xl", styles[tone])}>
+          <Icon className="h-6 w-6" />
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+function GrowthMapRoute({
+  currentWeek,
+  selectedWeekIndex,
+  onSelectWeek,
+  selectedDateLabel,
+  todayTasksCount,
+  pendingTasksCount,
+}: {
+  currentWeek: number;
+  selectedWeekIndex: number;
+  onSelectWeek: (weekIndex: number) => void;
+  selectedDateLabel: string;
+  todayTasksCount: number;
+  pendingTasksCount: number;
+}) {
+  const milestones = [
+    { day: "30", label: "熟悉业务检查点", week: 4, place: "业务营地" },
+    { day: "60", label: "项目参与检查点", week: 8, place: "项目峡湾" },
+    { day: "90", label: "成果复盘检查点", week: 12, place: "成果灯塔" },
+  ];
+  const mapStops = [
+    { x: 7, y: 68, name: "启程" },
+    { x: 14, y: 38, name: "资料" },
+    { x: 24, y: 30, name: "观察" },
+    { x: 34, y: 48, name: "业务营地" },
+    { x: 43, y: 71, name: "练习" },
+    { x: 53, y: 62, name: "协作" },
+    { x: 61, y: 37, name: "评审" },
+    { x: 70, y: 29, name: "项目峡湾" },
+    { x: 79, y: 47, name: "交付" },
+    { x: 86, y: 70, name: "复盘" },
+    { x: 91, y: 47, name: "挑战" },
+    { x: 95, y: 28, name: "成果灯塔" },
+    { x: 98, y: 56, name: "终点" },
+  ];
+  const currentStop = mapStops[Math.min(selectedWeekIndex, mapStops.length - 1)];
+  const progress = Math.min(100, Math.max(0, (selectedWeekIndex / 12) * 100));
+
+  return (
+    <div className="overflow-hidden rounded-lg border border-[var(--role-border)] bg-gradient-to-br from-white via-white/70 to-emerald-50/50 p-3">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <div className="flex items-center gap-2">
+            <MapPinned className="h-4 w-4 text-[var(--role-accent)]" />
+            <p className="text-sm font-black text-slate-950">90 天成长地图</p>
+          </div>
+          <p className="mt-1 text-xs font-semibold text-slate-500">沿着路线推进 13 个成长站点，点击站点切换周。</p>
+        </div>
+        <span className="rounded-full bg-white px-2.5 py-1 text-xs font-black text-[var(--role-accent)] ring-1 ring-[var(--role-border)]">
+          当前第 {currentWeek} 周 · {currentStop.name}
+        </span>
+      </div>
+      <div className="mt-3 overflow-x-auto rounded-lg bg-white/82 p-3 ring-1 ring-[var(--role-border)]">
+        <div className="relative min-h-[245px] min-w-[760px] overflow-hidden rounded-lg border border-[var(--role-border)] bg-[radial-gradient(circle_at_18%_24%,rgba(37,99,235,0.12),transparent_18%),radial-gradient(circle_at_78%_32%,rgba(16,185,129,0.14),transparent_20%),linear-gradient(180deg,#f8fbff,#ffffff)] p-3 md:min-w-0">
+          <div className="absolute left-[8%] top-[16%] rounded-full bg-white/75 px-3 py-1 text-[11px] font-black text-[var(--role-accent)] ring-1 ring-[var(--role-border)]">学习湾</div>
+          <div className="absolute left-[44%] top-[14%] rounded-full bg-white/75 px-3 py-1 text-[11px] font-black text-emerald-700 ring-1 ring-emerald-100">协作桥</div>
+          <div className="absolute bottom-[13%] left-[72%] rounded-full bg-white/75 px-3 py-1 text-[11px] font-black text-[var(--role-accent)] ring-1 ring-[var(--role-border)]">复盘谷</div>
+          <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M 7 68 C 18 20 31 24 42 70 S 61 20 74 31 S 90 84 98 56" fill="none" stroke="#e2e8f0" strokeLinecap="round" strokeWidth="3" />
+            <path
+              d="M 7 68 C 18 20 31 24 42 70 S 61 20 74 31 S 90 84 98 56"
+              fill="none"
+              pathLength="100"
+              stroke="var(--role-accent)"
+              strokeDasharray={`${progress} 100`}
+              strokeLinecap="round"
+              strokeWidth="3"
+            />
+          </svg>
+          {mapStops.map((stop, index) => {
+            const active = index === selectedWeekIndex;
+            const passed = index < selectedWeekIndex;
+            const milestone = milestones.find((item) => item.week === index + 1);
+            return (
+              <button
+                key={`${stop.name}-${index}`}
+                onClick={() => onSelectWeek(index)}
+                className="group absolute -translate-x-1/2 -translate-y-1/2 rounded-xl px-1 py-1 text-center transition hover:bg-white/70"
+                style={{ left: `${stop.x}%`, top: `${stop.y}%` }}
+              >
+                <span
+                  className={cn(
+                    "relative z-10 mx-auto flex h-9 w-9 items-center justify-center rounded-full border text-xs font-black shadow-sm transition",
+                    active && "border-[var(--role-accent)] bg-[var(--role-accent)] text-white shadow-[var(--role-shadow)] ring-4 ring-[var(--role-border)]",
+                    passed && !active && "border-emerald-200 bg-emerald-50 text-emerald-700",
+                    !passed && !active && "border-slate-200 bg-white text-slate-500",
+                  )}
+                >
+                  {milestone ? <Flag className="h-4 w-4" /> : index + 1}
+                </span>
+                <span className={cn("mt-1 block whitespace-nowrap text-[10px] font-bold", active ? "text-[var(--role-accent)]" : "text-slate-500")}>W{index + 1}</span>
+                <span className={cn("block whitespace-nowrap text-[10px] font-semibold opacity-0 transition group-hover:opacity-100", active ? "text-[var(--role-accent)] opacity-100" : "text-slate-500")}>{stop.name}</span>
+              </button>
+            );
+          })}
+          <div
+            className="pointer-events-none absolute -translate-x-1/2 -translate-y-[115%] rounded-full bg-slate-950 px-3 py-1.5 text-xs font-black text-white shadow-lg shadow-slate-900/20 transition-all"
+            style={{ left: `${currentStop.x}%`, top: `${currentStop.y}%` }}
+          >
+            你在这里
+          </div>
+        </div>
+        <div className="mt-3 grid gap-2 md:grid-cols-4">
+          <div className="rounded-lg border border-[var(--role-border)] bg-[var(--role-soft)] px-3 py-2">
+            <p className="text-xs font-black text-[var(--role-accent)]">当前站点 · {currentStop.name}</p>
+            <p className="mt-1 text-sm font-bold text-slate-700">{selectedDateLabel}，今日 {todayTasksCount} 个任务，待办 {pendingTasksCount} 个</p>
+          </div>
+          {milestones.map((item) => (
+            <div key={item.day} className="rounded-lg bg-slate-50 px-3 py-2 ring-1 ring-slate-100">
+              <p className="text-xs font-black text-[var(--role-accent)]">第 {item.day} 天 · {item.label}</p>
+              <p className="mt-1 text-sm font-bold text-slate-700">{item.label}</p>
+              <p className="mt-1 text-xs font-semibold text-slate-500">{item.place}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function startOfDay(date: Date) {
+  const next = new Date(date);
+  next.setHours(0, 0, 0, 0);
+  return next;
+}
+

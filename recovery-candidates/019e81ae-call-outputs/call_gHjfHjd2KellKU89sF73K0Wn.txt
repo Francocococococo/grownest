@@ -1,0 +1,96 @@
+          .from("[data-home-showcase-card]", { autoAlpha: 0, y: 18, stagger: 0.08, duration: 0.36 }, "-=0.2");
+
+        gsap.to("[data-home-stage]", { y: -7, duration: 3.8, ease: "sine.inOut", repeat: -1, yoyo: true, delay: 2.1 });
+        gsap.to("[data-home-card]", { y: (index) => [-8, 6, -5][index] ?? -4, duration: 3.2, ease: "sine.inOut", repeat: -1, yoyo: true, stagger: 0.26, delay: 2.2 });
+        gsap.to("[data-home-glow]", { x: 16, y: -12, scale: 1.04, duration: 6.5, ease: "sine.inOut", repeat: -1, yoyo: true });
+        gsap.to(paths, { strokeDashoffset: "-=18", duration: 3.4, ease: "none", repeat: -1, delay: 2.4 });
+        gsap.to("[data-home-insight-panel]", { boxShadow: "0 22px 60px rgba(75,50,195,0.13)", duration: 2.8, ease: "sine.inOut", repeat: -1, yoyo: true, delay: 2.8 });
+
+        const cardTweens = cards.map((card) => {
+          const depth = Number(card.dataset.depth ?? "1");
+          return {
+            element: card,
+            x: gsap.quickTo(card, "x", { duration: 0.42, ease: "power3.out" }),
+            y: gsap.quickTo(card, "y", { duration: 0.42, ease: "power3.out" }),
+            depth,
+          };
+        });
+        const stageX = container ? gsap.quickTo(container, "x", { duration: 0.52, ease: "power3.out" }) : null;
+        const stageY = container ? gsap.quickTo(container, "y", { duration: 0.52, ease: "power3.out" }) : null;
+
+        const onMove = (event: MouseEvent) => {
+          const rect = root.getBoundingClientRect();
+          const relX = (event.clientX - rect.left) / rect.width - 0.5;
+          const relY = (event.clientY - rect.top) / rect.height - 0.5;
+          stageX?.(relX * -6);
+          stageY?.(relY * -5);
+          cardTweens.forEach((item) => {
+            item.x(relX * item.depth * 10);
+            item.y(relY * item.depth * 12);
+          });
+        };
+
+        const onLeave = () => {
+          stageX?.(0);
+          stageY?.(0);
+          cardTweens.forEach((item) => {
+            item.x(0);
+            item.y(0);
+          });
+        };
+
+        root.addEventListener("mousemove", onMove);
+        root.addEventListener("mouseleave", onLeave);
+
+        const cleanups = cards.map((card) => {
+          const flow = card.dataset.homeCard;
+          const relatedPath = root.querySelector<SVGPathElement>(`[data-home-path="${flow}"]`);
+          const enter = () => {
+            gsap.to(card, { y: "-=8", borderColor: "rgba(75,50,195,0.24)", backgroundColor: "rgba(255,255,255,0.84)", duration: 0.22, overwrite: "auto" });
+            if (relatedPath) gsap.to(relatedPath, { strokeWidth: 2.2, stroke: card.dataset.accent ?? "#4B32C3", duration: 0.2, overwrite: "auto" });
+          };
+          const leave = () => {
+            gsap.to(card, { y: 0, borderColor: "rgba(80,70,120,0.12)", backgroundColor: "rgba(255,255,255,0.68)", duration: 0.24, overwrite: "auto" });
+            if (relatedPath) gsap.to(relatedPath, { strokeWidth: 1.4, stroke: "rgba(75,50,195,0.32)", duration: 0.2, overwrite: "auto" });
+          };
+          card.addEventListener("mouseenter", enter);
+          card.addEventListener("mouseleave", leave);
+          return () => {
+            card.removeEventListener("mouseenter", enter);
+            card.removeEventListener("mouseleave", leave);
+          };
+        });
+
+        const insightPanel = root.querySelector<HTMLElement>("[data-home-insight-panel]");
+        const insightEnter = () => gsap.fromTo(insights, { x: -5 }, { x: 0, autoAlpha: 1, stagger: 0.055, duration: 0.24, overwrite: "auto" });
+        const insightLeave = () => gsap.to(insightPanel, { borderColor: "rgba(80,70,120,0.12)", duration: 0.2, overwrite: "auto" });
+        if (insightPanel) {
+          insightPanel.addEventListener("mouseenter", insightEnter);
+          insightPanel.addEventListener("mouseleave", insightLeave);
+        }
+
+                  </div>
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] bg-white/70 ring-1 ring-[#504678]/10">
+                    <Icon className="h-5 w-5" style={{ color: accent }} />
+                  </div>
+                </div>
+                <p className="mt-3 text-sm font-medium text-[#241A48]">{body}</p>
+                <p className="mt-2 text-xs leading-5 text-[#6F6A7A]">{detail}</p>
+              </div>
+            ))}
+
+            <div className="home-insight-panel absolute bottom-[3%] left-[2%] z-40 w-[240px] rounded-[22px] border border-[#504678]/12 bg-white/72 p-3.5 shadow-[0_22px_60px_rgba(36,26,72,0.08)] backdrop-blur-[18px]" data-home-insight-panel="">
+              <div className="mb-4 flex items-center justify-between">
+                <p className="text-sm font-semibold text-[#171321]">AI Insight</p>
+                <Sparkles className="h-4 w-4 text-[#4B32C3]" />
+              </div>
+              {["识别成长阻塞点", "生成导师反馈建议", "同步 HR 跟进行动"].map((item) => (
+                <div key={item} className="mb-2 rounded-[12px] border border-[#504678]/10 bg-[#F6F4FA]/76 px-3 py-2 text-xs font-medium text-[#241A48]" data-home-insight="">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+

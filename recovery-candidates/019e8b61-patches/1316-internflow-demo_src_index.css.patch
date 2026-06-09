@@ -1,0 +1,35 @@
+*** Begin Patch
+*** Update File: internflow-demo/src/index.css
+@@
+   .mentor-shell > div {
++    grid-template-rows: auto auto;
+     row-gap: 8px;
+     align-items: start;
+   }
+@@
+   .mentor-shell aside > .sticky {
+     height: 100%;
++    position: static;
+   }
+ 
+   .mentor-shell main {
+     grid-column: 2;
+     grid-row: 1;
++    align-self: stretch;
+   }
+@@
+   .mentor-shell .mentor-stats-row {
+     grid-column: 2;
+     grid-row: 2;
+-    align-items: start;
++    align-items: stretch;
+     gap: 10px;
+   }
+ 
+   .mentor-shell .mentor-stats-row [data-stat-card] {
+-    min-height: 104px;
++    height: 100%;
++    min-height: 104px;
+     padding: 16px;
+   }
+*** End Patch
