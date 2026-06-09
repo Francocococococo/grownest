@@ -321,7 +321,6 @@ function useHomeCapabilityAnimation(ref: React.RefObject<HTMLElement | null>) {
     () => {
       if (!ref.current) return;
       const ctx = gsap.context(() => {
-        const panels = gsap.utils.toArray<HTMLElement>("[data-workbench-panel]");
         const workflowNodes = gsap.utils.toArray<HTMLElement>("[data-workflow-node]");
         const workflowStages = gsap.utils.toArray<HTMLElement>("[data-workflow-stage]");
         if (shouldReduceMotion()) {
@@ -335,7 +334,6 @@ function useHomeCapabilityAnimation(ref: React.RefObject<HTMLElement | null>) {
             stage.dataset.active = index === 0 ? "true" : "false";
             stage.dataset.complete = "false";
           });
-          panels.forEach((panel, index) => gsap.set(panel, { autoAlpha: index === 0 ? 1 : 0 }));
           return;
         }
 
@@ -351,9 +349,6 @@ function useHomeCapabilityAnimation(ref: React.RefObject<HTMLElement | null>) {
         gsap.set("[data-capability-line]", { scaleX: 0, transformOrigin: "left center" });
         gsap.set("[data-role-showcase-reveal]", { autoAlpha: 0, y: 14 });
         gsap.set("[data-role-flow-line]", { scaleX: 0, transformOrigin: "left center" });
-        panels.forEach((panel, index) => {
-          gsap.set(panel, { autoAlpha: index === 0 ? 1 : 0, y: index === 0 ? 0 : 12 });
-        });
         const setWorkflowStep = (activeIndex: number) => {
           workflowNodes.forEach((node, index) => {
             node.dataset.active = index === activeIndex ? "true" : "false";
@@ -387,22 +382,6 @@ function useHomeCapabilityAnimation(ref: React.RefObject<HTMLElement | null>) {
           .to("[data-home-showcase-card]", { autoAlpha: 1, y: 0, duration: 0.34, stagger: 0.06 }, 0.85)
           .to("[data-action-loop-bar]", { scaleX: 1, duration: 1.2, ease: "power3.inOut" }, 0.7)
           .to("[data-capability-line]", { scaleX: 1, duration: 0.9, ease: "power2.out", stagger: 0.12 }, 0.7);
-
-        if (panels.length > 1) {
-          const cycle = gsap.timeline({
-            repeat: -1,
-            repeatDelay: 0.8,
-            delay: 1.8,
-            defaults: { ease: "power2.out" },
-          });
-          panels.forEach((panel, index) => {
-            cycle
-              .to(panels, { autoAlpha: 0, y: 12, duration: 0.28 }, index === 0 ? 0 : "+=2.2")
-              .to(panel, { autoAlpha: 1, y: 0, duration: 0.42 }, "<")
-              .to(`[data-capability-card][data-module-index="${index}"]`, { y: -4, duration: 0.28 }, "<")
-              .to(`[data-capability-card][data-module-index="${index}"]`, { y: 0, duration: 0.42 }, "+=1.2");
-          });
-        }
       }, ref);
       return () => ctx.revert();
     },
@@ -1906,6 +1885,7 @@ function RoleCollaborationShowcase() {
 function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
   const homeRef = useRef<HTMLElement | null>(null);
   const capabilityRef = useRef<HTMLElement | null>(null);
+  const [activeWorkbenchIndex, setActiveWorkbenchIndex] = useState(0);
   useHomeHeroAnimation(homeRef);
   useHomeCapabilityAnimation(capabilityRef);
 
@@ -2283,7 +2263,19 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
           <div className="capability-workbench grid gap-5 rounded-[28px] border border-[#4E4965]/10 bg-[#FFFFFF]/48 p-4 shadow-[0_24px_70px_rgba(36,26,72,0.06)] backdrop-blur-[20px] lg:grid-cols-[0.38fr_0.62fr]">
             <div className="grid gap-3">
               {productModules.map(({ title, detail, accent, statusAccent, chips, icon: Icon }, index) => (
-                <div key={title} className="capability-card relative overflow-hidden rounded-[22px] border border-[#4E4965]/10 bg-[#FFFFFF]/62 p-4 shadow-[0_18px_52px_rgba(36,26,72,0.055)] backdrop-blur-[18px]" data-capability-card="" data-home-showcase-card="" data-accent={statusAccent} data-module-index={index}>
+                <button
+                  key={title}
+                  type="button"
+                  className="capability-card relative overflow-hidden rounded-[22px] border border-[#4E4965]/10 bg-[#FFFFFF]/62 p-4 text-left shadow-[0_18px_52px_rgba(36,26,72,0.055)] backdrop-blur-[18px]"
+                  data-capability-card=""
+                  data-home-showcase-card=""
+                  data-accent={statusAccent}
+                  data-module-index={index}
+                  data-active={activeWorkbenchIndex === index ? "true" : "false"}
+                  onMouseEnter={() => setActiveWorkbenchIndex(index)}
+                  onFocus={() => setActiveWorkbenchIndex(index)}
+                  onClick={() => setActiveWorkbenchIndex(index)}
+                >
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <span className="text-xs font-semibold" style={{ color: accent }}>0{index + 1}</span>
@@ -2306,7 +2298,7 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
                   <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-[#4E4965]/10">
                     <div className="h-full rounded-full" style={{ "--capability-line-color": statusAccent } as CSSProperties} data-capability-line="" />
                   </div>
-                </div>
+                </button>
               ))}
             </div>
 
@@ -2316,11 +2308,20 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
                   <p className="text-xs font-semibold uppercase tracking-wide text-[#2563EB]">Simulated Workbench</p>
                   <p className="mt-1 text-lg font-semibold text-[#171321]">成长协同模拟工作台</p>
                 </div>
+                <span className="hidden rounded-full border border-[#BFDBFE] bg-white/80 px-3 py-1.5 text-xs font-semibold text-[#2563EB] sm:inline-flex">
+                  悬停左侧模块查看
+                </span>
                 <Bot className="h-6 w-6 text-[#2563EB]" />
               </div>
 
               {productModules.map(({ workbenchTitle, workbenchMeta, workbenchItems, accent, statusAccent, flow }, index) => (
-                <div key={workbenchTitle} className="absolute inset-x-5 top-[92px]" data-workbench-panel="" style={{ opacity: index === 0 ? 1 : 0, visibility: index === 0 ? "visible" : "hidden" }}>
+                <div
+                  key={workbenchTitle}
+                  className="absolute inset-x-5 top-[92px]"
+                  data-workbench-panel=""
+                  data-active={activeWorkbenchIndex === index ? "true" : "false"}
+                  aria-hidden={activeWorkbenchIndex !== index}
+                >
                   <div className="rounded-[22px] border border-[#BFDBFE] bg-white/76 p-5 shadow-[0_18px_54px_rgba(37,99,235,0.07)]">
                     <div className="flex items-start justify-between gap-4" data-workbench-item="">
                       <div>
