@@ -755,6 +755,7 @@ select:focus-visible {
   height: 6px;
   border-radius: 999px;
   background: #dbeafe;
+  overflow: visible;
 }
 
 .action-loop-progress-fill {
@@ -764,7 +765,27 @@ select:focus-visible {
   transform: scaleX(0);
   transform-origin: left center;
   border-radius: inherit;
+  background:
+    linear-gradient(90deg, #2563eb, #60a5fa, #2563eb);
+  background-size: 180% 100%;
+  animation: action-loop-flow-fill 6.4s ease-in-out infinite;
+}
+
+.action-loop-progress::after {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  border: 3px solid #ffffff;
+  border-radius: 999px;
   background: #2563eb;
+  box-shadow:
+    0 0 0 5px rgba(37, 99, 235, 0.12),
+    0 8px 18px rgba(37, 99, 235, 0.22);
+  content: "";
+  transform: translate(-50%, -50%);
+  animation: action-loop-progress-cursor 6.4s ease-in-out infinite;
 }
 
 .action-loop-chain {
@@ -838,12 +859,29 @@ select:focus-visible {
 
 .action-loop-pill {
   z-index: 1;
+  animation: action-loop-step-sync 6.4s var(--ease-couch) infinite;
   transition:
     transform 180ms var(--ease-couch),
     color 180ms var(--ease-couch),
     border-color 180ms var(--ease-couch),
     background-color 180ms var(--ease-couch),
     box-shadow 180ms var(--ease-couch);
+}
+
+[data-action-loop-index="0"] {
+  animation-delay: 0s;
+}
+
+[data-action-loop-index="1"] {
+  animation-delay: 1.6s;
+}
+
+[data-action-loop-index="2"] {
+  animation-delay: 3.2s;
+}
+
+[data-action-loop-index="3"] {
+  animation-delay: 4.8s;
 }
 
 .action-loop-chain-orbit .action-loop-pill:nth-of-type(2) {
@@ -891,6 +929,61 @@ select:focus-visible {
   color: #241A48;
 }
 
+@keyframes action-loop-flow-fill {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes action-loop-progress-cursor {
+  0%,
+  15% {
+    left: 0%;
+  }
+
+  25%,
+  40% {
+    left: 33.333%;
+  }
+
+  50%,
+  65% {
+    left: 66.666%;
+  }
+
+  75%,
+  90% {
+    left: 100%;
+  }
+
+  100% {
+    left: 0%;
+  }
+}
+
+@keyframes action-loop-step-sync {
+  0%,
+  22%,
+  100% {
+    transform: translateY(0);
+    border-color: #bfdbfe;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: none;
+  }
+
+  8% {
+    transform: translateY(-5px);
+    border-color: rgba(37, 99, 235, 0.4);
+    background: rgba(239, 246, 255, 0.92);
+    box-shadow: 0 14px 32px rgba(37, 99, 235, 0.1);
+  }
+}
+
 @media (max-width: 767px) {
   .action-loop-chain-orbit {
     min-height: auto;
@@ -919,6 +1012,14 @@ select:focus-visible {
 
   .action-loop-scan {
     inset: 4px calc(50% - 64px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .action-loop-progress-fill,
+  .action-loop-progress::after,
+  .action-loop-pill {
+    animation: none;
   }
 }
 

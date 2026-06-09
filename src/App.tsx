@@ -2263,8 +2263,8 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
                 </div>
               </div>
               <div className="action-loop-chain grid gap-3 md:grid-cols-4" aria-label="贯穿式行动闭环机制">
-                {actionLoopSteps.map(({ title, detail, icon: Icon }) => (
-                  <div key={title} className="action-loop-pill relative min-h-[118px] rounded-[16px] border border-[#BFDBFE] bg-white/80 p-4 text-[#5F6978]" data-action-loop-step="">
+                {actionLoopSteps.map(({ title, detail, icon: Icon }, index) => (
+                  <div key={title} className="action-loop-pill relative min-h-[118px] rounded-[16px] border border-[#BFDBFE] bg-white/80 p-4 text-[#5F6978]" data-action-loop-step="" data-action-loop-index={index}>
                     <div className="flex items-start gap-3">
                       <span className="action-loop-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-[12px] bg-[#DBEAFE] text-[#2563EB] ring-1 ring-[#BFDBFE]" data-action-loop-icon="">
                         <Icon className="h-[18px] w-[18px]" />
