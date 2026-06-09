@@ -1637,9 +1637,9 @@ function MeasuredChart({
 function RoleCollaborationShowcase() {
   const showcaseRef = useRef<HTMLDivElement | null>(null);
   const collaborationShowcaseRoles = [
-    { id: "student", label: "Student", accent: "#17324D" },
-    { id: "mentor", label: "Mentor", accent: "#17324D" },
-    { id: "hr", label: "HRBP", accent: "#17324D" },
+    { id: "student", label: "Student", accent: "#2563EB", soft: "rgba(37,99,235,0.10)" },
+    { id: "mentor", label: "Mentor", accent: "#059669", soft: "rgba(5,150,105,0.10)" },
+    { id: "hr", label: "HRBP", accent: "#4F46E5", soft: "rgba(79,70,229,0.11)" },
   ];
 
   useGSAP(
@@ -1696,11 +1696,11 @@ function RoleCollaborationShowcase() {
 
       <div className="role-collab-tabs mt-5 rounded-[14px] border border-[#D8DEE6] bg-[#F8FAFC] p-1.5" data-role-showcase-tabs="">
         <div className="grid grid-cols-3 gap-1.5 text-center font-semibold">
-          {collaborationShowcaseRoles.map(({ id, label, accent }) => (
+          {collaborationShowcaseRoles.map(({ id, label, accent, soft }) => (
             <div
               key={id}
               className="role-collab-tab flex min-h-[48px] items-center justify-center rounded-[11px] border border-transparent bg-white/74 px-3 py-3 text-[#17324D]"
-              style={{ color: accent }}
+              style={{ color: accent, "--role-tab-accent": accent, "--role-tab-soft": soft } as CSSProperties}
               data-role-showcase-tab=""
             >
               {label}
@@ -1713,14 +1713,14 @@ function RoleCollaborationShowcase() {
         <div className="role-flow-track relative flex items-center justify-between gap-2 text-[11px] font-semibold text-[#5F6978]">
           <span className="role-flow-line" data-role-flow-line="" />
           {[
-            ["成长输入", "#17324D"],
-            ["反馈确认", "#17324D"],
-            ["HR 跟进", "#17324D"],
-          ].map(([item, accent]) => (
+            ["成长输入", "#2563EB", "rgba(37,99,235,0.10)"],
+            ["反馈确认", "#059669", "rgba(5,150,105,0.10)"],
+            ["HR 跟进", "#4F46E5", "rgba(79,70,229,0.11)"],
+          ].map(([item, accent, soft]) => (
             <span
               key={item}
               className="role-flow-node relative z-10 rounded-full border border-[#D8DEE6] bg-white px-3 py-2 shadow-sm"
-              style={{ color: accent }}
+              style={{ color: accent, "--role-flow-accent": accent, "--role-flow-soft": soft } as CSSProperties}
               data-accent={accent}
               data-role-flow-node=""
             >

@@ -421,12 +421,15 @@ select:focus-visible {
   pointer-events: none;
   content: "";
   background:
-    linear-gradient(120deg, rgba(255, 255, 255, 0.82), transparent 34%),
-    radial-gradient(circle at 84% 12%, rgba(23, 50, 77, 0.055), transparent 30%),
-    radial-gradient(circle at 12% 82%, rgba(57, 91, 100, 0.04), transparent 28%);
+    linear-gradient(120deg, rgba(255, 255, 255, 0.86), transparent 34%),
+    radial-gradient(circle at 18% 18%, rgba(37, 99, 235, 0.11), transparent 30%),
+    radial-gradient(circle at 54% 82%, rgba(5, 150, 105, 0.09), transparent 30%),
+    radial-gradient(circle at 86% 22%, rgba(79, 70, 229, 0.1), transparent 30%);
 }
 
 .role-collab-tabs {
+  background:
+    linear-gradient(90deg, rgba(37, 99, 235, 0.065), rgba(5, 150, 105, 0.055), rgba(79, 70, 229, 0.065));
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.82),
     0 10px 26px rgba(20, 33, 52, 0.035);
@@ -436,6 +439,13 @@ select:focus-visible {
   font-size: clamp(0.86rem, 0.92vw, 0.95rem);
   font-weight: 680;
   line-height: 1;
+  border-color: color-mix(in srgb, var(--role-tab-accent) 15%, transparent);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.88), var(--role-tab-soft)),
+    rgba(255, 255, 255, 0.78);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    0 8px 20px color-mix(in srgb, var(--role-tab-accent) 8%, transparent);
   transition:
     transform 180ms var(--ease-couch),
     border-color 180ms var(--ease-couch),
@@ -446,9 +456,11 @@ select:focus-visible {
 
 .role-collab-tab:hover {
   transform: translateY(-1px);
-  border-color: rgba(23, 50, 77, 0.12);
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 10px 22px rgba(20, 33, 52, 0.045);
+  border-color: color-mix(in srgb, var(--role-tab-accent) 26%, transparent);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), color-mix(in srgb, var(--role-tab-accent) 12%, white)),
+    rgba(255, 255, 255, 0.94);
+  box-shadow: 0 12px 24px color-mix(in srgb, var(--role-tab-accent) 11%, transparent);
 }
 
 .role-flow-strip {
@@ -462,7 +474,7 @@ select:focus-visible {
   top: 50%;
   height: 1px;
   content: "";
-  background: linear-gradient(90deg, transparent, rgba(23, 50, 77, 0.18), transparent);
+  background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.18), rgba(5, 150, 105, 0.16), rgba(79, 70, 229, 0.18), transparent);
   transform: translateY(-50%);
 }
 
@@ -473,7 +485,7 @@ select:focus-visible {
   top: 50%;
   height: 2px;
   border-radius: 999px;
-  background: linear-gradient(90deg, rgba(23, 50, 77, 0.62), rgba(57, 91, 100, 0.62));
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.68), rgba(5, 150, 105, 0.68), rgba(79, 70, 229, 0.68));
   transform: translateY(-50%) scaleX(0);
   transform-origin: left center;
   will-change: opacity, transform;
@@ -484,6 +496,13 @@ select:focus-visible {
   align-items: center;
   min-width: 104px;
   justify-content: center;
+  border-color: color-mix(in srgb, var(--role-flow-accent) 20%, #d8dee6);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), var(--role-flow-soft)),
+    rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 10px 18px color-mix(in srgb, var(--role-flow-accent) 9%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.84);
   transition:
     border-color 180ms var(--ease-couch),
     background-color 180ms var(--ease-couch),
