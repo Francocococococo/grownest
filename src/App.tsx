@@ -224,15 +224,100 @@ function useHomeHeroAnimation(ref: React.RefObject<HTMLElement | null>) {
     () => {
       if (!ref.current) return;
       const ctx = gsap.context(() => {
+        const ambient = gsap.utils.toArray<HTMLElement>("[data-home-ambient]");
+        const insightIcons = gsap.utils.toArray<HTMLElement>("[data-home-insight-icon]");
+        const paths = gsap.utils.toArray<SVGPathElement>("[data-home-path]");
+
+        paths.forEach((p) => {
+          const length = p.getTotalLength?.() ?? 0;
+          if (!length) return;
+          p.style.strokeDasharray = String(length);
+          p.style.strokeDashoffset = String(length);
+        });
+
         if (shouldReduceMotion()) {
-          gsap.set("[data-home-hero-reveal]", { autoAlpha: 1, y: 0 });
+          gsap.set("[data-home-copy], [data-home-title], [data-home-cta], [data-home-ambient], [data-home-stage-column], [data-home-stage-card], [data-home-stage-product], [data-home-insight-row], [data-home-screen-row], [data-home-path]", { autoAlpha: 1, y: 0, x: 0, scale: 1 });
+          paths.forEach((p) => { p.style.strokeDashoffset = "0"; });
           return;
         }
+
+        gsap.set(ambient, { autoAlpha: 0, scale: 0.86 });
+        gsap.set("[data-home-stage-column]", { autoAlpha: 0, y: 18 });
+        gsap.set("[data-home-stage-card]", { autoAlpha: 0, y: 16, scale: 0.97 });
+        gsap.set("[data-home-stage-product]", { autoAlpha: 0, scale: 0.96, y: 14 });
+        gsap.set("[data-home-insight-row]", { autoAlpha: 0, x: -10 });
+        gsap.set("[data-home-screen-row]", { autoAlpha: 0, y: 8 });
+
         gsap
           .timeline({ defaults: { ease: "power3.out" } })
-          .from("[data-home-hero-copy]", { autoAlpha: 0, y: 18, duration: 0.46 })
-          .from("[data-home-hero-card]", { autoAlpha: 0, y: 14, scale: 0.985, duration: 0.4 }, "-=0.2")
-          .from("[data-home-hero-meta]", { autoAlpha: 0, y: 10, duration: 0.34 }, "-=0.18");
+          .to(ambient, { autoAlpha: 1, scale: 1, duration: 0.7, stagger: 0.06 }, 0)
+          .from("[data-home-copy]", { autoAlpha: 0, y: 18, duration: 0.46, stagger: 0.06 }, 0.15)
+          .from("[data-home-title]", { autoAlpha: 0, y: 24, duration: 0.56, ease: "power4.out" }, 0.1)
+          .from("[data-home-cta]", { autoAlpha: 0, y: 14, duration: 0.4, stagger: 0.06 }, 0.4)
+          .to("[data-home-stage-column]", { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.1, ease: "power3.out" }, 0.3)
+          .to("[data-home-stage-product]", { autoAlpha: 1, scale: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.45)
+          .to("[data-home-stage-card]", { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.08, ease: "power3.out" }, 0.55)
+          .to("[data-home-insight-row]", { autoAlpha: 1, x: 0, duration: 0.36, stagger: 0.06, ease: "power2.out" }, 0.7)
+          .to("[data-home-screen-row]", { autoAlpha: 1, y: 0, duration: 0.32, stagger: 0.06, ease: "power2.out" }, 0.75)
+          .to(paths, { strokeDashoffset: 0, duration: 0.9, stagger: 0.12, ease: "power2.out" }, 0.55);
+
+        gsap.to(ambient, {
+          yPercent: 6,
+          duration: 7,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+          stagger: { each: 0.4, from: "random" },
+        });
+
+        gsap.to(insightIcons, {
+          rotate: 8,
+          duration: 2.4,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+        });
+      }, ref);
+      return () => ctx.revert();
+    },
+    { scope: ref },
+  );
+}
+
+function useHomeCapabilityAnimation(ref: React.RefObject<HTMLElement | null>) {
+  useGSAP(
+    () => {
+      if (!ref.current) return;
+      const ctx = gsap.context(() => {
+        if (shouldReduceMotion()) {
+          gsap.set("[data-workflow-node], [data-workflow-stage], [data-workflow-number], [data-action-loop-step], [data-action-loop-bar-source], [data-capability-card], [data-workbench-item], [data-home-showcase-card]", { autoAlpha: 1, y: 0, x: 0, scale: 1 });
+          gsap.set("[data-action-loop-bar], [data-capability-line]", { scaleX: 1 });
+          return;
+        }
+
+        gsap.set("[data-workflow-node]", { autoAlpha: 0, y: 18, scale: 0.97 });
+        gsap.set("[data-workflow-stage]", { autoAlpha: 0, y: 6 });
+        gsap.set("[data-workflow-number]", { autoAlpha: 0, scale: 0.6 });
+        gsap.set("[data-action-loop-step]", { autoAlpha: 0, x: -10 });
+        gsap.set("[data-action-loop-bar-source]", { autoAlpha: 0, y: 10 });
+        gsap.set("[data-action-loop-bar]", { scaleX: 0, transformOrigin: "left center" });
+        gsap.set("[data-capability-card]", { autoAlpha: 0, y: 16 });
+        gsap.set("[data-workbench-item]", { autoAlpha: 0, y: 10 });
+        gsap.set("[data-home-showcase-card]", { autoAlpha: 0, y: 10 });
+        gsap.set("[data-capability-line]", { scaleX: 0, transformOrigin: "left center" });
+
+        gsap
+          .timeline({ defaults: { ease: "power3.out" } })
+          .to("[data-workflow-node]", { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.08 }, 0)
+          .to("[data-workflow-number]", { autoAlpha: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)", stagger: 0.08 }, 0.35)
+          .to("[data-workflow-stage]", { autoAlpha: 1, y: 0, duration: 0.32, stagger: 0.06 }, 0.4)
+          .to("[data-action-loop-bar-source]", { autoAlpha: 1, y: 0, duration: 0.4 }, 0.55)
+          .to("[data-action-loop-step]", { autoAlpha: 1, x: 0, duration: 0.36, stagger: 0.08, ease: "power2.out" }, 0.65)
+          .to("[data-capability-card]", { autoAlpha: 1, y: 0, duration: 0.44, stagger: 0.08 }, 0.5)
+          .to("[data-workbench-item]", { autoAlpha: 1, y: 0, duration: 0.32, stagger: 0.05 }, 0.7)
+          .to("[data-home-showcase-card]", { autoAlpha: 1, y: 0, duration: 0.34, stagger: 0.06 }, 0.85)
+          .to("[data-action-loop-bar]", { scaleX: 1, duration: 1.2, ease: "power3.inOut" }, 0.7)
+          .to("[data-capability-line]", { scaleX: 1, duration: 0.9, ease: "power2.out", stagger: 0.12 }, 0.7);
       }, ref);
       return () => ctx.revert();
     },
@@ -1735,7 +1820,9 @@ function RoleCollaborationShowcase() {
 
 function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
   const homeRef = useRef<HTMLElement | null>(null);
+  const capabilityRef = useRef<HTMLElement | null>(null);
   useHomeHeroAnimation(homeRef);
+  useHomeCapabilityAnimation(capabilityRef);
 
   const roleCards = [
     {
@@ -1864,8 +1951,8 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
 
   return (
     <main ref={homeRef} className="home-shell relative min-h-screen overflow-hidden bg-[#F3F7FF] text-[#171321]">
-      <div className="home-ambient home-ambient-a" data-home-glow="" />
-      <div className="home-ambient home-ambient-b" />
+      <div className="home-ambient home-ambient-a" data-home-ambient="" />
+      <div className="home-ambient home-ambient-b" data-home-ambient="" />
 
       <nav className="relative z-20 mx-auto flex max-w-[1500px] items-center justify-between gap-5 px-[clamp(1.25rem,3vw,2.5rem)] py-5" data-home-nav="">
         <BrandLogo />
@@ -1921,7 +2008,7 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
             <div className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#BFDBFE]/60" />
             <div className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[350px] w-[350px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#BFDBFE]/46" />
 
-            <div className="relative z-20 order-2 flex justify-center md:order-2 lg:order-1" data-home-column="insight">
+            <div className="relative z-20 order-2 flex justify-center md:order-2 lg:order-1" data-home-column="insight" data-home-stage-column="">
               <div className="home-insight-panel w-full max-w-[236px] rounded-[16px] border border-[#D8DEE6] bg-white/88 p-3.5 shadow-[0_14px_34px_rgba(20,33,52,0.06)]" data-home-insight-panel="">
                 <div className="mb-4 flex items-center justify-between">
                   <p className="text-sm font-semibold text-[#171321]">AI Insight</p>
@@ -1932,15 +2019,15 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
                   ["确认", "交由导师人工判断"],
                   ["跟进", "沉淀可执行下一步"],
                 ].map(([label, item]) => (
-                  <div key={item} className="mb-2 rounded-[10px] border border-[#BFDBFE] bg-[#EFF6FF] px-3 py-2 text-xs font-medium text-[#143C9B]" data-home-insight="">
+                  <div key={item} className="mb-2 rounded-[10px] border border-[#BFDBFE] bg-[#EFF6FF] px-3 py-2 text-xs font-medium text-[#143C9B]" data-home-insight="" data-home-insight-row="">
                     <span className="mr-2 text-[#6A7482]">{label}</span>{item}
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="relative z-30 order-1 flex justify-center md:col-span-2 lg:order-2 lg:col-span-1" data-home-column="engine">
-              <div className="home-product-shell w-full max-w-[430px] rounded-[18px] border border-[#D8DEE6] bg-white/92 p-4 shadow-[0_22px_54px_rgba(20,33,52,0.08)]">
+            <div className="relative z-30 order-1 flex justify-center md:col-span-2 lg:order-2 lg:col-span-1" data-home-column="engine" data-home-stage-column="">
+              <div className="home-product-shell w-full max-w-[430px] rounded-[18px] border border-[#D8DEE6] bg-white/92 p-4 shadow-[0_22px_54px_rgba(20,33,52,0.08)]" data-home-stage-product="">
               <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-4">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-[#2563EB]">Operations Layer</p>
@@ -1991,7 +2078,7 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
               </div>
             </div>
 
-            <div className="relative z-20 order-3 grid gap-3 justify-items-center" data-home-column="roles">
+            <div className="relative z-20 order-3 grid gap-3 justify-items-center" data-home-column="roles" data-home-stage-column="">
               {roleCards.map(({ id, label, title, body, detail, accent, icon: Icon, depth }) => (
                 <div
                   key={id}
@@ -2018,7 +2105,7 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
         </div>
       </section>
 
-      <section id="capability" className="capability-section relative z-30 px-5 pt-14 pb-24" data-capability-section="">
+      <section ref={capabilityRef} id="capability" className="capability-section relative z-30 px-5 pt-14 pb-24" data-capability-section="">
         <div className="mx-auto max-w-7xl">
           <div className="mb-8 grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
             <div>
@@ -2076,7 +2163,7 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
                 <p className="mt-2 text-sm leading-6 text-[#6F6A7A]">
                   每一次成长信号都会经过识别、确认、跟进与沉淀，最终回流为后续带教和 HRBP 判断的依据。
                 </p>
-                <div className="action-loop-progress mt-4" aria-hidden="true">
+                <div className="action-loop-progress mt-4" aria-hidden="true" data-action-loop-bar-source="">
                   <span className="action-loop-progress-fill" data-action-loop-bar="" />
                 </div>
               </div>
