@@ -238,7 +238,7 @@ function useHomeHeroAnimation(ref: React.RefObject<HTMLElement | null>) {
         });
 
         if (shouldReduceMotion()) {
-          gsap.set("[data-home-nav], [data-home-copy], [data-home-title], [data-home-cta], [data-home-ambient], [data-home-stage-column], [data-home-stage-card], [data-home-stage-product], [data-home-insight-row], [data-home-screen-row], [data-home-path], [data-home-metric], [data-home-signal]", { autoAlpha: 1, y: 0, x: 0, scale: 1 });
+          gsap.set("[data-home-nav], [data-home-copy], [data-home-title], [data-home-cta], [data-home-ambient], [data-home-stage-column], [data-home-stage-card], [data-home-stage-product], [data-home-insight-row], [data-home-screen-row], [data-home-path], [data-home-signal]", { autoAlpha: 1, y: 0, x: 0, scale: 1 });
           paths.forEach((p) => { p.style.strokeDashoffset = "0"; });
           return;
         }
@@ -250,7 +250,6 @@ function useHomeHeroAnimation(ref: React.RefObject<HTMLElement | null>) {
         gsap.set("[data-home-stage-product]", { autoAlpha: 0, scale: 0.96, y: 14 });
         gsap.set("[data-home-insight-row]", { autoAlpha: 0, x: -10 });
         gsap.set("[data-home-screen-row]", { autoAlpha: 0, y: 8 });
-        gsap.set("[data-home-metric]", { autoAlpha: 0, y: 8, scale: 0.97 });
         gsap.set("[data-home-signal]", { scaleX: 0, transformOrigin: "left center" });
 
         gsap
@@ -265,7 +264,6 @@ function useHomeHeroAnimation(ref: React.RefObject<HTMLElement | null>) {
           .to(stageCards, { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.08, ease: "power3.out" }, 0.55)
           .to("[data-home-insight-row]", { autoAlpha: 1, x: 0, duration: 0.36, stagger: 0.06, ease: "power2.out" }, 0.7)
           .to("[data-home-screen-row]", { autoAlpha: 1, y: 0, duration: 0.32, stagger: 0.06, ease: "power2.out" }, 0.75)
-          .to("[data-home-metric]", { autoAlpha: 1, y: 0, scale: 1, duration: 0.34, stagger: 0.05 }, 0.82)
           .to(paths, { strokeDashoffset: 0, duration: 0.9, stagger: 0.12, ease: "power2.out" }, 0.55)
           .to("[data-home-signal]", { scaleX: 1, duration: 0.9, stagger: 0.08, ease: "power3.inOut" }, 0.96);
 
@@ -1898,7 +1896,7 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
       body: "本周任务与阶段目标",
       detail: "把 30-60-90 天目标拆成每日行动",
       accent: "#2563EB",
-      soft: "rgba(37,99,235,0.10)",
+      soft: "rgba(37,99,235,0.07)",
       icon: GraduationCap,
       depth: 1.15,
     },
@@ -1908,8 +1906,8 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
       title: "导师反馈",
       body: "观察记录与反馈确认",
       detail: "把带教经验沉淀为可复盘建议",
-      accent: "#059669",
-      soft: "rgba(5,150,105,0.10)",
+      accent: "#2563EB",
+      soft: "rgba(37,99,235,0.07)",
       icon: MessageSquareText,
       depth: 1.35,
     },
@@ -1919,8 +1917,8 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
       title: "风险洞察",
       body: "关注队列与跟进闭环",
       detail: "只展示经过人工确认的跟进线索",
-      accent: "#4F46E5",
-      soft: "rgba(79,70,229,0.11)",
+      accent: "#2563EB",
+      soft: "rgba(37,99,235,0.07)",
       icon: LayoutDashboard,
       depth: 1.55,
     },
@@ -2063,18 +2061,6 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
             >
               查看产品设计
             </button>
-          </div>
-          <div className="home-proof-grid mt-8 grid max-w-xl grid-cols-3 gap-3" aria-label="产品运行指标">
-            {[
-              ["三端", "实时同步"],
-              ["20", "演示对象"],
-              ["90 天", "成长周期"],
-            ].map(([value, label]) => (
-              <div key={label} className="home-proof-tile rounded-[14px] border border-[#C7D2FE]/70 bg-white/58 px-4 py-3" data-home-metric="">
-                <p className="text-[1.32rem] font-semibold leading-none text-[#17324D]">{value}</p>
-                <p className="mt-2 text-xs font-semibold text-[#6A7482]">{label}</p>
-              </div>
-            ))}
           </div>
         </div>
 

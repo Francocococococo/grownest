@@ -253,22 +253,6 @@ select:focus-visible {
   background: rgba(5, 150, 105, 0.08);
 }
 
-.home-proof-tile {
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 16px 38px rgba(23, 50, 77, 0.055);
-}
-
-.home-proof-tile::before {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  content: "";
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.84), transparent 42%),
-    linear-gradient(90deg, rgba(37, 99, 235, 0.06), transparent);
-}
-
 .home-product-shell,
 .home-role-card,
 .home-insight-panel {
