@@ -259,13 +259,13 @@ function useHomeHeroAnimation(ref: React.RefObject<HTMLElement | null>) {
           .from("[data-home-copy]", { autoAlpha: 0, y: 18, duration: 0.46, stagger: 0.06 }, 0.15)
           .from("[data-home-title]", { autoAlpha: 0, y: 26, duration: 0.64, ease: "power4.out" }, 0.1)
           .from("[data-home-cta]", { autoAlpha: 0, y: 14, duration: 0.4, stagger: 0.06 }, 0.4)
-          .to("[data-home-stage-column]", { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.1, ease: "power3.out" }, 0.3)
-          .to("[data-home-stage-product]", { autoAlpha: 1, scale: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.45)
-          .to(stageCards, { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.08, ease: "power3.out" }, 0.55)
-          .to("[data-home-insight-row]", { autoAlpha: 1, x: 0, duration: 0.36, stagger: 0.06, ease: "power2.out" }, 0.7)
-          .to("[data-home-screen-row]", { autoAlpha: 1, y: 0, duration: 0.32, stagger: 0.06, ease: "power2.out" }, 0.75)
-          .to(paths, { strokeDashoffset: 0, duration: 0.9, stagger: 0.12, ease: "power2.out" }, 0.55)
-          .to("[data-home-signal]", { scaleX: 1, duration: 0.9, stagger: 0.08, ease: "power3.inOut" }, 0.96);
+          .to("[data-home-stage-column]", { autoAlpha: 1, y: 0, duration: 0.56, stagger: 0.09, ease: "power3.out" }, 0.32)
+          .to("[data-home-stage-product]", { autoAlpha: 1, scale: 1, y: 0, duration: 0.68, ease: "power3.out" }, 0.46)
+          .to(stageCards, { autoAlpha: 1, y: 0, scale: 1, duration: 0.56, stagger: 0.07, ease: "power3.out" }, 0.58)
+          .to("[data-home-insight-row]", { autoAlpha: 1, x: 0, duration: 0.4, stagger: 0.055, ease: "power2.out" }, 0.72)
+          .to("[data-home-screen-row]", { autoAlpha: 1, y: 0, duration: 0.36, stagger: 0.055, ease: "power2.out" }, 0.78)
+          .to(paths, { strokeDashoffset: 0, duration: 1, stagger: 0.1, ease: "power2.out" }, 0.58)
+          .to("[data-home-signal]", { scaleX: 1, duration: 1, stagger: 0.07, ease: "power3.inOut" }, 1);
 
         gsap.to(ambient, {
           yPercent: 6,
@@ -285,17 +285,17 @@ function useHomeHeroAnimation(ref: React.RefObject<HTMLElement | null>) {
         });
 
         gsap.to(stageCards, {
-          y: -7,
-          duration: 3.8,
+          y: -4,
+          duration: 4.8,
           ease: "sine.inOut",
           repeat: -1,
           yoyo: true,
-          stagger: 0.28,
+          stagger: 0.22,
         });
 
         gsap.to("[data-home-stage-product]", {
-          y: -5,
-          duration: 4.6,
+          y: -3,
+          duration: 5.4,
           ease: "sine.inOut",
           repeat: -1,
           yoyo: true,
@@ -358,18 +358,18 @@ function useHomeCapabilityAnimation(ref: React.RefObject<HTMLElement | null>) {
               once: true,
             },
           })
-          .to("[data-role-showcase-reveal]", { autoAlpha: 1, y: 0, duration: 0.46, stagger: 0.08 }, 0)
-          .to("[data-role-flow-line]", { scaleX: 1, duration: 0.85, ease: "power3.inOut" }, 0.25)
-          .to("[data-workflow-node]", { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.08 }, 0)
-          .to("[data-workflow-number]", { autoAlpha: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)", stagger: 0.08 }, 0.35)
-          .to("[data-workflow-stage]", { autoAlpha: 1, y: 0, duration: 0.32, stagger: 0.06 }, 0.4)
-          .to("[data-action-loop-bar-source]", { autoAlpha: 1, y: 0, duration: 0.4 }, 0.55)
-          .to("[data-action-loop-step]", { autoAlpha: 1, x: 0, duration: 0.36, stagger: 0.08, ease: "power2.out" }, 0.65)
-          .to("[data-capability-card]", { autoAlpha: 1, y: 0, duration: 0.44, stagger: 0.08 }, 0.5)
-          .to("[data-workbench-item]", { autoAlpha: 1, y: 0, duration: 0.32, stagger: 0.05 }, 0.7)
-          .to("[data-home-showcase-card]", { autoAlpha: 1, y: 0, duration: 0.34, stagger: 0.06 }, 0.85)
-          .to("[data-action-loop-bar]", { scaleX: 1, duration: 1.2, ease: "power3.inOut" }, 0.7)
-          .to("[data-capability-line]", { scaleX: 1, duration: 0.9, ease: "power2.out", stagger: 0.12 }, 0.7);
+          .to("[data-role-showcase-reveal]", { autoAlpha: 1, y: 0, duration: 0.52, stagger: 0.07 }, 0)
+          .to("[data-role-flow-line]", { scaleX: 1, duration: 1, ease: "power3.inOut" }, 0.25)
+          .to("[data-workflow-node]", { autoAlpha: 1, y: 0, scale: 1, duration: 0.54, stagger: 0.07 }, 0.05)
+          .to("[data-workflow-number]", { autoAlpha: 1, scale: 1, duration: 0.48, ease: "back.out(1.35)", stagger: 0.07 }, 0.38)
+          .to("[data-workflow-stage]", { autoAlpha: 1, y: 0, duration: 0.34, stagger: 0.055 }, 0.44)
+          .to("[data-action-loop-bar-source]", { autoAlpha: 1, y: 0, duration: 0.44 }, 0.58)
+          .to("[data-action-loop-step]", { autoAlpha: 1, x: 0, duration: 0.4, stagger: 0.07, ease: "power2.out" }, 0.68)
+          .to("[data-capability-card]", { autoAlpha: 1, y: 0, duration: 0.48, stagger: 0.07 }, 0.52)
+          .to("[data-workbench-item]", { autoAlpha: 1, y: 0, duration: 0.34, stagger: 0.045 }, 0.74)
+          .to("[data-home-showcase-card]", { autoAlpha: 1, y: 0, duration: 0.38, stagger: 0.055 }, 0.88)
+          .to("[data-action-loop-bar]", { scaleX: 1, duration: 1.35, ease: "power3.inOut" }, 0.72)
+          .to("[data-capability-line]", { scaleX: 1, duration: 1, ease: "power2.out", stagger: 0.1 }, 0.72);
       }, ref);
       return () => ctx.revert();
     },
@@ -1882,8 +1882,8 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
       id: "student",
       label: "Student",
       title: "成长路径",
-      body: "本周任务与阶段目标",
-      detail: "把 30-60-90 天目标拆成每日行动",
+      body: "阶段行动与成长目标",
+      detail: "把实习周期目标拆成可跟进的成长行动",
       accent: "#2563EB",
       soft: "rgba(37,99,235,0.07)",
       icon: GraduationCap,
@@ -1916,16 +1916,16 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
   const productModules = [
     {
       title: "实习生成长路径",
-      detail: "汇聚阶段目标、周任务与导师提问，形成可跟进的成长记录。",
+      detail: "汇聚阶段目标、成长行动与导师提问，形成可跟进的成长记录。",
       accent: "#2563EB",
       statusAccent: "#2563EB",
-      chips: ["阶段目标", "本周任务", "导师提问"],
-      flow: ["阶段目标", "本周任务", "导师提问"],
+      chips: ["阶段目标", "成长行动", "导师提问"],
+      flow: ["阶段目标", "成长行动", "导师提问"],
       summary: "成长信号采集",
       icon: GraduationCap,
       workbenchTitle: "实习生成长工作台",
       workbenchMeta: "Student Portal · Growth Workspace",
-      workbenchItems: ["阶段目标：明确当前成长方向", "成长任务：拆解阶段行动清单", "导师提问：沉淀待确认问题"],
+      workbenchItems: ["阶段目标：明确当前成长方向", "成长行动：拆解阶段行动清单", "导师提问：沉淀待确认问题"],
     },
     {
       title: "导师反馈确认",
@@ -1959,7 +1959,7 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
     {
       id: "input",
       label: "成长信号采集",
-      detail: "任务 / 打卡 / 导师观察",
+      detail: "成长输入 / 记录 / 导师观察",
       description: "汇聚实习生成长过程数据",
       stage: "信号采集",
       color: "#2563EB",
@@ -2011,15 +2011,15 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
       <div className="home-ambient home-ambient-b" data-home-ambient="" />
       <div className="home-grid-glow" aria-hidden="true" />
 
-      <nav className="relative z-20 mx-auto flex max-w-[1500px] items-center justify-between gap-5 px-[clamp(1.25rem,3vw,2.5rem)] py-5" data-home-nav="">
+      <nav className="home-nav relative z-20 mx-auto flex max-w-[1500px] items-center justify-between gap-5 px-[clamp(1.25rem,3vw,2.5rem)] py-5" data-home-nav="">
         <BrandLogo />
-        <div className="hidden items-center gap-7 rounded-[12px] border border-[#D8DEE6] bg-white/76 px-5 py-2 text-sm font-medium text-[#5F6978] shadow-sm md:flex">
+        <div className="home-nav-links hidden items-center gap-6 rounded-[12px] border border-[#D8DEE6] bg-white/76 px-5 py-2 text-sm font-medium text-[#5F6978] shadow-sm md:flex">
           <a href="#intro" className="transition hover:text-[#171321]">产品介绍</a>
           <a href="#capability" className="transition hover:text-[#171321]">核心能力</a>
         </div>
       </nav>
 
-      <section id="intro" className="relative z-10 mx-auto grid min-h-[calc(100vh-82px)] max-w-[1500px] items-center gap-[clamp(2rem,4vw,4.5rem)] overflow-visible px-[clamp(1.25rem,3vw,2.5rem)] pb-20 pt-8 lg:grid-cols-[minmax(360px,0.82fr)_minmax(620px,1.18fr)]">
+      <section id="intro" className="relative z-10 mx-auto grid min-h-[calc(100vh-82px)] max-w-[1500px] items-center gap-[clamp(1.75rem,3.6vw,4rem)] overflow-visible px-[clamp(1.25rem,3vw,2.5rem)] pb-16 pt-6 lg:grid-cols-[minmax(360px,0.82fr)_minmax(620px,1.18fr)]">
         <div className="max-w-[560px]">
           <p className="home-kicker text-sm font-semibold text-[#2563EB]" data-home-copy="">Internship Growth Operations</p>
           <h1 className="home-title-brand mt-5 text-[#171321]" data-home-title="">
@@ -2029,14 +2029,14 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
           <p className="home-hero-copy mt-7 max-w-xl text-lg leading-8 text-[#5F6978]" data-home-copy="">
             面向实习生、导师与 HRBP 的成长协同系统。
           </p>
-          <p className="mt-4 max-w-2xl text-[1.72rem] font-semibold leading-snug text-[#143C9B]" data-home-copy="">
+          <p className="home-value-copy mt-4 max-w-2xl text-[1.72rem] font-semibold leading-snug text-[#143C9B]" data-home-copy="">
             把任务进度、导师反馈和 HRBP 跟进收敛成一条可确认、可追踪的成长闭环。
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
             <button
               type="button"
               onClick={() => onNavigate("/login")}
-              className="inline-flex items-center gap-2 rounded-[10px] bg-[#2563EB] px-5 py-3 text-sm font-semibold text-white shadow-[0_16px_34px_rgba(37,99,235,0.18)] transition hover:bg-[#143C9B]"
+              className="home-primary-cta inline-flex items-center gap-2 rounded-[10px] bg-[#2563EB] px-5 py-3 text-sm font-semibold text-white shadow-[0_16px_34px_rgba(37,99,235,0.18)] transition hover:bg-[#143C9B]"
               data-home-cta=""
             >
               进入系统
@@ -2045,7 +2045,7 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
             <button
               type="button"
               onClick={() => document.getElementById("capability")?.scrollIntoView({ behavior: "smooth" })}
-              className="rounded-[10px] border border-[#BFDBFE] bg-white/78 px-5 py-3 text-sm font-semibold text-[#2563EB] transition hover:border-[#93C5FD] hover:bg-white"
+              className="home-secondary-cta rounded-[10px] border border-[#BFDBFE] bg-white/78 px-5 py-3 text-sm font-semibold text-[#2563EB] transition hover:border-[#93C5FD] hover:bg-white"
               data-home-cta=""
             >
               查看产品设计
@@ -2057,9 +2057,9 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
           <div className="home-stage relative grid min-h-[620px] w-full max-w-[820px] items-center gap-4 overflow-hidden rounded-[24px] py-6 md:grid-cols-2 lg:min-h-[680px] lg:grid-cols-[minmax(150px,0.72fr)_minmax(320px,1.3fr)_minmax(150px,0.72fr)] xl:gap-5" data-home-stage="">
             <svg className="pointer-events-none absolute inset-0 z-0 h-full w-full" viewBox="0 0 980 620" fill="none" aria-hidden="true">
               <path data-home-path="insight" d="M210 318 C318 288 364 264 426 284" stroke="rgba(37,99,235,0.2)" strokeWidth="1.4" strokeLinecap="round" />
-              <path data-home-path="student" d="M558 250 C642 170 726 130 820 146" stroke="rgba(37,99,235,0.22)" strokeWidth="1.4" strokeLinecap="round" />
-              <path data-home-path="mentor" d="M570 308 C660 294 726 294 820 308" stroke="rgba(5,150,105,0.22)" strokeWidth="1.4" strokeLinecap="round" />
-              <path data-home-path="hr" d="M558 366 C650 448 728 490 820 474" stroke="rgba(79,70,229,0.22)" strokeWidth="1.4" strokeLinecap="round" />
+              <path data-home-path="student" d="M558 250 C642 170 726 130 820 146" stroke="rgba(37,99,235,0.2)" strokeWidth="1.4" strokeLinecap="round" />
+              <path data-home-path="mentor" d="M570 308 C660 294 726 294 820 308" stroke="rgba(37,99,235,0.16)" strokeWidth="1.4" strokeLinecap="round" />
+              <path data-home-path="hr" d="M558 366 C650 448 728 490 820 474" stroke="rgba(37,99,235,0.14)" strokeWidth="1.4" strokeLinecap="round" />
             </svg>
 
             <div className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#BFDBFE]/60" />
@@ -2165,9 +2165,9 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
         </div>
       </section>
 
-      <section ref={capabilityRef} id="capability" className="capability-section relative z-30 px-5 pt-14 pb-24" data-capability-section="">
+      <section ref={capabilityRef} id="capability" className="capability-section relative z-30 px-5 pt-10 pb-20" data-capability-section="">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-8 grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
+          <div className="mb-7 grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
             <div>
               <p className="text-sm font-semibold text-[#2563EB]" data-capability-kicker="" data-workflow-header="">AI-HR 协同工作流</p>
               <h2 className="mt-3 max-w-2xl text-3xl font-semibold leading-tight text-[#171321] md:text-[3.2rem]" data-capability-title="">
@@ -2222,7 +2222,7 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
             </div>
           </div>
 
-          <div className="action-loop-bar mb-5 rounded-[20px] border border-[#BFDBFE] bg-white/72 p-4 backdrop-blur-[18px]">
+          <div className="action-loop-bar mb-5 rounded-[20px] border border-[#D7E3F5] bg-white/76 p-4 backdrop-blur-[18px]">
             <div className="relative z-10 grid gap-4 lg:grid-cols-[0.34fr_0.66fr] lg:items-center">
               <div data-action-loop-copy="">
                 <p className="text-sm font-semibold text-[#2563EB]">贯穿式行动闭环</p>
@@ -2235,9 +2235,9 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
               </div>
               <div className="action-loop-chain grid gap-3 md:grid-cols-4" aria-label="贯穿式行动闭环机制">
                 {actionLoopSteps.map(({ title, detail, icon: Icon }, index) => (
-                  <div key={title} className="action-loop-pill relative min-h-[118px] rounded-[16px] border border-[#BFDBFE] bg-white/80 p-4 text-[#5F6978]" data-action-loop-step="" data-action-loop-index={index}>
+                  <div key={title} className="action-loop-pill relative min-h-[112px] rounded-[16px] border border-[#D7E3F5] bg-white/84 p-4 text-[#5F6978]" data-action-loop-step="" data-action-loop-index={index}>
                     <div className="flex items-start gap-3">
-                      <span className="action-loop-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-[12px] bg-[#DBEAFE] text-[#2563EB] ring-1 ring-[#BFDBFE]" data-action-loop-icon="">
+                      <span className="action-loop-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-[12px] bg-[#EFF6FF] text-[#2563EB] ring-1 ring-[#D7E3F5]" data-action-loop-icon="">
                         <Icon className="h-[18px] w-[18px]" />
                       </span>
                       <div className="min-w-0">
