@@ -525,13 +525,13 @@ select:focus-visible {
   background:
     linear-gradient(120deg, rgba(255, 255, 255, 0.86), transparent 34%),
     radial-gradient(circle at 18% 18%, rgba(37, 99, 235, 0.11), transparent 30%),
-    radial-gradient(circle at 54% 82%, rgba(5, 150, 105, 0.09), transparent 30%),
-    radial-gradient(circle at 86% 22%, rgba(79, 70, 229, 0.1), transparent 30%);
+    radial-gradient(circle at 54% 82%, rgba(37, 99, 235, 0.065), transparent 32%),
+    radial-gradient(circle at 86% 22%, rgba(37, 99, 235, 0.075), transparent 32%);
 }
 
 .role-collab-tabs {
   background:
-    linear-gradient(90deg, rgba(37, 99, 235, 0.065), rgba(5, 150, 105, 0.055), rgba(79, 70, 229, 0.065));
+    linear-gradient(90deg, rgba(37, 99, 235, 0.055), rgba(37, 99, 235, 0.04), rgba(37, 99, 235, 0.055));
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.82),
     0 10px 26px rgba(20, 33, 52, 0.035);
@@ -543,7 +543,7 @@ select:focus-visible {
   line-height: 1;
   border-color: color-mix(in srgb, var(--role-tab-accent) 15%, transparent);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.88), var(--role-tab-soft)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), var(--role-tab-soft)),
     rgba(255, 255, 255, 0.78);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.82),
@@ -576,7 +576,7 @@ select:focus-visible {
   top: 50%;
   height: 1px;
   content: "";
-  background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.18), rgba(5, 150, 105, 0.16), rgba(79, 70, 229, 0.18), transparent);
+  background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.18), rgba(37, 99, 235, 0.14), rgba(37, 99, 235, 0.18), transparent);
   transform: translateY(-50%);
 }
 
@@ -587,7 +587,7 @@ select:focus-visible {
   top: 50%;
   height: 2px;
   border-radius: 999px;
-  background: linear-gradient(90deg, rgba(37, 99, 235, 0.68), rgba(5, 150, 105, 0.68), rgba(79, 70, 229, 0.68));
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.72), rgba(59, 130, 246, 0.58), rgba(37, 99, 235, 0.72));
   transform: translateY(-50%) scaleX(0);
   transform-origin: left center;
   will-change: opacity, transform;

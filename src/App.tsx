@@ -1786,9 +1786,9 @@ function MeasuredChart({
 function RoleCollaborationShowcase() {
   const showcaseRef = useRef<HTMLDivElement | null>(null);
   const collaborationShowcaseRoles = [
-    { id: "student", label: "Student", accent: "#2563EB", soft: "rgba(37,99,235,0.10)" },
-    { id: "mentor", label: "Mentor", accent: "#059669", soft: "rgba(5,150,105,0.10)" },
-    { id: "hr", label: "HRBP", accent: "#4F46E5", soft: "rgba(79,70,229,0.11)" },
+    { id: "student", label: "Student", accent: "#2563EB", soft: "rgba(37,99,235,0.08)" },
+    { id: "mentor", label: "Mentor", accent: "#2563EB", soft: "rgba(37,99,235,0.08)" },
+    { id: "hr", label: "HRBP", accent: "#2563EB", soft: "rgba(37,99,235,0.08)" },
   ];
 
   useGSAP(
@@ -1863,8 +1863,8 @@ function RoleCollaborationShowcase() {
           <span className="role-flow-line" data-role-flow-line="" />
           {[
             ["成长输入", "#2563EB", "rgba(37,99,235,0.10)"],
-            ["反馈确认", "#059669", "rgba(5,150,105,0.10)"],
-            ["HR 跟进", "#4F46E5", "rgba(79,70,229,0.11)"],
+            ["反馈确认", "#2563EB", "rgba(37,99,235,0.10)"],
+            ["HR 跟进", "#2563EB", "rgba(37,99,235,0.10)"],
           ].map(([item, accent, soft]) => (
             <span
               key={item}
