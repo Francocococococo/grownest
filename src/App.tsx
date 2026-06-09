@@ -5879,18 +5879,25 @@ function HRDashboard({
             title="HRBP 成长协同工作台"
             subtitle="汇总实习项目、成长信号与跟进行动，帮助 HRBP 以全局视角推动实习生成长闭环。"
           />
-          <div className="mentor-sync-strip mt-4" aria-label="学生端、导师端、HRBP端数据同步状态">
-            {[
-              ["学生端", hasSharedSignals ? `${studentSignalCount} 条成长信号` : "任务录入后自动形成"],
-              ["导师端", `${mentorSyncedFeedbackCount} 条反馈信号`],
-              ["HRBP端", `${activeRecords.length} 条协同记录`],
-            ].map(([label, value]) => (
-              <div key={label} className="mentor-sync-pill">
-                <span className="mentor-sync-dot" />
-                <span className="mentor-sync-label">{label}</span>
-                <span className="mentor-sync-value">{value}</span>
-              </div>
-            ))}
+          <div className="mentor-sync-strip hrbp-sync-strip mt-4" aria-label="学生端、导师端、HRBP端数据同步状态">
+            <div className="hrbp-sync-heading">
+              <span>三端数据同步</span>
+              <strong>实时汇总</strong>
+            </div>
+            <div className="hrbp-sync-grid">
+              {[
+                ["学生端", hasSharedSignals ? `${studentSignalCount} 条成长信号` : "任务录入后自动形成", "任务、提问、成长记录"],
+                ["导师端", `${mentorSyncedFeedbackCount} 条反馈信号`, "反馈与带教动作回流"],
+                ["HRBP端", `${activeRecords.length} 条协同记录`, "确认、分派、复盘沉淀"],
+              ].map(([label, value, detail]) => (
+                <div key={label} className="mentor-sync-pill">
+                  <span className="mentor-sync-dot" />
+                  <span className="mentor-sync-label">{label}</span>
+                  <strong className="mentor-sync-value">{value}</strong>
+                  <span className="mentor-sync-detail">{detail}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </Card>
