@@ -5367,7 +5367,11 @@ function SharedRosterPanel({ managedInterns }: { managedInterns: ManagedIntern[]
                 <td className="rounded-l-2xl px-3 py-4 font-black text-slate-950">{intern.name}</td>
                 <td className="px-3 py-4 text-slate-600">{intern.name}</td>
                 <td className="px-3 py-4 text-slate-600">{intern.mentor}</td>
-                <td className="px-3 py-4 text-slate-600">{intern.role} · {intern.title}</td>
+                <td className="px-3 py-4">
+                  <span className="inline-flex rounded-md border border-blue-100 bg-blue-50 px-2.5 py-1 text-xs font-black text-[#2563EB]">
+                    {intern.role.includes("研发") ? "研发" : intern.role.includes("销售") ? "销售" : "产品"}
+                  </span>
+                </td>
                 <td className="px-3 py-4">
                   <span className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-semibold text-slate-600">
                     账号已激活 · 导师已绑定
@@ -5395,6 +5399,16 @@ function AccountProgramPanel({
   const [mentorForm, setMentorForm] = useState({ name: "", email: "", department: "产品部" });
   const activeProgram = programs[0];
   const activeMentors = mentors.filter((mentor) => mentor.status !== "disabled");
+  const directionOptions = ["研发", "产品", "销售"] as const;
+  const directionForIntern = (intern: ManagedIntern): typeof directionOptions[number] => {
+    if (intern.role.includes("研发")) return "研发";
+    if (intern.role.includes("销售")) return "销售";
+    return "产品";
+  };
+  const directionCounts = directionOptions.map((direction) => ({
+    direction,
+    count: managedInterns.filter((intern) => directionForIntern(intern) === direction).length,
+  }));
 
   useEffect(() => {
     setMentors((current) => {
@@ -5457,109 +5471,151 @@ function AccountProgramPanel({
   return (
     <Card className="glass-panel" data-list-panel="">
       <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
-	        <SectionTitle
-	          icon={Users}
-	          title="导师与成员关系管理"
-	          subtitle="HRBP 可新增、停用或删除导师账号，也可以直接调整实习生与导师的绑定关系"
-		        />
-	        <span className="w-fit rounded-[10px] border border-[#BFDBFE] bg-[#EFF6FF] px-3 py-2 text-xs font-bold text-[#2563EB]">
-	          grownest:mentors / grownest:interns
-	        </span>
+        <SectionTitle
+          icon={Users}
+          title="导师与成员关系管理"
+          subtitle="按研发、产品、销售三个方向维护导师账号，并在同一张成员表里完成导师绑定调整"
+        />
+        <span className="w-fit rounded-[10px] border border-[#BFDBFE] bg-[#EFF6FF] px-3 py-2 text-xs font-bold text-[#2563EB]">
+          grownest:mentors / grownest:interns
+        </span>
       </div>
 
-      <div className="mt-5 grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
+      <div className="mt-5 grid gap-4 xl:grid-cols-[360px_minmax(0,1fr)]">
         <div className="space-y-4">
-          <div className="glass-panel-soft rounded-2xl p-4">
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div>
-                <p className="text-sm font-black text-slate-950">{activeProgram?.name ?? "默认实习项目"}</p>
+          <div className="rounded-2xl border border-[#BFDBFE] bg-[#EFF6FF]/70 p-4">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <p className="truncate text-sm font-black text-slate-950">{activeProgram?.name ?? "默认实习项目"}</p>
                 <p className="mt-1 text-xs font-semibold text-slate-500">
-                  {activeProgram?.startDate ?? "2026-06-15"} 至 {activeProgram?.endDate ?? "2026-09-12"} · {managedInterns.length} 名实习生 · {activeMentors.length} 位导师
+                  {activeProgram?.startDate ?? "2026-06-15"} 至 {activeProgram?.endDate ?? "2026-09-12"}
                 </p>
               </div>
               <select
                 value={activeProgram?.status ?? "active"}
                 onChange={(event) => updateProgramStatus(event.target.value as DemoInternProgram["status"])}
-                className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-700 outline-none"
+                className="shrink-0 rounded-lg border border-blue-100 bg-white px-3 py-2 text-xs font-bold text-slate-700 outline-none"
               >
                 <option value="active">进行中</option>
                 <option value="review">复盘中</option>
                 <option value="closed">已关闭</option>
               </select>
             </div>
+            <div className="mt-4 grid grid-cols-3 gap-2">
+              {directionCounts.map(({ direction, count }) => (
+                <div key={direction} className="rounded-xl bg-white/78 px-3 py-2 text-center ring-1 ring-blue-100">
+                  <p className="text-[11px] font-black text-[#2563EB]">{direction}</p>
+                  <p className="mt-1 text-lg font-black text-slate-950">{count}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 flex items-center justify-between rounded-xl bg-white/70 px-3 py-2 text-xs font-bold text-slate-600">
+              <span>{managedInterns.length} 名实习生</span>
+              <span>{activeMentors.length} 位导师</span>
+            </div>
           </div>
 
-          <div className="glass-panel-soft rounded-2xl p-4">
-	            <p className="text-sm font-black text-slate-950">新增导师账号</p>
-            <div className="mt-3 grid gap-2 sm:grid-cols-3">
-              <input value={mentorForm.name} onChange={(event) => setMentorForm((current) => ({ ...current, name: event.target.value }))} placeholder="导师姓名" className="rounded-xl bg-white px-3 py-2 text-sm font-semibold text-slate-800 outline-none" />
-              <input value={mentorForm.email} onChange={(event) => setMentorForm((current) => ({ ...current, email: event.target.value }))} placeholder="邮箱，可选" className="rounded-xl bg-white px-3 py-2 text-sm font-semibold text-slate-800 outline-none" />
-              <input value={mentorForm.department} onChange={(event) => setMentorForm((current) => ({ ...current, department: event.target.value }))} placeholder="部门" className="rounded-xl bg-white px-3 py-2 text-sm font-semibold text-slate-800 outline-none" />
+          <div className="rounded-2xl border border-slate-100 bg-white/72 p-4">
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-sm font-black text-slate-950">导师账号</p>
+              <span className="rounded-md bg-slate-50 px-2.5 py-1 text-[11px] font-bold text-slate-500">{mentors.length} 个账号</span>
             </div>
-            <Button className="mt-3 px-3 py-2 text-xs" onClick={addMentorAccount} disabled={!mentorForm.name.trim()}>
+            <div className="mt-3 grid gap-2">
+              <input value={mentorForm.name} onChange={(event) => setMentorForm((current) => ({ ...current, name: event.target.value }))} placeholder="导师姓名" className="rounded-xl border border-slate-100 bg-white px-3 py-2 text-sm font-semibold text-slate-800 outline-none" />
+              <div className="grid gap-2 sm:grid-cols-[1fr_96px] xl:grid-cols-1 2xl:grid-cols-[1fr_96px]">
+                <input value={mentorForm.email} onChange={(event) => setMentorForm((current) => ({ ...current, email: event.target.value }))} placeholder="邮箱，可选" className="rounded-xl border border-slate-100 bg-white px-3 py-2 text-sm font-semibold text-slate-800 outline-none" />
+                <select value={mentorForm.department} onChange={(event) => setMentorForm((current) => ({ ...current, department: event.target.value }))} className="rounded-xl border border-slate-100 bg-white px-3 py-2 text-sm font-bold text-slate-700 outline-none">
+                  {directionOptions.map((direction) => <option key={direction} value={`${direction}部`}>{direction}</option>)}
+                </select>
+              </div>
+            </div>
+            <Button className="mt-3 w-full justify-center px-3 py-2 text-xs" onClick={addMentorAccount} disabled={!mentorForm.name.trim()}>
               <Plus className="h-3.5 w-3.5" />
               新增导师账号
             </Button>
-          </div>
 
-          <div className="grid gap-2">
-            {mentors.map((mentor) => (
-              <div key={mentor.id} className="rounded-2xl border border-slate-100 bg-white/70 p-3">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <div>
-                    <p className="text-sm font-black text-slate-950">{mentor.name}</p>
-                    <p className="mt-1 text-xs font-semibold text-slate-500">{mentor.email} · {mentor.department}</p>
+            <div className="mt-4 grid gap-2">
+              {mentors.map((mentor) => (
+                <div key={mentor.id} className="rounded-xl border border-slate-100 bg-slate-50/70 p-3">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-black text-slate-950">{mentor.name}</p>
+                      <p className="mt-1 truncate text-xs font-semibold text-slate-500">{mentor.email}</p>
+                      <span className="mt-2 inline-flex rounded-md bg-white px-2.5 py-1 text-[11px] font-black text-[#2563EB] ring-1 ring-blue-100">
+                        {mentor.department.replace("部", "")}
+                      </span>
+                    </div>
+                    <div className="flex shrink-0 items-center gap-2">
+                      <select value={mentor.status} onChange={(event) => updateMentorStatus(mentor.id, event.target.value as DemoAccountStatus)} className="rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-xs font-bold text-slate-700 outline-none">
+                        <option value="pending">待激活</option>
+                        <option value="active">已激活</option>
+                        <option value="disabled">已停用</option>
+                      </select>
+                      <Button variant="ghost" className="px-2.5 py-2 text-xs text-rose-600" onClick={() => deleteMentorAccount(mentor)}>
+                        删除
+                      </Button>
+                    </div>
                   </div>
-	                  <div className="flex flex-wrap items-center gap-2">
-	                    <select value={mentor.status} onChange={(event) => updateMentorStatus(mentor.id, event.target.value as DemoAccountStatus)} className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-700 outline-none">
-	                      <option value="pending">待激活</option>
-	                      <option value="active">已激活</option>
-	                      <option value="disabled">已停用</option>
-	                    </select>
-	                    <Button variant="ghost" className="px-3 py-2 text-xs text-rose-600" onClick={() => deleteMentorAccount(mentor)}>
-	                      删除
-	                    </Button>
-	                  </div>
-	                </div>
-	              </div>
-	            ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="app-table w-full min-w-[760px] text-left text-sm">
-            <thead>
-              <tr className="text-xs text-slate-500">
-	                {["实习生账号", "岗位", "当前导师", "绑定导师", "账号状态"].map((head) => <th key={head} className="px-3 py-2 font-semibold">{head}</th>)}
-              </tr>
-            </thead>
-            <tbody>
-              {managedInterns.map((intern) => (
-                <tr key={intern.id} className="glass-table-row">
-                  <td className="rounded-l-2xl px-3 py-4">
-                    <p className="font-black text-slate-950">{intern.name}</p>
-                    <p className="mt-1 text-xs font-semibold text-slate-500">{defaultEmailForName(intern.name)}</p>
-                  </td>
-                  <td className="px-3 py-4 text-slate-600">{intern.role} · {intern.title}</td>
-	                  <td className="px-3 py-4 text-slate-600">{intern.mentor || "未分配"}</td>
-	                  <td className="px-3 py-4">
-	                    <select value={intern.mentor} onChange={(event) => onUpdateIntern(intern.id, { mentor: event.target.value })} className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-700 outline-none">
-	                      <option value="">未分配</option>
-	                      {[intern.mentor, ...activeMentors.map((mentor) => mentor.name)]
-	                        .filter((name, index, list) => Boolean(name) && list.indexOf(name) === index)
-	                        .map((mentorName) => <option key={mentorName} value={mentorName}>{mentorName}</option>)}
-	                    </select>
-	                  </td>
-	                  <td className="rounded-r-2xl px-3 py-4">
-	                    <span className={cn(
-	                      "rounded-md border px-2.5 py-1 text-xs font-semibold",
-	                      intern.mentor ? "border-emerald-100 bg-emerald-50 text-emerald-700" : "border-amber-100 bg-amber-50 text-amber-700",
-	                    )}>{intern.mentor ? "已激活 · 已绑定" : "已激活 · 待分配导师"}</span>
-	                  </td>
-                </tr>
+        <div className="rounded-2xl border border-slate-100 bg-white/72 p-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-sm font-black text-slate-950">成员绑定表</p>
+              <p className="mt-1 text-xs font-semibold text-slate-500">只展示研发、产品、销售方向；在“绑定导师”列直接调整负责关系。</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {directionCounts.map(({ direction, count }) => (
+                <span key={direction} className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-black text-slate-600">
+                  {direction} {count}
+                </span>
               ))}
-            </tbody>
-          </table>
+            </div>
+          </div>
+
+          <div className="mt-4 overflow-x-auto">
+            <table className="app-table w-full min-w-[720px] text-left text-sm">
+              <thead>
+                <tr className="text-xs text-slate-500">
+                  {["实习生", "方向", "当前导师", "绑定导师", "状态"].map((head) => <th key={head} className="px-3 py-2 font-semibold">{head}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {managedInterns.map((intern) => (
+                  <tr key={intern.id} className="glass-table-row">
+                    <td className="rounded-l-2xl px-3 py-3.5">
+                      <p className="font-black text-slate-950">{intern.name}</p>
+                      <p className="mt-1 text-xs font-semibold text-slate-500">{defaultEmailForName(intern.name)}</p>
+                    </td>
+                    <td className="px-3 py-3.5">
+                      <span className="inline-flex rounded-md border border-blue-100 bg-blue-50 px-2.5 py-1 text-xs font-black text-[#2563EB]">
+                        {directionForIntern(intern)}
+                      </span>
+                    </td>
+                    <td className="px-3 py-3.5 text-sm font-bold text-slate-700">{intern.mentor || "未分配"}</td>
+                    <td className="px-3 py-3.5">
+                      <select value={intern.mentor} onChange={(event) => onUpdateIntern(intern.id, { mentor: event.target.value })} className="w-full min-w-[116px] rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-700 outline-none">
+                        <option value="">未分配</option>
+                        {[intern.mentor, ...activeMentors.map((mentor) => mentor.name)]
+                          .filter((name, index, list) => Boolean(name) && list.indexOf(name) === index)
+                          .map((mentorName) => <option key={mentorName} value={mentorName}>{mentorName}</option>)}
+                      </select>
+                    </td>
+                    <td className="rounded-r-2xl px-3 py-3.5">
+                      <span className={cn(
+                        "rounded-md border px-2.5 py-1 text-xs font-semibold",
+                        intern.mentor ? "border-emerald-100 bg-emerald-50 text-emerald-700" : "border-amber-100 bg-amber-50 text-amber-700",
+                      )}>{intern.mentor ? "已绑定" : "待分配"}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </Card>
