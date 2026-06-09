@@ -155,10 +155,10 @@ select:focus-visible {
 
 .home-shell {
   background:
-    linear-gradient(rgba(37, 99, 235, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(37, 99, 235, 0.045) 1px, transparent 1px),
+    linear-gradient(rgba(37, 99, 235, 0.038) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 99, 235, 0.032) 1px, transparent 1px),
     linear-gradient(135deg, #f7fbff 0%, #eef5ff 48%, #f7fafc 100%);
-  background-size: 40px 40px, 40px 40px, auto;
+  background-size: 48px 48px, 48px 48px, auto;
 }
 
 .home-shell::before {
@@ -181,7 +181,7 @@ select:focus-visible {
     linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.16), transparent),
     linear-gradient(180deg, rgba(255, 255, 255, 0.54), transparent);
   mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
-  opacity: 0.55;
+  opacity: 0.38;
 }
 
 .home-title-brand {
@@ -302,11 +302,13 @@ select:focus-visible {
 .home-stage {
   isolation: isolate;
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.28), rgba(219, 234, 254, 0.18)),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent);
+    radial-gradient(ellipse at 56% 48%, rgba(37, 99, 235, 0.105), transparent 58%),
+    radial-gradient(circle at 82% 20%, rgba(5, 150, 105, 0.07), transparent 38%),
+    radial-gradient(circle at 28% 78%, rgba(79, 70, 229, 0.055), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 68%);
   box-shadow:
-    inset 0 0 0 1px rgba(191, 219, 254, 0.34),
-    0 40px 120px rgba(37, 99, 235, 0.1);
+    inset 0 0 0 1px rgba(191, 219, 254, 0.16),
+    0 34px 110px rgba(37, 99, 235, 0.07);
 }
 
 .home-stage::before,
@@ -320,10 +322,10 @@ select:focus-visible {
 }
 
 .home-stage::before {
-  border: 1px solid rgba(37, 99, 235, 0.14);
+  border: 1px solid rgba(37, 99, 235, 0.11);
   background:
-    linear-gradient(90deg, rgba(37, 99, 235, 0.075), transparent 46%, rgba(5, 150, 105, 0.06)),
-    rgba(255, 255, 255, 0.16);
+    linear-gradient(90deg, rgba(37, 99, 235, 0.055), transparent 46%, rgba(5, 150, 105, 0.045)),
+    rgba(255, 255, 255, 0.08);
 }
 
 .home-stage::after {
