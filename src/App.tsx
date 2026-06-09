@@ -3889,7 +3889,9 @@ function MentorDashboard({
       detail: hasGrowthStarted ? (intern.reason || intern.todo || "录入后会形成风险说明，建议保持每周反馈节奏") : "导师已绑定，任务、提问和反馈录入后自动形成可追踪的成长记录",
       observationHint: hasGrowthStarted ? (intern.feedbacks[0]?.content || `${intern.name}当前成长进度 ${intern.progress}%，主要关注点是${intern.reason || intern.todo || "阶段目标推进"}。`) : `${intern.name}建议先录入首次沟通纪要、任务目标或资料权限确认结果，自动形成成长记录。`,
       focus: hasGrowthStarted ? (intern.risk === "低风险" ? "挑战任务安排" : intern.reason || "阶段能力补齐") : "录入任务和反馈后自动形成",
-      weeklyRecord: intern.tasks.map((task) => `${task.title} ${hasGrowthStarted ? task.status : "待录入"}`),
+      weeklyRecord: intern.tasks.length
+        ? intern.tasks.map((task) => `${task.title} ${hasGrowthStarted ? task.status : "待录入"}`)
+        : ["确认岗位目标和首周任务", "检查工具权限与学习资料", "记录首次沟通纪要"],
       aiSignals: hasGrowthStarted ? [`成长进度 ${intern.progress}%`, `关注状态 ${attentionLabel[intern.risk]}`, `任务数量 ${intern.tasks.length}`] : ["录入任务和反馈后会自动汇总"],
       managedId: intern.id,
     }));
@@ -4367,7 +4369,8 @@ function MentorDashboard({
 
           <div className="mt-5 grid gap-4 lg:grid-cols-[1.04fr_0.96fr]">
             <div className="rounded-2xl border border-[var(--role-border)] bg-white p-4">
-              <p className="text-sm font-black text-slate-950">当前可先确认</p>
+              <p className="text-sm font-black text-slate-950">下一步带教建议</p>
+              <p className="mt-1 text-xs font-semibold leading-5 text-slate-500">还没有任务或反馈时，先把这些基础事项确认下来，系统会据此形成第一批成长记录。</p>
               <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2">
               {selected.weeklyRecord.map((record) => (
                   <div key={record} className="rounded-xl bg-slate-50 px-3 py-2 text-xs font-semibold leading-5 text-slate-600">
