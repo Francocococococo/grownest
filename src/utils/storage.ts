@@ -87,6 +87,18 @@ function sanitizeLegacyIntern(intern: ManagedIntern): ManagedIntern {
   };
 }
 
+function alignSeedInternIdentity(intern: ManagedIntern, seedInterns: ManagedIntern[]): ManagedIntern {
+  const seedIntern = seedInterns.find((seed) => seed.name === intern.name);
+  if (!seedIntern) return intern;
+  return {
+    ...intern,
+    role: seedIntern.role,
+    title: seedIntern.title,
+    department: seedIntern.department,
+    mentor: seedIntern.mentor,
+  };
+}
+
 export function readManagedInterns(seed: () => ManagedIntern[]): ManagedIntern[] {
   const fallback = seed();
   const stored = readJsonFromKeys<ManagedIntern[]>([managedInternStorageKey, grownestManagedInternStorageKey], fallback);
@@ -104,7 +116,7 @@ export function readManagedInterns(seed: () => ManagedIntern[]): ManagedIntern[]
     localStorage.removeItem(grownestManagedInternStorageKey);
     return fallback;
   }
-  return stored.map(sanitizeLegacyIntern);
+  return stored.map(sanitizeLegacyIntern).map((intern) => alignSeedInternIdentity(intern, fallback));
 }
 
 export function persistManagedInterns(interns: ManagedIntern[]): void {

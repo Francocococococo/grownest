@@ -360,7 +360,7 @@ function seedManagedInterns(): ManagedIntern[] {
       name,
       role,
       title: `${role}岗实习生`,
-      department: role === "HR" ? "人力资源部" : role === "销售" ? "销售部" : role === "研发" ? "研发中心" : "产品部",
+      department: role === "销售" ? "销售部" : role === "研发" ? "研发中心" : "产品部",
       mentor,
       week: "第 1 周",
       progress: 0,
@@ -781,20 +781,20 @@ function buildGrowthSignals(internsList: ManagedIntern[], records: Collaboration
 
 function getVisibleInterns(user: AuthUser, internsList: ManagedIntern[]): ManagedIntern[] {
   // 已结束的实习生进入归档，不出现在日常带教端
-  return internsList.filter((intern) => intern.status !== "已结束");
+  const activeInterns = internsList.filter((intern) => intern.status !== "已结束");
 
   if (user.role === "student") {
-    return internsList.filter((intern) => intern.name === user.name);
+    return activeInterns.filter((intern) => intern.name === user.name);
   }
 
   if (user.role === "mentor") {
-    return internsList.filter((intern) =>
+    return activeInterns.filter((intern) =>
       isSameDepartment(intern.department, user.department) &&
       (intern.mentor === user.name || user.ownedInterns?.includes(intern.name)),
     );
   }
 
-  return internsList;
+  return activeInterns;
 }
 
 function getVisibleRecords(user: AuthUser, internsList: ManagedIntern[], records: CollaborationRecord[]): CollaborationRecord[] {
@@ -940,6 +940,13 @@ function defaultEmailForName(name: string) {
   return `${encodeURIComponent(name).replaceAll("%", "").toLowerCase()}@grownest.demo`;
 }
 
+function defaultDepartmentForMentor(name: string) {
+  if (name === "李老师") return "研发中心";
+  if (name === "陈老师") return "销售部";
+  if (name === "王老师") return "产品部";
+  return null;
+}
+
 function seedMentorAccounts(internsList: ManagedIntern[]): DemoMentorAccount[] {
   const mentorMap = new Map<string, DemoMentorAccount>();
   internsList.forEach((intern) => {
@@ -949,7 +956,7 @@ function seedMentorAccounts(internsList: ManagedIntern[]): DemoMentorAccount[] {
       id: createId("mentor"),
       name: intern.mentor,
       email: defaultEmailForName(intern.mentor),
-      department: intern.department,
+      department: defaultDepartmentForMentor(intern.mentor) ?? intern.department,
       status: "active",
       createdAt: intern.createdAt,
     });
@@ -965,7 +972,11 @@ function readMentorAccounts(internsList: ManagedIntern[]): DemoMentorAccount[] {
     const stored = JSON.parse(raw) as DemoMentorAccount[];
     const merged = new Map<string, DemoMentorAccount>();
     [...seeded, ...stored].forEach((mentor) => {
-      if (mentor.name.trim()) merged.set(mentor.name, mentor);
+      if (!mentor.name.trim()) return;
+      merged.set(mentor.name, {
+        ...mentor,
+        department: defaultDepartmentForMentor(mentor.name) ?? mentor.department,
+      });
     });
     return Array.from(merged.values());
   } catch {
@@ -5593,7 +5604,10 @@ function AccountProgramPanel({
                 </tr>
               </thead>
               <tbody>
-                {managedInterns.map((intern) => (
+                {managedInterns.map((intern) => {
+                  const internDirection = directionForIntern(intern);
+                  const availableMentors = activeMentors.filter((mentor) => displayDirection(mentor.department) === internDirection);
+                  return (
                   <tr key={intern.id} className="glass-table-row">
                     <td className="rounded-l-2xl px-3 py-3.5">
                       <p className="font-black text-slate-950">{intern.name}</p>
@@ -5601,14 +5615,14 @@ function AccountProgramPanel({
                     </td>
                     <td className="px-3 py-3.5">
                       <span className="inline-flex rounded-md border border-blue-100 bg-blue-50 px-2.5 py-1 text-xs font-black text-[#2563EB]">
-                        {directionForIntern(intern)}
+                        {internDirection}
                       </span>
                     </td>
                     <td className="px-3 py-3.5 text-sm font-bold text-slate-700">{intern.mentor || "未分配"}</td>
                     <td className="px-3 py-3.5">
                       <select value={intern.mentor} onChange={(event) => onUpdateIntern(intern.id, { mentor: event.target.value })} className="w-full min-w-[116px] rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-700 outline-none">
                         <option value="">未分配</option>
-                        {[intern.mentor, ...activeMentors.map((mentor) => mentor.name)]
+                        {[intern.mentor, ...availableMentors.map((mentor) => mentor.name)]
                           .filter((name, index, list) => Boolean(name) && list.indexOf(name) === index)
                           .map((mentorName) => <option key={mentorName} value={mentorName}>{mentorName}</option>)}
                       </select>
@@ -5620,7 +5634,8 @@ function AccountProgramPanel({
                       )}>{intern.mentor ? "已绑定" : "待分配"}</span>
                     </td>
                   </tr>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           </div>
