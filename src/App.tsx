@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties, ElementType, HTMLAttributes, ReactNode } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   Bar,
   BarChart,
@@ -85,7 +86,7 @@ const retainedLegacyImports = [
 ];
 void retainedLegacyImports;
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 gsap.defaults({ duration: 0.36, ease: "power2.out" });
 
 type AuthUser = Omit<MockUser, "password">;
@@ -226,6 +227,7 @@ function useHomeHeroAnimation(ref: React.RefObject<HTMLElement | null>) {
       const ctx = gsap.context(() => {
         const ambient = gsap.utils.toArray<HTMLElement>("[data-home-ambient]");
         const insightIcons = gsap.utils.toArray<HTMLElement>("[data-home-insight-icon]");
+        const stageCards = gsap.utils.toArray<HTMLElement>("[data-home-stage-card]");
         const paths = gsap.utils.toArray<SVGPathElement>("[data-home-path]");
 
         paths.forEach((p) => {
@@ -236,30 +238,36 @@ function useHomeHeroAnimation(ref: React.RefObject<HTMLElement | null>) {
         });
 
         if (shouldReduceMotion()) {
-          gsap.set("[data-home-copy], [data-home-title], [data-home-cta], [data-home-ambient], [data-home-stage-column], [data-home-stage-card], [data-home-stage-product], [data-home-insight-row], [data-home-screen-row], [data-home-path]", { autoAlpha: 1, y: 0, x: 0, scale: 1 });
+          gsap.set("[data-home-nav], [data-home-copy], [data-home-title], [data-home-cta], [data-home-ambient], [data-home-stage-column], [data-home-stage-card], [data-home-stage-product], [data-home-insight-row], [data-home-screen-row], [data-home-path], [data-home-metric], [data-home-signal]", { autoAlpha: 1, y: 0, x: 0, scale: 1 });
           paths.forEach((p) => { p.style.strokeDashoffset = "0"; });
           return;
         }
 
         gsap.set(ambient, { autoAlpha: 0, scale: 0.86 });
+        gsap.set("[data-home-nav]", { autoAlpha: 0, y: -10 });
         gsap.set("[data-home-stage-column]", { autoAlpha: 0, y: 18 });
-        gsap.set("[data-home-stage-card]", { autoAlpha: 0, y: 16, scale: 0.97 });
+        gsap.set(stageCards, { autoAlpha: 0, y: 18, scale: 0.96 });
         gsap.set("[data-home-stage-product]", { autoAlpha: 0, scale: 0.96, y: 14 });
         gsap.set("[data-home-insight-row]", { autoAlpha: 0, x: -10 });
         gsap.set("[data-home-screen-row]", { autoAlpha: 0, y: 8 });
+        gsap.set("[data-home-metric]", { autoAlpha: 0, y: 8, scale: 0.97 });
+        gsap.set("[data-home-signal]", { scaleX: 0, transformOrigin: "left center" });
 
         gsap
           .timeline({ defaults: { ease: "power3.out" } })
           .to(ambient, { autoAlpha: 1, scale: 1, duration: 0.7, stagger: 0.06 }, 0)
+          .to("[data-home-nav]", { autoAlpha: 1, y: 0, duration: 0.48 }, 0.05)
           .from("[data-home-copy]", { autoAlpha: 0, y: 18, duration: 0.46, stagger: 0.06 }, 0.15)
-          .from("[data-home-title]", { autoAlpha: 0, y: 24, duration: 0.56, ease: "power4.out" }, 0.1)
+          .from("[data-home-title]", { autoAlpha: 0, y: 26, duration: 0.64, ease: "power4.out" }, 0.1)
           .from("[data-home-cta]", { autoAlpha: 0, y: 14, duration: 0.4, stagger: 0.06 }, 0.4)
           .to("[data-home-stage-column]", { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.1, ease: "power3.out" }, 0.3)
           .to("[data-home-stage-product]", { autoAlpha: 1, scale: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.45)
-          .to("[data-home-stage-card]", { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.08, ease: "power3.out" }, 0.55)
+          .to(stageCards, { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.08, ease: "power3.out" }, 0.55)
           .to("[data-home-insight-row]", { autoAlpha: 1, x: 0, duration: 0.36, stagger: 0.06, ease: "power2.out" }, 0.7)
           .to("[data-home-screen-row]", { autoAlpha: 1, y: 0, duration: 0.32, stagger: 0.06, ease: "power2.out" }, 0.75)
-          .to(paths, { strokeDashoffset: 0, duration: 0.9, stagger: 0.12, ease: "power2.out" }, 0.55);
+          .to("[data-home-metric]", { autoAlpha: 1, y: 0, scale: 1, duration: 0.34, stagger: 0.05 }, 0.82)
+          .to(paths, { strokeDashoffset: 0, duration: 0.9, stagger: 0.12, ease: "power2.out" }, 0.55)
+          .to("[data-home-signal]", { scaleX: 1, duration: 0.9, stagger: 0.08, ease: "power3.inOut" }, 0.96);
 
         gsap.to(ambient, {
           yPercent: 6,
@@ -277,6 +285,32 @@ function useHomeHeroAnimation(ref: React.RefObject<HTMLElement | null>) {
           repeat: -1,
           yoyo: true,
         });
+
+        gsap.to(stageCards, {
+          y: -7,
+          duration: 3.8,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+          stagger: 0.28,
+        });
+
+        gsap.to("[data-home-stage-product]", {
+          y: -5,
+          duration: 4.6,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+        });
+
+        gsap.to("[data-home-signal]", {
+          opacity: 0.58,
+          duration: 1.8,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+          stagger: 0.18,
+        });
       }, ref);
       return () => ctx.revert();
     },
@@ -289,9 +323,11 @@ function useHomeCapabilityAnimation(ref: React.RefObject<HTMLElement | null>) {
     () => {
       if (!ref.current) return;
       const ctx = gsap.context(() => {
+        const panels = gsap.utils.toArray<HTMLElement>("[data-workbench-panel]");
         if (shouldReduceMotion()) {
-          gsap.set("[data-workflow-node], [data-workflow-stage], [data-workflow-number], [data-action-loop-step], [data-action-loop-bar-source], [data-capability-card], [data-workbench-item], [data-home-showcase-card]", { autoAlpha: 1, y: 0, x: 0, scale: 1 });
-          gsap.set("[data-action-loop-bar], [data-capability-line]", { scaleX: 1 });
+          gsap.set("[data-workflow-node], [data-workflow-stage], [data-workflow-number], [data-action-loop-step], [data-action-loop-bar-source], [data-capability-card], [data-workbench-item], [data-home-showcase-card], [data-role-showcase-reveal]", { autoAlpha: 1, y: 0, x: 0, scale: 1 });
+          gsap.set("[data-action-loop-bar], [data-capability-line], [data-role-flow-line]", { scaleX: 1 });
+          panels.forEach((panel, index) => gsap.set(panel, { autoAlpha: index === 0 ? 1 : 0 }));
           return;
         }
 
@@ -305,9 +341,23 @@ function useHomeCapabilityAnimation(ref: React.RefObject<HTMLElement | null>) {
         gsap.set("[data-workbench-item]", { autoAlpha: 0, y: 10 });
         gsap.set("[data-home-showcase-card]", { autoAlpha: 0, y: 10 });
         gsap.set("[data-capability-line]", { scaleX: 0, transformOrigin: "left center" });
+        gsap.set("[data-role-showcase-reveal]", { autoAlpha: 0, y: 14 });
+        gsap.set("[data-role-flow-line]", { scaleX: 0, transformOrigin: "left center" });
+        panels.forEach((panel, index) => {
+          gsap.set(panel, { autoAlpha: index === 0 ? 1 : 0, y: index === 0 ? 0 : 12 });
+        });
 
         gsap
-          .timeline({ defaults: { ease: "power3.out" } })
+          .timeline({
+            defaults: { ease: "power3.out" },
+            scrollTrigger: {
+              trigger: ref.current,
+              start: "top 72%",
+              once: true,
+            },
+          })
+          .to("[data-role-showcase-reveal]", { autoAlpha: 1, y: 0, duration: 0.46, stagger: 0.08 }, 0)
+          .to("[data-role-flow-line]", { scaleX: 1, duration: 0.85, ease: "power3.inOut" }, 0.25)
           .to("[data-workflow-node]", { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.08 }, 0)
           .to("[data-workflow-number]", { autoAlpha: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)", stagger: 0.08 }, 0.35)
           .to("[data-workflow-stage]", { autoAlpha: 1, y: 0, duration: 0.32, stagger: 0.06 }, 0.4)
@@ -318,6 +368,22 @@ function useHomeCapabilityAnimation(ref: React.RefObject<HTMLElement | null>) {
           .to("[data-home-showcase-card]", { autoAlpha: 1, y: 0, duration: 0.34, stagger: 0.06 }, 0.85)
           .to("[data-action-loop-bar]", { scaleX: 1, duration: 1.2, ease: "power3.inOut" }, 0.7)
           .to("[data-capability-line]", { scaleX: 1, duration: 0.9, ease: "power2.out", stagger: 0.12 }, 0.7);
+
+        if (panels.length > 1) {
+          const cycle = gsap.timeline({
+            repeat: -1,
+            repeatDelay: 0.8,
+            delay: 1.8,
+            defaults: { ease: "power2.out" },
+          });
+          panels.forEach((panel, index) => {
+            cycle
+              .to(panels, { autoAlpha: 0, y: 12, duration: 0.28 }, index === 0 ? 0 : "+=2.2")
+              .to(panel, { autoAlpha: 1, y: 0, duration: 0.42 }, "<")
+              .to(`[data-capability-card][data-module-index="${index}"]`, { y: -4, duration: 0.28 }, "<")
+              .to(`[data-capability-card][data-module-index="${index}"]`, { y: 0, duration: 0.42 }, "+=1.2");
+          });
+        }
       }, ref);
       return () => ctx.revert();
     },
@@ -1832,6 +1898,7 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
       body: "本周任务与阶段目标",
       detail: "把 30-60-90 天目标拆成每日行动",
       accent: "#2563EB",
+      soft: "rgba(37,99,235,0.10)",
       icon: GraduationCap,
       depth: 1.15,
     },
@@ -1841,7 +1908,8 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
       title: "导师反馈",
       body: "观察记录与反馈确认",
       detail: "把带教经验沉淀为可复盘建议",
-      accent: "#2563EB",
+      accent: "#059669",
+      soft: "rgba(5,150,105,0.10)",
       icon: MessageSquareText,
       depth: 1.35,
     },
@@ -1851,7 +1919,8 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
       title: "风险洞察",
       body: "关注队列与跟进闭环",
       detail: "只展示经过人工确认的跟进线索",
-      accent: "#2563EB",
+      accent: "#4F46E5",
+      soft: "rgba(79,70,229,0.11)",
       icon: LayoutDashboard,
       depth: 1.55,
     },
@@ -1874,8 +1943,8 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
     {
       title: "导师反馈确认",
       detail: "将导师观察转成反馈建议，并由导师确认后同步。",
-      accent: "#2563EB",
-      statusAccent: "#60A5FA",
+      accent: "#059669",
+      statusAccent: "#34D399",
       chips: ["观察记录", "反馈建议", "同步确认"],
       flow: ["观察记录", "反馈建议", "同步确认"],
       summary: "导师确认",
@@ -1887,8 +1956,8 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
     {
       title: "HR 风险洞察",
       detail: "辅助识别成长阻塞点，供 HR 确认跟进行动。",
-      accent: "#2563EB",
-      statusAccent: "#60A5FA",
+      accent: "#4F46E5",
+      statusAccent: "#818CF8",
       chips: ["风险信号", "跟进建议", "复盘记录"],
       flow: ["风险信号", "跟进建议", "复盘记录"],
       summary: "组织跟进输出",
@@ -1953,6 +2022,7 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
     <main ref={homeRef} className="home-shell relative min-h-screen overflow-hidden bg-[#F3F7FF] text-[#171321]">
       <div className="home-ambient home-ambient-a" data-home-ambient="" />
       <div className="home-ambient home-ambient-b" data-home-ambient="" />
+      <div className="home-grid-glow" aria-hidden="true" />
 
       <nav className="relative z-20 mx-auto flex max-w-[1500px] items-center justify-between gap-5 px-[clamp(1.25rem,3vw,2.5rem)] py-5" data-home-nav="">
         <BrandLogo />
@@ -1994,15 +2064,27 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
               查看产品设计
             </button>
           </div>
+          <div className="home-proof-grid mt-8 grid max-w-xl grid-cols-3 gap-3" aria-label="产品运行指标">
+            {[
+              ["三端", "实时同步"],
+              ["20", "演示对象"],
+              ["90 天", "成长周期"],
+            ].map(([value, label]) => (
+              <div key={label} className="home-proof-tile rounded-[14px] border border-[#C7D2FE]/70 bg-white/58 px-4 py-3" data-home-metric="">
+                <p className="text-[1.32rem] font-semibold leading-none text-[#17324D]">{value}</p>
+                <p className="mt-2 text-xs font-semibold text-[#6A7482]">{label}</p>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="home-stage-wrap relative min-w-0 justify-self-stretch" data-home-reveal="">
           <div className="home-stage relative grid min-h-[620px] w-full max-w-[820px] items-center gap-4 overflow-hidden rounded-[24px] py-6 md:grid-cols-2 lg:min-h-[680px] lg:grid-cols-[minmax(150px,0.72fr)_minmax(320px,1.3fr)_minmax(150px,0.72fr)] xl:gap-5" data-home-stage="">
             <svg className="pointer-events-none absolute inset-0 z-0 h-full w-full" viewBox="0 0 980 620" fill="none" aria-hidden="true">
-              <path data-home-path="insight" d="M210 318 C318 288 364 264 426 284" stroke="rgba(37,99,235,0.18)" strokeWidth="1.2" strokeLinecap="round" />
-              <path data-home-path="student" d="M558 250 C642 170 726 130 820 146" stroke="rgba(37,99,235,0.16)" strokeWidth="1.2" strokeLinecap="round" />
-              <path data-home-path="mentor" d="M570 308 C660 294 726 294 820 308" stroke="rgba(37,99,235,0.16)" strokeWidth="1.2" strokeLinecap="round" />
-              <path data-home-path="hr" d="M558 366 C650 448 728 490 820 474" stroke="rgba(37,99,235,0.16)" strokeWidth="1.2" strokeLinecap="round" />
+              <path data-home-path="insight" d="M210 318 C318 288 364 264 426 284" stroke="rgba(37,99,235,0.2)" strokeWidth="1.4" strokeLinecap="round" />
+              <path data-home-path="student" d="M558 250 C642 170 726 130 820 146" stroke="rgba(37,99,235,0.22)" strokeWidth="1.4" strokeLinecap="round" />
+              <path data-home-path="mentor" d="M570 308 C660 294 726 294 820 308" stroke="rgba(5,150,105,0.22)" strokeWidth="1.4" strokeLinecap="round" />
+              <path data-home-path="hr" d="M558 366 C650 448 728 490 820 474" stroke="rgba(79,70,229,0.22)" strokeWidth="1.4" strokeLinecap="round" />
             </svg>
 
             <div className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#BFDBFE]/60" />
@@ -2069,6 +2151,7 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
                           key={index}
                           className="h-1.5 flex-1 rounded-full"
                           style={{ backgroundColor: index < Number(step) + 1 ? color : "rgba(148,163,184,0.18)" }}
+                          data-home-signal={index < Number(step) + 1 ? "" : undefined}
                         />
                       ))}
                     </div>
@@ -2079,20 +2162,22 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
             </div>
 
             <div className="relative z-20 order-3 grid gap-3 justify-items-center" data-home-column="roles" data-home-stage-column="">
-              {roleCards.map(({ id, label, title, body, detail, accent, icon: Icon, depth }) => (
+              {roleCards.map(({ id, label, title, body, detail, accent, soft, icon: Icon, depth }) => (
                 <div
                   key={id}
                   className="home-role-card w-full max-w-[220px] rounded-[16px] border border-[#D8DEE6] bg-white/86 p-3.5 shadow-[0_14px_34px_rgba(20,33,52,0.055)]"
                   data-home-card={id}
+                  data-home-stage-card=""
                   data-depth={depth}
                   data-accent={accent}
+                  style={{ "--home-card-accent": accent, "--home-card-soft": soft } as CSSProperties}
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="text-xs font-semibold" style={{ color: accent }}>{label}</p>
                       <p className="mt-2 text-lg font-semibold text-[#171321]">{title}</p>
                     </div>
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-[#F8FAFC] ring-1 ring-[#E2E8F0]">
+                    <div className="home-role-icon flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-[#F8FAFC] ring-1 ring-[#E2E8F0]">
                       <Icon className="h-5 w-5" style={{ color: accent }} />
                     </div>
                   </div>
@@ -2188,7 +2273,7 @@ function HomePage({ onNavigate }: { onNavigate: (path: Path) => void }) {
           <div className="capability-workbench grid gap-5 rounded-[28px] border border-[#4E4965]/10 bg-[#FFFFFF]/48 p-4 shadow-[0_24px_70px_rgba(36,26,72,0.06)] backdrop-blur-[20px] lg:grid-cols-[0.38fr_0.62fr]">
             <div className="grid gap-3">
               {productModules.map(({ title, detail, accent, statusAccent, chips, icon: Icon }, index) => (
-                <div key={title} className="capability-card relative overflow-hidden rounded-[22px] border border-[#4E4965]/10 bg-[#FFFFFF]/62 p-4 shadow-[0_18px_52px_rgba(36,26,72,0.055)] backdrop-blur-[18px]" data-capability-card="" data-home-showcase-card="" data-accent={statusAccent}>
+                <div key={title} className="capability-card relative overflow-hidden rounded-[22px] border border-[#4E4965]/10 bg-[#FFFFFF]/62 p-4 shadow-[0_18px_52px_rgba(36,26,72,0.055)] backdrop-blur-[18px]" data-capability-card="" data-home-showcase-card="" data-accent={statusAccent} data-module-index={index}>
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <span className="text-xs font-semibold" style={{ color: accent }}>0{index + 1}</span>
